@@ -1,0 +1,18 @@
+/* 强制导航栏在任何时候背景都透明 */
+.navbar {
+  background-color: transparent !important;
+  box-shadow: none !important;      /* 移除下滑时出现的阴影 */
+  backdrop-filter: none !important; /* 移除毛玻璃效果（如果你想彻底透明） */
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 即使在向下滑动后，也保持透明 */
+.navbar.navbar-col-show {
+  background-color: transparent !important;
+}
+
+/* 可选：为了防止滚动到白色区域时文字看不见，给文字加一点点阴影 */
+.navbar .nav-link, .navbar .navbar-brand {
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  color: #fff !important; /* 强制文字一直为白色，或者你喜欢的颜色 */
+}
