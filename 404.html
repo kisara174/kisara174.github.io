@@ -55,6 +55,10 @@
 
 
 
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
@@ -234,34 +238,22 @@
     
       <div class="col-lg-7 mx-auto nopadding-x-md">
         <div class="container custom mx-auto">
-          <div id="aplayer-container"></div> <!-- 增加一个显式的容器 -->
-<link rel="stylesheet" href="https://lib.baomitu.com/aplayer/1.10.1/APlayer.min.css">
-<!-- 1. 引入资源 (使用国内镜像加速) -->
-<link rel="stylesheet" href="https://lib.baomitu.com/aplayer/1.10.1/APlayer.min.css">
+          <link rel="stylesheet" href="https://lib.baomitu.com/aplayer/1.10.1/APlayer.min.css">
 <script src="https://lib.baomitu.com/aplayer/1.10.1/APlayer.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
-
-<!-- 2. 播放器配置 -->
-<meting-js
-  server="netease"
-  type="playlist"
-  id="2567015105"
-  fixed="true"
-  mini="false"
-  autoplay="false"
-  theme="#4dcaff"
-  list-folded="true"
-  api="https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&auth=:auth&refer=:refer">
-</meting-js>
-
-<!-- 3. 强制刷新逻辑 (解决 Fluid 的 Pjax 兼容性) -->
-<script>
-  document.addEventListener('pjax:complete', function() {
-    if (window.Meting) {
-      window.Meting.init();
-    }
-  });
-</script>
+<div id="aplayer-fixed-box" style="position: fixed; left: 0; bottom: 0; z-index: 999999;">
+  <meting-js
+    server="netease"
+    type="playlist"
+    id="2567015105"
+    fixed="true"
+    mini="false"
+    autoplay="false"
+    theme="#4dcaff"
+    list-folded="true"
+    api="https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&auth=:auth&refer=:refer">
+  </meting-js>
+</div>
 
         </div>
       </div>
