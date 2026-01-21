@@ -17,15 +17,73 @@
   color: #fff !important; /* 强制文字一直为白色，或者你喜欢的颜色 */
 }
 
-/* 强制让 APlayer 浮现在最上层 */
+/* 1. 基础容器：定义高度和基本外观 */
 .aplayer.aplayer-fixed {
-  z-index: 99999 !important; /* 确保它在看板娘和所有文字上方 */
-  bottom: 20px !important;    /* 离底部留一点距离 */
-  left: 20px !important;      /* 离左侧留一点距离 */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* 加一点阴影方便发现它 */
+    border-radius: 15px !important;
+    background: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
+    margin: 0 0 20px 20px !important;
+    z-index: 99999 !important;
+    height: 66px !important; /* 强制高度固定 */
+    overflow: hidden !important;
+    transition: width 0.3s ease !important;
 }
 
-/* 即使在迷你模式下也确保可见 */
-.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-  left: 0 !important;
+/* 2. 展开状态：限制最大宽度 */
+.aplayer.aplayer-fixed:not(.aplayer-narrow) {
+    width: 380px !important;
+}
+
+/* 3. 【核心修复】折叠状态：强制宽度等于高度，形成方块 */
+.aplayer.aplayer-fixed.aplayer-narrow {
+    width: 66px !important; 
+}
+
+/* 4. 内部主体：确保撑满容器 */
+.aplayer.aplayer-fixed .aplayer-body {
+    height: 66px !important;
+    background: transparent !important;
+}
+
+/* 5. 封面图片：确保在折叠状态下正确显示 */
+.aplayer.aplayer-fixed .aplayer-pic {
+    height: 66px !important;
+    width: 66px !important;
+    background-size: cover !important;
+    border-radius: 15px !important; /* 保持圆角一致 */
+    z-index: 10 !important;
+}
+
+/* 6. 信息区域：展开时显示，透明背景 */
+.aplayer.aplayer-fixed .aplayer-info {
+    background: transparent !important;
+    height: 66px !important;
+    padding: 10px !important;
+    margin-left: 66px !important;
+}
+
+/* 7. 展开/折叠切换按钮（小箭头） */
+.aplayer.aplayer-fixed .aplayer-miniswitcher {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    width: 18px !important;
+    height: 66px !important;
+    border-radius: 0 15px 15px 0 !important;
+}
+
+/* 8. 修复图标颜色 */
+.aplayer .aplayer-info .aplayer-controller .aplayer-icons svg {
+    fill: #444 !important;
+}
+
+/* 9. 歌单列表美化 */
+.aplayer .aplayer-list {
+    background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(10px) !important;
+    border-radius: 15px 15px 0 0 !important;
 }

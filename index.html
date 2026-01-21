@@ -283,22 +283,57 @@
     
       <div class="col-lg-7 mx-auto nopadding-x-md">
         <div class="container custom mx-auto">
-          <link rel="stylesheet" href="https://lib.baomitu.com/aplayer/1.10.1/APlayer.min.css">
+          <!-- 引入 APlayer 资源 -->
+<link rel="stylesheet" href="https://lib.baomitu.com/aplayer/1.10.1/APlayer.min.css">
 <script src="https://lib.baomitu.com/aplayer/1.10.1/APlayer.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
-<div id="aplayer-fixed-box" style="position: fixed; left: 0; bottom: 0; z-index: 999999;">
-  <meting-js
-    server="netease"
-    type="playlist"
-    id="2567015105"
-    fixed="true"
-    mini="false"
-    autoplay="false"
-    theme="#4dcaff"
-    list-folded="true"
-    api="https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&auth=:auth&refer=:refer">
-  </meting-js>
-</div>
+
+<div id="aplayer-fixed"></div>
+
+<script>
+  (function() {
+    var loadPlayer = function() {
+      var apContainer = document.getElementById('aplayer-fixed');
+      if (!apContainer) return;
+      
+      // 如果已经初始化过，先销毁，防止重复
+      if (window.ap) { window.ap.destroy(); }
+
+      window.ap = new APlayer({
+          container: apContainer,
+          fixed: true,          // 吸附在左下角
+          mini: true,          // 先用大的，容易看见
+          autoplay: false,
+          theme: '#4dcaff',
+          loop: 'all',
+          order: 'random',
+          preload: 'auto',
+          listFolded: true,
+          audio: [{
+              name: '正在获取...',
+              artist: 'Please wait',
+              url: '', 
+              cover: ''
+          }]
+      });
+
+      // 使用 MetingJS 解析歌单并注入播放器
+      // 这里的 id 2567015105 是你的网易云歌单
+      fetch('https://api.injahow.cn/meting/?server=netease&type=playlist&id=2567015105')
+        .then(res => res.json())
+        .then(data => {
+          window.ap.list.clear();
+          window.ap.list.add(data);
+          console.log('播放器歌单装载完毕');
+        });
+    };
+
+    // 首次加载
+    window.addEventListener('load', loadPlayer);
+    // 兼容 Pjax
+    document.addEventListener('pjax:complete', loadPlayer);
+  })();
+</script>
 
         </div>
       </div>
