@@ -238,23 +238,60 @@ custom_js:
 # 指定自定义 .css 文件路径，用法和 custom_js 相同
 # The usage is the same as custom_js
 custom_css:
-
-#自定义html
+  - /css/custom.css
+# 自定义 html
 custom_html: |
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+  <!-- 引入 APlayer 资源 -->
+  <link rel="stylesheet" href="https://lib.baomitu.com/aplayer/1.10.1/APlayer.min.css">
+  <script src="https://lib.baomitu.com/aplayer/1.10.1/APlayer.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
-  <meting-js
-    server="netease"
-    type="playlist"
-    id="2567015105"
-    fixed="true"
-    autoplay="false"
-    loop="all"
-    order="random"
-    preload="auto"
-    list-folded="true">
-  </meting-js>
+
+  <div id="aplayer-fixed"></div>
+
+  <script>
+    (function() {
+      var loadPlayer = function() {
+        var apContainer = document.getElementById('aplayer-fixed');
+        if (!apContainer) return;
+        
+        // 如果已经初始化过，先销毁，防止重复
+        if (window.ap) { window.ap.destroy(); }
+
+        window.ap = new APlayer({
+            container: apContainer,
+            fixed: true,          // 吸附在左下角
+            mini: true,          // 先用大的，容易看见
+            autoplay: false,
+            theme: '#4dcaff',
+            loop: 'all',
+            order: 'random',
+            preload: 'auto',
+            listFolded: true,
+            audio: [{
+                name: '正在获取...',
+                artist: 'Please wait',
+                url: '', 
+                cover: ''
+            }]
+        });
+
+        // 使用 MetingJS 解析歌单并注入播放器
+        // 这里的 id 2567015105 是你的网易云歌单
+        fetch('https://api.injahow.cn/meting/?server=netease&type=playlist&id=2567015105')
+          .then(res => res.json())
+          .then(data => {
+            window.ap.list.clear();
+            window.ap.list.add(data);
+            console.log('播放器歌单装载完毕');
+          });
+      };
+
+      // 首次加载
+      window.addEventListener('load', loadPlayer);
+      // 兼容 Pjax
+      document.addEventListener('pjax:complete', loadPlayer);
+    })();
+  </script>
 
 # 网页访问统计
 # Analysis of website visitors
@@ -462,11 +499,9 @@ footer:
   # 页脚第一行文字的 HTML，建议保留 Fluid 的链接，用于向更多人推广本主题
   # HTML of the first line of the footer, it is recommended to keep the Fluid link to promote this theme to more people
   content: |
-    <span>Copyright © 2024 Kisara174</span>
+    <span>Copyright © 2026 Kisara174</span>
     <a href="https://github.com/kisara174/Kisara" rel="nofollow noopener"><span>Kisara's git</span></a>
-
-  
-
+    
   # 展示网站的 PV、UV 统计数
   # Display website PV and UV statistics
   statistics:
@@ -568,7 +603,7 @@ index:
 # Post Page
 #---------------------------
 post:
-  banner_img: /img/default.png
+  banner_img: /img/eva.png
   banner_img_height: 70
   banner_mask_alpha: 0.3
 
