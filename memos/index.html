@@ -19,15 +19,15 @@
   <meta name="author" content="Kisara">
   <meta name="keywords" content="">
   
-    <meta name="description" content="加载中...     const memoOpts &#x3D; {     host: &#39;https:&#x2F;&#x2F;memos-kisara.zeabur.app&#39;, &#x2F;&#x2F; 确认这里带上 https:&#x2F;&#x2F;     limit: 10,     creatorId: &#39;1&#39;   };    function fetchMemos() {     &#x2F;&#x2F; 最新版 Memos API 路径     const url &#x3D;">
+    <meta name="description" content="正在连接云端碎碎念...     const memoOpts &#x3D; {     host: &#39;https:&#x2F;&#x2F;memos-kisara.zeabur.app&#39;, &#x2F;&#x2F;  {         &#x2F;&#x2F; 兼容新版字符串时间格式和旧版时间戳格式         let dateStr &#x3D; item.createTime ? new Date(item.createTime).toLocaleString()">
 <meta property="og:type" content="website">
 <meta property="og:title" content="碎碎念">
 <meta property="og:url" content="http://example.com/memos/index.html">
 <meta property="og:site_name" content="Kisara&#39;s space">
-<meta property="og:description" content="加载中...     const memoOpts &#x3D; {     host: &#39;https:&#x2F;&#x2F;memos-kisara.zeabur.app&#39;, &#x2F;&#x2F; 确认这里带上 https:&#x2F;&#x2F;     limit: 10,     creatorId: &#39;1&#39;   };    function fetchMemos() {     &#x2F;&#x2F; 最新版 Memos API 路径     const url &#x3D;">
+<meta property="og:description" content="正在连接云端碎碎念...     const memoOpts &#x3D; {     host: &#39;https:&#x2F;&#x2F;memos-kisara.zeabur.app&#39;, &#x2F;&#x2F;  {         &#x2F;&#x2F; 兼容新版字符串时间格式和旧版时间戳格式         let dateStr &#x3D; item.createTime ? new Date(item.createTime).toLocaleString()">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-01-23T04:59:03.499Z">
-<meta property="article:modified_time" content="2026-01-23T04:59:03.499Z">
+<meta property="article:published_time" content="2026-01-23T05:08:26.980Z">
+<meta property="article:modified_time" content="2026-01-23T05:08:26.980Z">
 <meta property="article:author" content="Kisara">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -205,40 +205,50 @@
                 
 
 <article class="page-content">
-  <div id="memos-list">加载中...</div>
+  <div id="memos-list">正在连接云端碎碎念...</div>
 
 <script>
   const memoOpts = {
-    host: 'https://memos-kisara.zeabur.app', // 确认这里带上 https://
-    limit: 10,
-    creatorId: '1'
+    host: 'https://memos-kisara.zeabur.app', // <-- 确保这里是正确的 Zeabur 地址
+    limit: 10
   };
 
-  function fetchMemos() {
-    // 最新版 Memos API 路径
-    const url = `${memoOpts.host}/api/v1/memo?creatorId=${memoOpts.creatorId}&rowStatus=NORMAL&limit=${memoOpts.limit}`;
+  async function fetchMemos() {
+    // 尝试新版 API 路径 (v1/memos)
+    const url = `${memoOpts.host}/api/v1/memos?pageSize=${memoOpts.limit}`;
     
-    fetch(url)
-      .then(res => {
-        if (!res.ok) throw new Error('HTTP error ' + res.status);
-        return res.json();
-      })
-      .then(data => {
-        let html = '';
-        // 兼容新老版本数据结构
-        const list = data.data || data; 
-        list.forEach(item => {
-          html += `
-            <div style="padding:15px; background:rgba(255,255,255,0.3); border-radius:12px; margin-bottom:15px; backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.2);">
-              <div style="font-size:0.8em; color:#666; margin-bottom:8px;">${new Date(item.createdTs * 1000).toLocaleString()}</div>
-              <div style="line-height:1.6;">${item.content}</div>
-            </div>`;
-        });
-        document.getElementById('memos-list').innerHTML = html || '还没有说说哦';
-      })
-      .catch(err => {
-        document.getElementById('memos-list').innerHTML = "读取失败，请检查 Memos 后台公开设置。 Error: " + err;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('API 响应异常: ' + response.status);
+      
+      const data = await response.json();
+      // 新版 Memos 返回的数据在 data.memos 中
+      const list = data.memos || data; 
+      
+      let html = '';
+      list.forEach(item => {
+        // 兼容新版字符串时间格式和旧版时间戳格式
+        let dateStr = item.createTime ? new Date(item.createTime).toLocaleString() : new Date(item.createdTs * 1000).toLocaleString();
+        
+        html += `
+          <div style="padding:20px; background:rgba(255,255,255,0.3); border-radius:15px; margin-bottom:20px; backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <div style="font-size:0.85em; color:#4dcaff; font-weight:bold; margin-bottom:10px; display:flex; align-items:center;">
+              <span style="margin-right:8px;">#</span> ${dateStr}
+            </div>
+            <div style="line-height:1.7; color:#333; font-size:15px;">${formatContent(item.content)}</div>
+          </div>`;
       });
+      
+      document.getElementById('memos-list').innerHTML = html || '还没有公开发布的说说哦';
+    } catch (err) {
+      console.error(err);
+      document.getElementById('memos-list').innerHTML = "读取失败，请确保 Memos 后台已开启【允许匿名访问】。";
+    }
+  }
+
+  // 简单的内容处理（防止 HTML 注入）
+  function formatContent(content) {
+    return content.replace(/\n/g, '<br>');
   }
   
   window.onload = fetchMemos;
