@@ -423,8 +423,8 @@ navbar:
   menu:
     - { key: "home", link: "/", icon: "iconfont icon-home-fill" }
     - { key: "archive", link: "/archives/", icon: "iconfont icon-archive-fill" }
-    - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
-    - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
+    - { key: "memos", link: "/memos/", icon: "iconfont icon-comment" } # 添加这一行
+    - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
     #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件
@@ -796,11 +796,11 @@ post:
   # 评论插件
   # Comment plugin
   comments:
-    enable: false
+    enable: true
     # 指定的插件，需要同时设置对应插件的必要参数
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis | giscus | discuss
-    type: disqus
+    type: giscus
 
 
 #---------------------------
@@ -946,10 +946,10 @@ cusdis:
 # Based on GitHub Discussions, similar to Utterances
 # See: https://giscus.app/
 giscus:
-  repo:
-  repo-id:
-  category:
-  category-id:
+  repo: kisara174/kisara174.github.io
+  repo-id: R_kgDOQ861wQ
+  category: Announcements
+  category-id: DIC_kwDOQ861wc4C1Q0d
   theme-light: light
   theme-dark: dark
   mapping: pathname
@@ -972,7 +972,7 @@ discuss:
 # Archive Page
 #---------------------------
 archive:
-  banner_img: /img/default.png
+  banner_img: /img/eva.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -983,7 +983,7 @@ archive:
 #---------------------------
 category:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /img/eva.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -1012,7 +1012,7 @@ category:
 #---------------------------
 tag:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /img/eva.png
   banner_img_height: 80
   banner_mask_alpha: 0.3
   tagcloud:
@@ -1033,7 +1033,7 @@ tag:
 # Custom Page through `hexo new page`
 #---------------------------
 page:
-  banner_img: /img/default.png
+  banner_img: /img/eva.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -1044,7 +1044,7 @@ page:
 #---------------------------
 page404:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /img/eva.png
   banner_img_height: 85
   banner_mask_alpha: 0.3
   # 重定向到首页的延迟(毫秒)
@@ -1058,7 +1058,7 @@ page404:
 #---------------------------
 links:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /img/eva.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
   # 友链的成员项
