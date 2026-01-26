@@ -7,7 +7,7 @@ layout: page
 
 <script>
   const memoOpts = {
-    host: 'https://memos-kisara.zeabur.app', // <-- 确保这里是正确的 Zeabur 地址
+    host: 'https://memos.kisara.com.cn', 
     limit: 10
   };
 

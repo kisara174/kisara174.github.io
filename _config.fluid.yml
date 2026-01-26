@@ -276,8 +276,8 @@ custom_html: |
         });
 
         // 使用 MetingJS 解析歌单并注入播放器
-        // 这里的 id 2567015105 是你的网易云歌单
-        fetch('https://api.injahow.cn/meting/?server=netease&type=playlist&id=2567015105')
+        // 这里的 id 4992498533 是你的网易云歌单
+        fetch('https://api.injahow.cn/meting/?server=netease&type=playlist&id= 4992498533')
           .then(res => res.json())
           .then(data => {
             window.ap.list.clear();
@@ -533,7 +533,7 @@ footer:
 index:
   # 首页 Banner 头图，可以是相对路径或绝对路径，以下相同
   # Path of Banner image, can be a relative path or an absolute path, the same on other pages
-  banner_img: /img/eva.png
+  banner_img: /img/eva.jpg
 
   # 头图高度，屏幕百分比
   # Height ratio of banner image
@@ -603,7 +603,7 @@ index:
 # Post Page
 #---------------------------
 post:
-  banner_img: /img/eva.png
+  banner_img: /img/eva.jpg
   banner_img_height: 70
   banner_mask_alpha: 0.3
 
@@ -972,7 +972,7 @@ discuss:
 # Archive Page
 #---------------------------
 archive:
-  banner_img: /img/eva.png
+  banner_img: /img/eva.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -983,7 +983,7 @@ archive:
 #---------------------------
 category:
   enable: true
-  banner_img: /img/eva.png
+  banner_img: /img/eva.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -1012,7 +1012,7 @@ category:
 #---------------------------
 tag:
   enable: true
-  banner_img: /img/eva.png
+  banner_img: /img/eva.jpg
   banner_img_height: 80
   banner_mask_alpha: 0.3
   tagcloud:
@@ -1033,7 +1033,7 @@ tag:
 # Custom Page through `hexo new page`
 #---------------------------
 page:
-  banner_img: /img/eva.png
+  banner_img: /img/eva.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -1044,7 +1044,7 @@ page:
 #---------------------------
 page404:
   enable: true
-  banner_img: /img/eva.png
+  banner_img: /img/eva.jpg
   banner_img_height: 85
   banner_mask_alpha: 0.3
   # 重定向到首页的延迟(毫秒)
@@ -1058,7 +1058,7 @@ page404:
 #---------------------------
 links:
   enable: true
-  banner_img: /img/eva.png
+  banner_img: /img/eva.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
   # 友链的成员项
