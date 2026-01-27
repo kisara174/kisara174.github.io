@@ -27,7 +27,7 @@
 <meta property="og:description" content="数学分析笔记：点集拓扑、偏导数与连续性深度解析一、 拓扑基础：内点与界点 (Interior &amp; Boundary Points)在研究多元函数的极限和连续性之前，首先要明确点与集合的位置关系。 1. 核心定义 内点 (Interior Point)：若存在点 $P$ 的某个邻域 $U(P, \delta) \subset E$，则称 $P$ 为 $E$ 的内点。 直观理解：点被完全包围在">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-01-27T13:14:15.000Z">
-<meta property="article:modified_time" content="2026-01-27T13:25:46.212Z">
+<meta property="article:modified_time" content="2026-01-27T13:29:02.440Z">
 <meta property="article:author" content="Kisara">
 <meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary_large_image">
@@ -195,7 +195,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.6k 字
         
       </span>
     
@@ -271,7 +271,7 @@
 <tbody><tr>
 <td align="left"><strong>内部</strong></td>
 <td align="left">全体内点</td>
-<td align="left">$\text{int}(E)$ 或 $E^\circ$</td>
+<td align="left">$E^\circ$</td>
 <td align="left">内部一定是开集</td>
 </tr>
 <tr>
@@ -290,28 +290,28 @@
 <hr>
 <h2 id="二、-偏导数存在与连续性的逻辑陷阱"><a href="#二、-偏导数存在与连续性的逻辑陷阱" class="headerlink" title="二、 偏导数存在与连续性的逻辑陷阱"></a>二、 偏导数存在与连续性的逻辑陷阱</h2><p>对于二元函数 $f(x, y)$，性质之间的推导关系比一元函数复杂得多。</p>
 <h3 id="1-基本逻辑链"><a href="#1-基本逻辑链" class="headerlink" title="1. 基本逻辑链"></a>1. 基本逻辑链</h3><ul>
-<li><strong>偏导数存在 $\nRightarrow$ 连续</strong>（重要反例：$f(x,y) &#x3D; \frac{xy}{x^2+y^2}$ 在原点）</li>
+<li><strong>偏导数存在 $\nRightarrow$ 连续</strong>（重要反例见第五部分）</li>
 <li><strong>可微 $\Rightarrow$ 连续</strong></li>
 <li><strong>可微 $\Rightarrow$ 偏导数存在</strong></li>
 <li><strong>偏导数连续 $\Rightarrow$ 可微 $\Rightarrow$ 连续</strong></li>
 </ul>
-<h3 id="2-附加什么条件能让“偏导存在”推导出“连续”？"><a href="#2-附加什么条件能让“偏导存在”推导出“连续”？" class="headerlink" title="2. 附加什么条件能让“偏导存在”推导出“连续”？"></a>2. 附加什么条件能让“偏导存在”推导出“连续”？</h3><p>若函数在点 $(x_0, y_0)$ 处偏导数存在，满足以下<strong>任一</strong>附加条件即可保证连续：</p>
+<h3 id="2-附加什么条件能让“偏导存在”推导出“连续”？"><a href="#2-附加什么条件能让“偏导存在”推导出“连续”？" class="headerlink" title="2. 附加什么条件能让“偏导存在”推导出“连续”？"></a>2. 附加什么条件能让“偏导存在”推导出“连续”？</h3><p>若函数在点 $(x_0, y_0)$ 处偏导数存在，满足以下 <strong>任一</strong> 附加条件即可保证连续：</p>
 <ol>
-<li><strong>偏导数有界</strong>：在点附近的邻域内，偏导数的绝对值小于某个常数 $M$。</li>
+<li><strong>偏导数有界</strong>：在点附近的邻域内，偏导数的绝对值满足 $|f_x| \le M, |f_y| \le M$。</li>
 <li><strong>偏导数连续</strong>：即 $f_x, f_y$ 本身也是连续函数。</li>
 </ol>
 <hr>
-<h2 id="三、-达布定理-Darboux’s-Theorem-的深层关联"><a href="#三、-达布定理-Darboux’s-Theorem-的深层关联" class="headerlink" title="三、 达布定理 (Darboux’s Theorem) 的深层关联"></a>三、 达布定理 (Darboux’s Theorem) 的深层关联</h2><h3 id="1-达布定理回顾"><a href="#1-达布定理回顾" class="headerlink" title="1. 达布定理回顾"></a>1. 达布定理回顾</h3><p><strong>定义</strong>：若 $f(x)$ 在 $[a, b]$ 上可导，则导函数 $f’(x)$ 具有<strong>介值性</strong>。</p>
+<h2 id="三、-达布定理-Darboux’s-Theorem-的深层关联"><a href="#三、-达布定理-Darboux’s-Theorem-的深层关联" class="headerlink" title="三、 达布定理 (Darboux’s Theorem) 的深层关联"></a>三、 达布定理 (Darboux’s Theorem) 的深层关联</h2><h3 id="1-达布定理回顾"><a href="#1-达布定理回顾" class="headerlink" title="1. 达布定理回顾"></a>1. 达布定理回顾</h3><p><strong>定义</strong>：若 $f(x)$ 在 $[a, b]$ 上可导，则导函数 $f’(x)$ 具有 <strong>介值性</strong>。</p>
 <blockquote>
 <p><strong>注意</strong>：导函数 $f’(x)$ 不一定要连续，但它绝对不会有“跳跃间断点”。</p>
 </blockquote>
-<h3 id="2-为什么偏导存在不保证连续？（与达布定理的联系）"><a href="#2-为什么偏导存在不保证连续？（与达布定理的联系）" class="headerlink" title="2. 为什么偏导存在不保证连续？（与达布定理的联系）"></a>2. 为什么偏导存在不保证连续？（与达布定理的联系）</h3><ul>
-<li><strong>轴向的“克制”</strong>：达布定理保证了偏导数 $f_x$ 和 $f_y$ 沿着各自的坐标轴方向没有“跳跃”，表现得很平滑。</li>
-<li><strong>方向的“真空”</strong>：达布定理管不住“斜向”路径。在多元空间中，偏导数存在只代表两个孤立维度的属性，而连续性要求**全方位（360度路径）**的一致。</li>
-<li><strong>振荡的破坏力</strong>：达布定理允许导数出现<strong>第二类间断（振荡间断）</strong>。如果偏导数在原点附近无限振荡且无界，虽然它满足达布定理，但这种剧烈波动会撕裂曲面的连续性。</li>
-<li></li>
+<h3 id="2-为什么偏导存在不保证连续？"><a href="#2-为什么偏导存在不保证连续？" class="headerlink" title="2. 为什么偏导存在不保证连续？"></a>2. 为什么偏导存在不保证连续？</h3><ul>
+<li><strong>轴向的“克制”</strong>：达布定理保证了偏导数 $f_x$ 和 $f_y$ 沿着各自的坐标轴方向没有“跳跃”。</li>
+<li><strong>方向的“真空”</strong>：达布定理管不住“斜向”路径。在多元空间中，偏导数存在只代表两个孤立维度的属性，而连续性要求 <strong>全方位</strong> 的一致。</li>
+<li><strong>振荡的破坏力</strong>：达布定理允许导数出现 <strong>第二类间断（振荡间断）</strong>。如果偏导数在原点附近无限振荡且无界，虽然它满足达布定理，但这种剧烈波动会撕裂曲面的连续性。</li>
 </ul>
-<h3 id="3-偏导数有界能推出函数连续"><a href="#3-偏导数有界能推出函数连续" class="headerlink" title="3.偏导数有界能推出函数连续"></a>3.偏导数有界能推出函数连续</h3><hr>
+<h3 id="3-偏导数有界与连续性"><a href="#3-偏导数有界与连续性" class="headerlink" title="3. 偏导数有界与连续性"></a>3. 偏导数有界与连续性</h3><p><strong>结论</strong>：若偏导数在某邻域内 <strong>有界</strong>，则函数在该点必 <strong>连续</strong>。<br><strong>原理</strong>：利用拉格朗日中值定理：<br>$$ | \Delta f | \le | f_x(\xi, y) \Delta x | + | f_y(x, \eta) \Delta y | $$<br>若偏导数有界，则当 $\Delta x, \Delta y \to 0$ 时，$\Delta f \to 0$。</p>
+<hr>
 <h2 id="四、-一元与多元函数的对比总结"><a href="#四、-一元与多元函数的对比总结" class="headerlink" title="四、 一元与多元函数的对比总结"></a>四、 一元与多元函数的对比总结</h2><table>
 <thead>
 <tr>
@@ -327,25 +327,25 @@
 </tr>
 <tr>
 <td align="left"><strong>达布定理效力</strong></td>
-<td align="left">足够保证函数形态连贯</td>
-<td align="left">仅能保证沿坐标轴方向的介值性</td>
+<td align="left">保证函数形态连贯</td>
+<td align="left">仅保证沿坐标轴方向的介值性</td>
 </tr>
 <tr>
 <td align="left"><strong>不连续原因</strong></td>
 <td align="left">导数不存在</td>
-<td align="left">路径依赖（不同角度趋近极限不同）</td>
+<td align="left">路径依赖（不同角度极限不同）</td>
 </tr>
 <tr>
 <td align="left"><strong>核心守护条件</strong></td>
 <td align="left">导数存在</td>
-<td align="left"><strong>全微分（可微）</strong></td>
+<td align="left"><strong>全微分（可微）</strong> 或 <strong>偏导数有界</strong></td>
 </tr>
 </tbody></table>
 <hr>
-<h2 id="五、-经典反例模型"><a href="#五、-经典反例模型" class="headerlink" title="五、 经典反例模型"></a>五、 经典反例模型</h2><p>$$f(x,y) &#x3D; \begin{cases} \frac{xy}{x^2+y^2}, &amp; (x,y) \neq (0,0) \ 0, &amp; (x,y) &#x3D; (0,0) \end{cases}$$</p>
+<h2 id="五、-经典反例模型"><a href="#五、-经典反例模型" class="headerlink" title="五、 经典反例模型"></a>五、 经典反例模型</h2><p>$$<br>f(x,y) &#x3D; \begin{cases} \frac{xy}{x^2+y^2}, &amp; (x,y) \neq (0,0) \ 0, &amp; (x,y) &#x3D; (0,0) \end{cases}<br>$$</p>
 <ul>
-<li><strong>偏导数行为</strong>：$f_x(0,0)&#x3D;0, f_y(0,0)&#x3D;0$（存在）。</li>
-<li><strong>连续性行为</strong>：沿 $y&#x3D;x$ 趋近时极限为 $1&#x2F;2 \neq 0$（不连续）。</li>
+<li><strong>偏导数行为</strong>：$f_x(0,0)&#x3D;0, f_y(0,0)&#x3D;0$（偏导数存在）。</li>
+<li><strong>连续性行为</strong>：沿路径 $y&#x3D;x$ 趋近时，$\lim_{(x,y) \to (0,0)} f(x,y) &#x3D; 1&#x2F;2 \neq 0$（不连续）。</li>
 <li><strong>启示</strong>：偏导数是“线”的属性，连续性是“面”的属性。</li>
 </ul>
 
@@ -523,6 +523,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -774,6 +780,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
