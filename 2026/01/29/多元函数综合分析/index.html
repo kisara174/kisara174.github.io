@@ -19,22 +19,22 @@
   <meta name="author" content="Kisara">
   <meta name="keywords" content="">
   
-    <meta name="description" content="数学分析笔记：点集拓扑、偏导数与连续性深度解析一、 拓扑基础：内点与界点 (Interior &amp; Boundary Points)在研究多元函数的极限和连续性之前，首先要明确点与集合的位置关系。 1. 核心定义 内点 (Interior Point)：若存在点 $P$ 的某个邻域 $U(P, \delta) \subset E$，则称 $P$ 为 $E$ 的内点。 直观理解：点被完全包围在">
+    <meta name="description" content="多元函数微积分学习笔记1. 二元函数泰勒公式 (Taylor’s Formula)1.1 标准形式设 $f(x, y)$ 在点 $(x_0, y_0)$ 附近具有 $n+1$ 阶连续偏导数，令 $h &#x3D; \Delta x, k &#x3D; \Delta y$，展开式为：$$f(x_0+h, y_0+k) &#x3D; f(x_0, y_0) + \sum_{m&#x3D;1}^{n}">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一元函数与二元函数中连续性与导数介值性的分析">
-<meta property="og:url" content="http://example.com/2026/01/27/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E4%B8%8E%E4%BA%8C%E5%85%83%E5%87%BD%E6%95%B0%E4%B8%AD%E8%BF%9E%E7%BB%AD%E6%80%A7%E4%B8%8E%E5%AF%BC%E6%95%B0%E4%BB%8B%E5%80%BC%E6%80%A7%E7%9A%84%E5%88%86%E6%9E%90/index.html">
+<meta property="og:title" content="多元函数综合分析">
+<meta property="og:url" content="http://example.com/2026/01/29/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E7%BB%BC%E5%90%88%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Kisara&#39;s space">
-<meta property="og:description" content="数学分析笔记：点集拓扑、偏导数与连续性深度解析一、 拓扑基础：内点与界点 (Interior &amp; Boundary Points)在研究多元函数的极限和连续性之前，首先要明确点与集合的位置关系。 1. 核心定义 内点 (Interior Point)：若存在点 $P$ 的某个邻域 $U(P, \delta) \subset E$，则称 $P$ 为 $E$ 的内点。 直观理解：点被完全包围在">
+<meta property="og:description" content="多元函数微积分学习笔记1. 二元函数泰勒公式 (Taylor’s Formula)1.1 标准形式设 $f(x, y)$ 在点 $(x_0, y_0)$ 附近具有 $n+1$ 阶连续偏导数，令 $h &#x3D; \Delta x, k &#x3D; \Delta y$，展开式为：$$f(x_0+h, y_0+k) &#x3D; f(x_0, y_0) + \sum_{m&#x3D;1}^{n}">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-01-27T13:14:15.000Z">
-<meta property="article:modified_time" content="2026-01-28T03:42:45.610Z">
+<meta property="article:published_time" content="2026-01-29T10:21:57.000Z">
+<meta property="article:modified_time" content="2026-01-29T10:25:27.150Z">
 <meta property="article:author" content="Kisara">
 <meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>一元函数与二元函数中连续性与导数介值性的分析 - Kisara&#39;s space</title>
+  <title>多元函数综合分析 - Kisara&#39;s space</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="一元函数与二元函数中连续性与导数介值性的分析"></span>
+            <span id="subtitle" data-typed-text="多元函数综合分析"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-01-27 21:14" pubdate>
-          2026年1月27日 晚上
+        <time datetime="2026-01-29 18:21" pubdate>
+          2026年1月29日 晚上
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          2.1k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          13 分钟
+          18 分钟
         
       </span>
     
@@ -255,111 +255,55 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">一元函数与二元函数中连续性与导数介值性的分析</h1>
+            <h1 id="seo-header">多元函数综合分析</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="数学分析笔记：点集拓扑、偏导数与连续性深度解析"><a href="#数学分析笔记：点集拓扑、偏导数与连续性深度解析" class="headerlink" title="数学分析笔记：点集拓扑、偏导数与连续性深度解析"></a>数学分析笔记：点集拓扑、偏导数与连续性深度解析</h1><h2 id="一、-拓扑基础：内点与界点-Interior-Boundary-Points"><a href="#一、-拓扑基础：内点与界点-Interior-Boundary-Points" class="headerlink" title="一、 拓扑基础：内点与界点 (Interior &amp; Boundary Points)"></a>一、 拓扑基础：内点与界点 (Interior &amp; Boundary Points)</h2><p>在研究多元函数的极限和连续性之前，首先要明确点与集合的位置关系。</p>
-<h3 id="1-核心定义"><a href="#1-核心定义" class="headerlink" title="1. 核心定义"></a>1. 核心定义</h3><ul>
-<li><strong>内点 (Interior Point)</strong>：<br>若存在点 $P$ 的某个邻域 $U(P, \delta) \subset E$，则称 $P$ 为 $E$ 的内点。<ul>
-<li><em>直观理解</em>：点被完全包围在集合内部，四周都有“余地”。</li>
+                <h1 id="多元函数微积分学习笔记"><a href="#多元函数微积分学习笔记" class="headerlink" title="多元函数微积分学习笔记"></a>多元函数微积分学习笔记</h1><h2 id="1-二元函数泰勒公式-Taylor’s-Formula"><a href="#1-二元函数泰勒公式-Taylor’s-Formula" class="headerlink" title="1. 二元函数泰勒公式 (Taylor’s Formula)"></a>1. 二元函数泰勒公式 (Taylor’s Formula)</h2><h3 id="1-1-标准形式"><a href="#1-1-标准形式" class="headerlink" title="1.1 标准形式"></a>1.1 标准形式</h3><p>设 $f(x, y)$ 在点 $(x_0, y_0)$ 附近具有 $n+1$ 阶连续偏导数，令 $h &#x3D; \Delta x, k &#x3D; \Delta y$，展开式为：<br>$$f(x_0+h, y_0+k) &#x3D; f(x_0, y_0) + \sum_{m&#x3D;1}^{n} \frac{1}{m!} \left( h\frac{\partial}{\partial x} + k\frac{\partial}{\partial y} \right)^m f(x_0, y_0) + R_n$$</p>
+<h3 id="1-2-微分算子-h-partial-x-k-partial-y-m"><a href="#1-2-微分算子-h-partial-x-k-partial-y-m" class="headerlink" title="1.2 微分算子 $(h\partial_x + k\partial_y)^m$"></a>1.2 微分算子 $(h\partial_x + k\partial_y)^m$</h3><p>该算子遵循<strong>二项式展开</strong>规律，是泰勒公式的“模具”：</p>
+<ul>
+<li><strong>$m&#x3D;1$ (一阶项)</strong>：$h f_x + k f_y$（即全微分 $df$）</li>
+<li><strong>$m&#x3D;2$ (二阶项)</strong>：$h^2 f_{xx} + 2hk f_{xy} + k^2 f_{yy}$</li>
+<li><strong>矩阵形式（二阶近似）</strong>：<br>$$f(\mathbf{x}) \approx f(\mathbf{x}_0) + \nabla f(\mathbf{x}_0)^T \Delta \mathbf{x} + \frac{1}{2} \Delta \mathbf{x}^T \mathbf{H}(\mathbf{x}_0) \Delta \mathbf{x}$$<br>其中 $\mathbf{H}$ 为 <strong>Hessian 矩阵</strong>（二阶偏导数组成的对称阵）。</li>
 </ul>
-</li>
-<li><strong>界点 (Boundary Point)</strong>：<br>若点 $P$ 的<strong>任何</strong>邻域内既包含属于 $E$ 的点，又包含不属于 $E$ 的点，则称 $P$ 为 $E$ 的界点。<ul>
-<li><em>直观理解</em>：点处于“边界线”上，无论范围缩多小，总能同时触及内外。</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-集合特性"><a href="#2-集合特性" class="headerlink" title="2. 集合特性"></a>2. 集合特性</h3><table>
-<thead>
-<tr>
-<th align="left">概念</th>
-<th align="left">组成集合</th>
-<th align="left">记号</th>
-<th align="left">特点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><strong>内部</strong></td>
-<td align="left">全体内点</td>
-<td align="left">$E^\circ$</td>
-<td align="left">内部一定是开集</td>
-</tr>
-<tr>
-<td align="left"><strong>边界</strong></td>
-<td align="left">全体界点</td>
-<td align="left">$\partial E$</td>
-<td align="left">边界点可能属于也可能不属于原集合</td>
-</tr>
-<tr>
-<td align="left"><strong>闭包</strong></td>
-<td align="left">$E \cup \partial E$</td>
-<td align="left">$\overline{E}$</td>
-<td align="left">包含所有点的集合</td>
-</tr>
-</tbody></table>
 <hr>
-<h2 id="二、-偏导数存在与连续性的逻辑陷阱"><a href="#二、-偏导数存在与连续性的逻辑陷阱" class="headerlink" title="二、 偏导数存在与连续性的逻辑陷阱"></a>二、 偏导数存在与连续性的逻辑陷阱</h2><p>对于二元函数 $f(x, y)$，性质之间的推导关系比一元函数复杂得多。</p>
-<h3 id="1-基本逻辑链"><a href="#1-基本逻辑链" class="headerlink" title="1. 基本逻辑链"></a>1. 基本逻辑链</h3><ul>
-<li><strong>偏导数存在 $\nRightarrow$ 连续</strong>（重要反例见第五部分）</li>
-<li><strong>可微 $\Rightarrow$ 连续</strong></li>
-<li><strong>可微 $\Rightarrow$ 偏导数存在</strong></li>
-<li><strong>偏导数连续 $\Rightarrow$ 可微 $\Rightarrow$ 连续</strong></li>
+<h2 id="2-拉格朗日乘数法-Lagrange-Multipliers"><a href="#2-拉格朗日乘数法-Lagrange-Multipliers" class="headerlink" title="2. 拉格朗日乘数法 (Lagrange Multipliers)"></a>2. 拉格朗日乘数法 (Lagrange Multipliers)</h2><h3 id="2-1-核心逻辑"><a href="#2-1-核心逻辑" class="headerlink" title="2.1 核心逻辑"></a>2.1 核心逻辑</h3><p>用于求解<strong>条件极值</strong>。将带约束的问题转化为无约束问题。</p>
+<ul>
+<li><strong>目标函数</strong>：$f(x, y)$</li>
+<li><strong>约束条件</strong>：$g(x, y) &#x3D; 0$</li>
+<li><strong>构造拉格朗日函数</strong>：$L(x, y, \lambda) &#x3D; f(x, y) + \lambda \cdot g(x, y)$</li>
+<li><strong>求解</strong>：通过方程组 $\nabla L &#x3D; 0$（即对 $x, y, \lambda$ 各自求偏导并令其为 0）找到极值候选点。</li>
 </ul>
-<h3 id="2-附加什么条件能让“偏导存在”推导出“连续”？"><a href="#2-附加什么条件能让“偏导存在”推导出“连续”？" class="headerlink" title="2. 附加什么条件能让“偏导存在”推导出“连续”？"></a>2. 附加什么条件能让“偏导存在”推导出“连续”？</h3><p>若函数在点 $(x_0, y_0)$ 处偏导数存在，满足以下 <strong>任一</strong> 附加条件即可保证连续：</p>
+<h3 id="2-2-典型应用：证明-AM-GM-不等式"><a href="#2-2-典型应用：证明-AM-GM-不等式" class="headerlink" title="2.2 典型应用：证明 AM-GM 不等式"></a>2.2 典型应用：证明 AM-GM 不等式</h3><p><strong>题目</strong>：证明 $\sqrt[n]{x_1 x_2 \dots x_n} \leq \frac{x_1 + x_2 + \dots + x_n}{n}$<br><strong>证明思路</strong>：</p>
 <ol>
-<li><strong>偏导数有界</strong>：在点附近的邻域内，偏导数的绝对值满足 $|f_x| \le M, |f_y| \le M$。</li>
-<li><strong>偏导数连续</strong>：即 $f_x, f_y$ 本身也是连续函数。</li>
+<li>设定约束 $\sum_{i&#x3D;1}^n x_i &#x3D; S$（定值）。</li>
+<li>构造 $L(x_1, \dots, x_n, \lambda) &#x3D; \prod_{i&#x3D;1}^n x_i + \lambda(\sum_{i&#x3D;1}^n x_i - S)$。</li>
+<li>对各 $x_i$ 求偏导并令其为 0，得到 $x_1 &#x3D; x_2 &#x3D; \dots &#x3D; x_n &#x3D; S&#x2F;n$ 时乘积取得最大值。</li>
+<li>由此推导出算术平均值 $\geq$ 几何平均值。</li>
 </ol>
 <hr>
-<h2 id="三、-达布定理-Darboux’s-Theorem-的深层关联"><a href="#三、-达布定理-Darboux’s-Theorem-的深层关联" class="headerlink" title="三、 达布定理 (Darboux’s Theorem) 的深层关联"></a>三、 达布定理 (Darboux’s Theorem) 的深层关联</h2><h3 id="1-达布定理回顾"><a href="#1-达布定理回顾" class="headerlink" title="1. 达布定理回顾"></a>1. 达布定理回顾</h3><p><strong>定义</strong>：若 $f(x)$ 在 $[a, b]$ 上可导，则导函数 $f’(x)$ 具有 <strong>介值性</strong>。</p>
-<blockquote>
-<p><strong>注意</strong>：导函数 $f’(x)$ 不一定要连续，但它绝对不会有“跳跃间断点”。</p>
-</blockquote>
-<h3 id="2-为什么偏导存在不保证连续？"><a href="#2-为什么偏导存在不保证连续？" class="headerlink" title="2. 为什么偏导存在不保证连续？"></a>2. 为什么偏导存在不保证连续？</h3><ul>
-<li><strong>轴向的“克制”</strong>：达布定理保证了偏导数 $f_x$ 和 $f_y$ 沿着各自的坐标轴方向没有“跳跃”。</li>
-<li><strong>方向的“真空”</strong>：达布定理管不住“斜向”路径。在多元空间中，偏导数存在只代表两个孤立维度的属性，而连续性要求 <strong>全方位</strong> 的一致。</li>
-<li><strong>振荡的破坏力</strong>：达布定理允许导数出现 <strong>第二类间断（振荡间断）</strong>。如果偏导数在原点附近无限振荡且无界，虽然它满足达布定理，但这种剧烈波动会撕裂曲面的连续性。</li>
+<h2 id="3-数量场与方向导数"><a href="#3-数量场与方向导数" class="headerlink" title="3. 数量场与方向导数"></a>3. 数量场与方向导数</h2><h3 id="3-1-数量场-Scalar-Field"><a href="#3-1-数量场-Scalar-Field" class="headerlink" title="3.1 数量场 (Scalar Field)"></a>3.1 数量场 (Scalar Field)</h3><ul>
+<li><strong>概念</strong>：空间中每个点对应一个数值（如温度 $T$、气压 $P$、海拔 $H$）。</li>
+<li><strong>几何体现</strong>：等值线（2D）或等值面（3D）。在这些线上，函数值保持不变。</li>
 </ul>
-<h3 id="3-偏导数有界与连续性"><a href="#3-偏导数有界与连续性" class="headerlink" title="3. 偏导数有界与连续性"></a>3. 偏导数有界与连续性</h3><p><strong>结论</strong>：若偏导数在某邻域内 <strong>有界</strong>，则函数在该点必 <strong>连续</strong>。<br><strong>原理</strong>：利用拉格朗日中值定理：<br>$$ | \Delta f | \le | f_x(\xi, y) \Delta x | + | f_y(x, \eta) \Delta y | $$<br>若偏导数有界，则当 $\Delta x, \Delta y \to 0$ 时，$\Delta f \to 0$。</p>
-<hr>
-<h2 id="四、-一元与多元函数的对比总结"><a href="#四、-一元与多元函数的对比总结" class="headerlink" title="四、 一元与多元函数的对比总结"></a>四、 一元与多元函数的对比总结</h2><table>
-<thead>
-<tr>
-<th align="left">维度对比</th>
-<th align="left">一元函数 $f(x)$</th>
-<th align="left">二元函数 $f(x, y)$</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><strong>可导 vs 连续</strong></td>
-<td align="left">可导必连续</td>
-<td align="left">偏导存在 $\nRightarrow$ 连续</td>
-</tr>
-<tr>
-<td align="left"><strong>达布定理效力</strong></td>
-<td align="left">保证函数形态连贯</td>
-<td align="left">仅保证沿坐标轴方向的介值性</td>
-</tr>
-<tr>
-<td align="left"><strong>不连续原因</strong></td>
-<td align="left">导数不存在</td>
-<td align="left">路径依赖（不同角度极限不同）</td>
-</tr>
-<tr>
-<td align="left"><strong>核心守护条件</strong></td>
-<td align="left">导数存在</td>
-<td align="left"><strong>全微分（可微）</strong> 或 <strong>偏导数有界</strong></td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="五、-经典反例模型"><a href="#五、-经典反例模型" class="headerlink" title="五、 经典反例模型"></a>五、 经典反例模型</h2><p>$$<br>f(x,y) &#x3D; \begin{cases} \frac{xy}{x^2+y^2}, &amp; (x,y) \neq (0,0) \ 0, &amp; (x,y) &#x3D; (0,0) \end{cases}<br>$$</p>
-<ul>
-<li><strong>偏导数行为</strong>：$f_x(0,0)&#x3D;0, f_y(0,0)&#x3D;0$（偏导数存在）。</li>
-<li><strong>连续性行为</strong>：沿路径 $y&#x3D;x$ 趋近时，$\lim_{(x,y) \to (0,0)} f(x,y) &#x3D; 1&#x2F;2 \neq 0$（不连续）。</li>
-<li><strong>启示</strong>：偏导数是“线”的属性，连续性是“面”的属性。</li>
+<h3 id="3-2-方向导数-Directional-Derivative"><a href="#3-2-方向导数-Directional-Derivative" class="headerlink" title="3.2 方向导数 (Directional Derivative)"></a>3.2 方向导数 (Directional Derivative)</h3><ul>
+<li><strong>定义</strong>：函数沿任意指定方向 $\boldsymbol{l}$ 的变化率。</li>
+<li><strong>计算公式</strong>：<br>$$\frac{\partial f}{\partial l} &#x3D; f_x \cos\alpha + f_y \cos\beta + f_z \cos\gamma$$<br><em>(其中 $\cos\alpha, \cos\beta, \cos\gamma$ 是方向向量的单位方向余弦)</em></li>
+<li><strong>推导逻辑</strong>：利用一阶泰勒展开 $\Delta f \approx \frac{\partial f}{\partial x}\Delta x + \frac{\partial f}{\partial y}\Delta y + \frac{\partial f}{\partial z}\Delta z$，其中 $\Delta x &#x3D; \rho \cos\alpha$ 等，代入定义式求极限即得。</li>
 </ul>
+<hr>
+<h2 id="4-梯度-Gradient"><a href="#4-梯度-Gradient" class="headerlink" title="4. 梯度 (Gradient)"></a>4. 梯度 (Gradient)</h2><h3 id="4-1-数学定义"><a href="#4-1-数学定义" class="headerlink" title="4.1 数学定义"></a>4.1 数学定义</h3><p>梯度是一个向量，由函数在某点处的所有一阶偏导数组成：<br>$$\nabla f &#x3D; \text{grad} f &#x3D; \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial z} \right)$$</p>
+<h3 id="4-2-核心性质"><a href="#4-2-核心性质" class="headerlink" title="4.2 核心性质"></a>4.2 核心性质</h3><ol>
+<li><strong>增长最快</strong>：梯度向量指向函数值<strong>增长最快</strong>的方向。</li>
+<li><strong>模长意义</strong>：梯度的模 $|\nabla f|$ 是所有方向导数中的<strong>最大值</strong>。</li>
+<li><strong>几何关系</strong>：梯度向量始终<strong>垂直于</strong>过该点的等值面&#x2F;等值线（是其法向量）。</li>
+<li><strong>与方向导数的投影关系</strong>：<br>$$\frac{\partial f}{\partial l} &#x3D; \nabla f \cdot \mathbf{e}_l &#x3D; |\nabla f| \cos\theta$$<ul>
+<li>当方向 $l$ 与梯度方向一致 ($\theta&#x3D;0$)，变化率最大。</li>
+<li>当方向 $l$ 与梯度方向垂直 ($\theta&#x3D;90^\circ$)，变化率为 0。</li>
+</ul>
+</li>
+</ol>
 
                 
               </div>
@@ -384,8 +328,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>一元函数与二元函数中连续性与导数介值性的分析</div>
-      <div>http://example.com/2026/01/27/一元函数与二元函数中连续性与导数介值性的分析/</div>
+      <div>多元函数综合分析</div>
+      <div>http://example.com/2026/01/29/多元函数综合分析/</div>
     </div>
     <div class="license-meta">
       
@@ -397,7 +341,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年1月27日</div>
+          <div>2026年1月29日</div>
         </div>
       
       
@@ -429,18 +373,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/01/29/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E7%BB%BC%E5%90%88%E5%88%86%E6%9E%90/" title="多元函数综合分析">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">多元函数综合分析</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2026/01/20/Introduction-to-kisara-s-blog/" title="Introduction to kisara&#39;s blog">
-                        <span class="hidden-mobile">Introduction to kisara&#39;s blog</span>
+                      <a href="/2026/01/27/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E4%B8%8E%E4%BA%8C%E5%85%83%E5%87%BD%E6%95%B0%E4%B8%AD%E8%BF%9E%E7%BB%AD%E6%80%A7%E4%B8%8E%E5%AF%BC%E6%95%B0%E4%BB%8B%E5%80%BC%E6%80%A7%E7%9A%84%E5%88%86%E6%9E%90/" title="一元函数与二元函数中连续性与导数介值性的分析">
+                        <span class="hidden-mobile">一元函数与二元函数中连续性与导数介值性的分析</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
