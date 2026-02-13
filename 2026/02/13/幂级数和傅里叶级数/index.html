@@ -19,22 +19,22 @@
   <meta name="author" content="Kisara">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、 核心算子：散度与旋度在三维矢量场 $\vec{F} &#x3D; (P, Q, R)$ 中，我们定义两个核心描述量：    概念 算子符号 数学定义 (直角坐标系) 物理直观    散度 (Divergence) $\text{div} \vec{F} &#x3D; \nabla \cdot \vec{F}$ $\frac{\partial P}{\partial x} + \frac{\p">
+    <meta name="description" content="级数理论解析 第一部分：幂级数 (Power Series)幂级数是研究函数局部性质（导数、积分）最强有力的工具。 1. 收敛半径 $R$ 的深入理解根据 阿贝尔(Abel)定理：如果幂级数 $\sum a_n x^n$ 在 $x_0$ 处收敛，则对于所有 $|x| &lt; |x_0|$ 都绝对收敛。  计算公式 (Cauchy-Hadamard)：$$ \rho &#x3D; \lim_{n">
 <meta property="og:type" content="article">
-<meta property="og:title" content="散度旋度">
-<meta property="og:url" content="http://example.com/2026/02/07/%E6%95%A3%E5%BA%A6%E6%97%8B%E5%BA%A6/index.html">
+<meta property="og:title" content="幂级数和傅里叶级数">
+<meta property="og:url" content="http://example.com/2026/02/13/%E5%B9%82%E7%BA%A7%E6%95%B0%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/index.html">
 <meta property="og:site_name" content="Kisara&#39;s space">
-<meta property="og:description" content="一、 核心算子：散度与旋度在三维矢量场 $\vec{F} &#x3D; (P, Q, R)$ 中，我们定义两个核心描述量：    概念 算子符号 数学定义 (直角坐标系) 物理直观    散度 (Divergence) $\text{div} \vec{F} &#x3D; \nabla \cdot \vec{F}$ $\frac{\partial P}{\partial x} + \frac{\p">
+<meta property="og:description" content="级数理论解析 第一部分：幂级数 (Power Series)幂级数是研究函数局部性质（导数、积分）最强有力的工具。 1. 收敛半径 $R$ 的深入理解根据 阿贝尔(Abel)定理：如果幂级数 $\sum a_n x^n$ 在 $x_0$ 处收敛，则对于所有 $|x| &lt; |x_0|$ 都绝对收敛。  计算公式 (Cauchy-Hadamard)：$$ \rho &#x3D; \lim_{n">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-02-07T11:50:13.000Z">
-<meta property="article:modified_time" content="2026-02-07T11:52:32.798Z">
+<meta property="article:published_time" content="2026-02-13T10:37:10.000Z">
+<meta property="article:modified_time" content="2026-02-13T10:38:21.679Z">
 <meta property="article:author" content="Kisara">
 <meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>散度旋度 - Kisara&#39;s space</title>
+  <title>幂级数和傅里叶级数 - Kisara&#39;s space</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="散度旋度"></span>
+            <span id="subtitle" data-typed-text="幂级数和傅里叶级数"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-02-07 19:50" pubdate>
-          2026年2月7日 晚上
+        <time datetime="2026-02-13 18:37" pubdate>
+          2026年2月13日 晚上
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          3.2k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          16 分钟
+          27 分钟
         
       </span>
     
@@ -255,106 +255,119 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">散度旋度</h1>
+            <h1 id="seo-header">幂级数和傅里叶级数</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="一、-核心算子：散度与旋度"><a href="#一、-核心算子：散度与旋度" class="headerlink" title="一、 核心算子：散度与旋度"></a>一、 核心算子：散度与旋度</h3><p>在三维矢量场 $\vec{F} &#x3D; (P, Q, R)$ 中，我们定义两个核心描述量：</p>
-<table>
-<thead>
-<tr>
-<th align="left">概念</th>
-<th align="left">算子符号</th>
-<th align="left">数学定义 (直角坐标系)</th>
-<th align="left">物理直观</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><strong>散度 (Divergence)</strong></td>
-<td align="left">$\text{div} \vec{F} &#x3D; \nabla \cdot \vec{F}$</td>
-<td align="left">$\frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}$</td>
-<td align="left"><strong>源头感</strong>：单位体积内流体的净流出量。$&gt;0$ 是源（泉），$&lt;0$ 是汇（洞）。</td>
-</tr>
-<tr>
-<td align="left"><strong>旋度 (Curl)</strong></td>
-<td align="left">$\text{rot} \vec{F} &#x3D; \nabla \times \vec{F}$</td>
-<td align="left">$\begin{vmatrix} \vec{i} &amp; \vec{j} &amp; \vec{k} \ \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial y} &amp; \frac{\partial}{\partial z} \ P &amp; Q &amp; R \end{vmatrix}$</td>
-<td align="left"><strong>旋转感</strong>：场在某点附近的打旋程度和轴向。其模长是最大环流面密度。</td>
-</tr>
-</tbody></table>
-<hr>
-<h3 id="二、-三大积分公式"><a href="#二、-三大积分公式" class="headerlink" title="二、 三大积分公式"></a>二、 三大积分公式</h3><p>这三大公式本质上都是<strong>高维版本的牛顿-莱布尼茨公式</strong>。</p>
-<h4 id="1-高斯公式-Gauss’s-Theorem-——-散度的累积"><a href="#1-高斯公式-Gauss’s-Theorem-——-散度的累积" class="headerlink" title="1. 高斯公式 (Gauss’s Theorem) —— 散度的累积"></a>1. 高斯公式 (Gauss’s Theorem) —— 散度的累积</h4><ul>
-<li><strong>连接：</strong> 三重积分 $\leftrightarrow$ 第二型曲面积分</li>
-<li><strong>公式：</strong><br>$$\iiint_{\Omega} (\nabla \cdot \vec{F}) dV &#x3D; \oiint_{\Sigma} \vec{F} \cdot d\vec{S}$$</li>
-<li><strong>直观笔记：</strong> 区域 $\Omega$ 内所有“泉眼”产生的总水量，等于从边界曲面 $\Sigma$ 流出去的净流量。</li>
-<li><strong>应用：</strong> 计算闭合曲面的通量；电场的高斯定律。</li>
+                <h1 id="级数理论解析"><a href="#级数理论解析" class="headerlink" title="级数理论解析"></a>级数理论解析</h1><hr>
+<h2 id="第一部分：幂级数-Power-Series"><a href="#第一部分：幂级数-Power-Series" class="headerlink" title="第一部分：幂级数 (Power Series)"></a>第一部分：幂级数 (Power Series)</h2><p>幂级数是研究函数局部性质（导数、积分）最强有力的工具。</p>
+<h3 id="1-收敛半径-R-的深入理解"><a href="#1-收敛半径-R-的深入理解" class="headerlink" title="1. 收敛半径 $R$ 的深入理解"></a>1. 收敛半径 $R$ 的深入理解</h3><p>根据 <strong>阿贝尔(Abel)定理</strong>：如果幂级数 $\sum a_n x^n$ 在 $x_0$ 处收敛，则对于所有 $|x| &lt; |x_0|$ 都绝对收敛。</p>
+<ul>
+<li><strong>计算公式 (Cauchy-Hadamard)</strong>：<br>$$ \rho &#x3D; \lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right| \quad \text{或} \quad \rho &#x3D; \lim_{n \to \infty} \sqrt[n]{|a_n|} $$<br>$$ R &#x3D; \frac{1}{\rho} \quad (\text{注意：若 } \rho&#x3D;0, R&#x3D;\infty; \text{ 若 } \rho&#x3D;\infty, R&#x3D;0) $$</li>
+<li><strong>收敛域的坑</strong>：<br>求出 $R$ 后，区间为 $(-R, R)$。但在端点 $x&#x3D;R$ 和 $x&#x3D;-R$ 处，级数可能收敛也可能发散，<strong>必须代入原式化为常数项级数进行判定</strong>（常配合 P-级数判别法）。</li>
 </ul>
-<h4 id="2-斯托克斯公式-Stokes’-Theorem-——-旋度的累积"><a href="#2-斯托克斯公式-Stokes’-Theorem-——-旋度的累积" class="headerlink" title="2. 斯托克斯公式 (Stokes’ Theorem) —— 旋度的累积"></a>2. 斯托克斯公式 (Stokes’ Theorem) —— 旋度的累积</h4><ul>
-<li><strong>连接：</strong> 第二型曲面积分 $\leftrightarrow$ 第二型曲线积分</li>
-<li><strong>公式：</strong><br>$$\iint_{\Sigma} (\nabla \times \vec{F}) \cdot d\vec{S} &#x3D; \oint_{\partial \Sigma} \vec{F} \cdot d\vec{r}$$</li>
-<li><strong>直观笔记：</strong> 曲面 $\Sigma$ 上所有微小漩涡（旋度）的叠加，最终表现为边界曲线 $\partial \Sigma$ 上的环流。内部相邻漩涡的接触面因为方向相反会互相抵消。</li>
-<li><strong>应用：</strong> 将复杂的线积分转为面积分；安培环路定理。</li>
+<h3 id="2-泰勒-Taylor-展开的本质"><a href="#2-泰勒-Taylor-展开的本质" class="headerlink" title="2. 泰勒 (Taylor) 展开的本质"></a>2. 泰勒 (Taylor) 展开的本质</h3><p>如果 $f(x)$ 在 $x_0$ 处无限可导，则其展开式为：<br>$$ f(x) &#x3D; \sum_{n&#x3D;0}^{\infty} \frac{f^{(n)}(x_0)}{n!} (x-x_0)^n $$</p>
+<ul>
+<li><strong>余项 (Remainder)</strong>：级数是否等于原函数，取决于拉格朗日余项 $R_n(x)$ 当 $n \to \infty$ 时是否趋于 0。</li>
+<li><strong>常用展开式</strong>：<ol>
+<li>$\frac{1}{1-x} &#x3D; \sum_{n&#x3D;0}^{\infty} x^n, \quad x \in (-1, 1)$</li>
+<li>$e^x &#x3D; \sum_{n&#x3D;0}^{\infty} \frac{x^n}{n!}, \quad x \in (-\infty, +\infty)$</li>
+<li>$\sin x &#x3D; \sum_{n&#x3D;0}^{\infty} (-1)^n \frac{x^{2n+1}}{(2n+1)!}, \quad \cos x &#x3D; \sum_{n&#x3D;0}^{\infty} (-1)^n \frac{x^{2n}}{(2n)!}$</li>
+<li>$\ln(1+x) &#x3D; \sum_{n&#x3D;1}^{\infty} (-1)^{n-1} \frac{x^n}{n}, \quad x \in (-1, 1]$ （注意右端点收敛）</li>
+<li>$\arctan x &#x3D; \sum_{n&#x3D;0}^{\infty} (-1)^n \frac{x^{2n+1}}{2n+1}, \quad x \in [-1, 1]$</li>
+</ol>
+</li>
 </ul>
-<h4 id="3-格林公式-Green’s-Theorem-——-平面上的简化版"><a href="#3-格林公式-Green’s-Theorem-——-平面上的简化版" class="headerlink" title="3. 格林公式 (Green’s Theorem) —— 平面上的简化版"></a>3. 格林公式 (Green’s Theorem) —— 平面上的简化版</h4><ul>
-<li><strong>连接：</strong> 二重积分 $\leftrightarrow$ 平面曲线积分</li>
-<li><strong>公式：</strong><br>$$\iint_{D} \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dA &#x3D; \oint_{\partial D} P dx + Q dy$$</li>
-<li><strong>直观笔记：</strong> 它是斯托克斯公式在 $xOy$ 平面上的特殊情况（此时旋度只有 $z$ 分量）。它描述了平面区域内“环流面密度”的叠加等于边界的环流。</li>
-<li><strong>应用：</strong> 计算平面面积；计算与路径无关的曲线积分。</li>
-</ul>
-<hr>
-<h3 id="三、-总结对比表：深刻理解内在逻辑"><a href="#三、-总结对比表：深刻理解内在逻辑" class="headerlink" title="三、 总结对比表：深刻理解内在逻辑"></a>三、 总结对比表：深刻理解内在逻辑</h3><table>
-<thead>
-<tr>
-<th align="left">公式名称</th>
-<th align="left">对应关系</th>
-<th align="left">内部特征量</th>
-<th align="left">边界表现量</th>
-<th align="left">核心思想</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><strong>高斯公式</strong></td>
-<td align="left">体 $\leftrightarrow$ 面</td>
-<td align="left"><strong>散度</strong> (源&#x2F;汇)</td>
-<td align="left"><strong>通量</strong> (穿过面)</td>
-<td align="left">内部产多少，边界流多少</td>
-</tr>
-<tr>
-<td align="left"><strong>斯托克斯</strong></td>
-<td align="left">面 $\leftrightarrow$ 线</td>
-<td align="left"><strong>旋度</strong> (漩涡)</td>
-<td align="left"><strong>环流</strong> (绕线走)</td>
-<td align="left">内部旋多少，边界转多少</td>
-</tr>
-<tr>
-<td align="left"><strong>格林公式</strong></td>
-<td align="left">面 $\leftrightarrow$ 线</td>
-<td align="left"><strong>2D旋度</strong></td>
-<td align="left"><strong>2D环流</strong></td>
-<td align="left">斯托克斯的平面版</td>
-</tr>
-</tbody></table>
-<hr>
-<h3 id="四、-两个必须记住的“零”-重要特性"><a href="#四、-两个必须记住的“零”-重要特性" class="headerlink" title="四、 两个必须记住的“零” (重要特性)"></a>四、 两个必须记住的“零” (重要特性)</h3><p>在场论中，有两个恒等式反映了空间的深刻性质：</p>
-<ol>
-<li><strong>梯度的旋度必为零</strong> ($\nabla \times (\nabla \varphi) &#x3D; 0$):<ul>
-<li><em>直观意义</em>：坡度场（梯度场）是不会打旋的。如果一个场没有旋度（无旋场），它就一定存在位函数（势能）。</li>
+<h3 id="3-幂级数的运算技巧"><a href="#3-幂级数的运算技巧" class="headerlink" title="3. 幂级数的运算技巧"></a>3. 幂级数的运算技巧</h3><ul>
+<li><strong>间接展开法</strong>：利用已知公式通过换元、变形求新函数的展开。<ul>
+<li><em>例</em>：求 $\frac{1}{1+x^2}$ 的展开，将几何级数中的 $x$ 换为 $-x^2$。</li>
 </ul>
 </li>
-<li><strong>旋度的散度必为零</strong> ($\nabla \cdot (\nabla \times \vec{F}) &#x3D; 0$):<ul>
-<li><em>直观意义</em>：旋转运动产生的流体是闭合的，它不会凭空产生，也不会凭空消失（没有源和汇）。</li>
+<li><strong>逐项求导与积分</strong>：<br>这是求和函数的终极武器。例如求 $\sum_{n&#x3D;1}^{\infty} n x^n$ 的和函数，可以先积分变为 $\sum x^{n+1}$（等比级数），求和后再求导还原。</li>
+</ul>
+<hr>
+<h2 id="第二部分：傅里叶级数-Fourier-Series"><a href="#第二部分：傅里叶级数-Fourier-Series" class="headerlink" title="第二部分：傅里叶级数 (Fourier Series)"></a>第二部分：傅里叶级数 (Fourier Series)</h2><p>傅里叶级数研究的是函数的全局周期性。</p>
+<h3 id="1-三角函数的正交性（推导的基础）"><a href="#1-三角函数的正交性（推导的基础）" class="headerlink" title="1. 三角函数的正交性（推导的基础）"></a>1. 三角函数的正交性（推导的基础）</h3><p>傅里叶系数公式之所以成立，是因为在周期区间内：</p>
+<ul>
+<li>$\int \sin(nx)\cos(mx) dx &#x3D; 0$</li>
+<li>$\int \cos(nx)\cos(mx) dx &#x3D; 0 \text{ (当 } n \neq m)$</li>
+<li><strong>只有相同频率的自乘积分不为 0</strong>，这保证了我们可以通过积分“提取”出特定的系数。</li>
+</ul>
+<h3 id="2-完整的展开公式-2L-周期"><a href="#2-完整的展开公式-2L-周期" class="headerlink" title="2. 完整的展开公式 ($2L$ 周期)"></a>2. 完整的展开公式 ($2L$ 周期)</h3><p>设周期 $T &#x3D; 2L$，函数 $f(x)$ 在 $[-L, L]$ 上：<br>$$ f(x) \sim \frac{a_0}{2} + \sum_{n&#x3D;1}^{\infty} \left[ a_n \cos\left(\frac{n\pi x}{L}\right) + b_n \sin\left(\frac{n\pi x}{L}\right) \right] $$</p>
+<ul>
+<li>$a_n &#x3D; \frac{1}{L} \int_{-L}^{L} f(x) \cos\left(\frac{n\pi x}{L}\right) dx$</li>
+<li>$b_n &#x3D; \frac{1}{L} \int_{-L}^{L} f(x) \sin\left(\frac{n\pi x}{L}\right) dx$</li>
+<li><strong>注意</strong>：$a_0$ 实际上就是 $a_n$ 公式中 $n&#x3D;0$ 的结果。</li>
+</ul>
+<h3 id="3-奇偶对称性与半程展开-核心考点"><a href="#3-奇偶对称性与半程展开-核心考点" class="headerlink" title="3. 奇偶对称性与半程展开 (核心考点)"></a>3. 奇偶对称性与半程展开 (核心考点)</h3><p>如果题目只给出 $[0, L]$ 上的定义，要求展开：</p>
+<ol>
+<li><strong>余项展开 (Cosine Series)</strong>：隐含进行<strong>偶延拓</strong>。此时 $b_n&#x3D;0$，只需计算 $a_n$。</li>
+<li><strong>正弦展开 (Sine Series)</strong>：隐含进行<strong>奇延拓</strong>。此时 $a_n&#x3D;0$，只需计算 $b_n$。<ul>
+<li><em>提速公式</em>：$b_n &#x3D; \frac{2}{L} \int_0^L f(x) \sin\frac{n\pi x}{L} dx$。</li>
 </ul>
 </li>
 </ol>
-<hr>
-<h3 id="五、-快速解题口诀"><a href="#五、-快速解题口诀" class="headerlink" title="五、 快速解题口诀"></a>五、 快速解题口诀</h3><ul>
-<li>看到<strong>闭合曲面</strong>通量，首选<strong>高斯</strong>（算散度）。</li>
-<li>看到<strong>闭合空间曲线</strong>积分，首选<strong>斯托克斯</strong>（算旋度）。</li>
-<li>看到<strong>闭合平面曲线</strong>积分，首选<strong>格林</strong>（算偏导差）。</li>
-<li>如果积分路径不闭合？<strong>补线&#x2F;补面</strong>使其闭合，再用公式，最后减去补的部分。</li>
+<h3 id="4-迪利克雷收敛定理的细节"><a href="#4-迪利克雷收敛定理的细节" class="headerlink" title="4. 迪利克雷收敛定理的细节"></a>4. 迪利克雷收敛定理的细节</h3><p>$S(x)$ 是级数和，$f(x)$ 是原函数：</p>
+<ul>
+<li>如果 $f(x)$ 在 $x$ 处有跳跃 $h$，则 $S(x)$ 会指向跳变的中点。</li>
+<li><strong>周期性暗示</strong>：如果 $f(-L) \neq f(L)$，那么在端点处级数收敛于 $\frac{f(-L^+) + f(L^-)}{2}$。</li>
 </ul>
+<h3 id="5-复数形式的傅里叶级数-进阶"><a href="#5-复数形式的傅里叶级数-进阶" class="headerlink" title="5. 复数形式的傅里叶级数 (进阶)"></a>5. 复数形式的傅里叶级数 (进阶)</h3><p>利用欧拉公式 $e^{ix} &#x3D; \cos x + i\sin x$，傅里叶级数可以写得极其优雅：<br>$$ f(x) &#x3D; \sum_{n&#x3D;-\infty}^{\infty} c_n e^{i \frac{n\pi x}{L}} $$<br>其中 $c_n &#x3D; \frac{1}{2L} \int_{-L}^{L} f(x) e^{-i \frac{n\pi x}{L}} dx$。</p>
+<ul>
+<li>$c_n$ 与 $a_n, b_n$ 的关系：$c_n &#x3D; \frac{a_n - ib_n}{2}, c_{-n} &#x3D; \frac{a_n + ib_n}{2}$。</li>
+</ul>
+<hr>
+<h2 id="第三部分：综合考点与解题模板"><a href="#第三部分：综合考点与解题模板" class="headerlink" title="第三部分：综合考点与解题模板"></a>第三部分：综合考点与解题模板</h2><h3 id="1-如何求级数的和（幂级数）"><a href="#1-如何求级数的和（幂级数）" class="headerlink" title="1. 如何求级数的和（幂级数）"></a>1. 如何求级数的和（幂级数）</h3><ul>
+<li><strong>第一步</strong>：观察通项，看是否像某个已知函数的导数或积分。</li>
+<li><strong>第二步</strong>：通过逐项积分或求导，将系数 $n$ 消除或移动。</li>
+<li><strong>第三步</strong>：利用等比级数公式 $\sum x^n &#x3D; \frac{1}{1-x}$ 求和。</li>
+<li><strong>第四步</strong>：对求和结果进行反向运算（如果你之前积分过，现在就求导）。</li>
+</ul>
+<h3 id="2-傅里叶级数系数计算中的“零积分”"><a href="#2-傅里叶级数系数计算中的“零积分”" class="headerlink" title="2. 傅里叶级数系数计算中的“零积分”"></a>2. 傅里叶级数系数计算中的“零积分”</h3><p>在计算 $a_n, b_n$ 的积分时，经常遇到 $\int \cos(nx) dx$ 在周期上的积分为 0。</p>
+<ul>
+<li><strong>必杀技</strong>：$\sin(n\pi) &#x3D; 0$，$ \cos(n\pi) &#x3D; (-1)^n$。</li>
+<li>计算 $b_n$ 时，常出现 $1 - \cos(n\pi) &#x3D; 1 - (-1)^n$。<ul>
+<li>当 $n$ 为偶数时，结果为 0；</li>
+<li>当 $n$ 为奇数时，结果为 2。</li>
+<li><strong>结论</strong>：很多级数只剩下奇数项。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-帕塞瓦尔-Parseval-等式（常用于求级数数值）"><a href="#3-帕塞瓦尔-Parseval-等式（常用于求级数数值）" class="headerlink" title="3. 帕塞瓦尔 (Parseval) 等式（常用于求级数数值）"></a>3. 帕塞瓦尔 (Parseval) 等式（常用于求级数数值）</h3><p>$$ \frac{1}{L} \int_{-L}^{L} [f(x)]^2 dx &#x3D; \frac{a_0^2}{2} + \sum_{n&#x3D;1}^{\infty} (a_n^2 + b_n^2) $$</p>
+<ul>
+<li><em>用途</em>：如果题目要求你证明 $\sum \frac{1}{n^2} &#x3D; \frac{\pi^2}{6}$，通常先求 $f(x)&#x3D;x$ 的傅里叶级数，然后套用帕塞瓦尔等式。</li>
+</ul>
+<hr>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><table>
+<thead>
+<tr>
+<th align="left">维度</th>
+<th align="left">幂级数 (Taylor)</th>
+<th align="left">傅里叶级数 (Fourier)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>逼近工具</strong></td>
+<td align="left">多项式 (Polynomials)</td>
+<td align="left">三角函数 (Oscillations)</td>
+</tr>
+<tr>
+<td align="left"><strong>局部 vs 全局</strong></td>
+<td align="left">展开点附近精确，远处失效</td>
+<td align="left">整个周期内平均误差最小</td>
+</tr>
+<tr>
+<td align="left"><strong>平滑度要求</strong></td>
+<td align="left">要求极高（需无限次可导）</td>
+<td align="left">要求极低（只要段内连续即可）</td>
+</tr>
+<tr>
+<td align="left"><strong>物理意义</strong></td>
+<td align="left">函数的瞬时变化趋势</td>
+<td align="left">信号的频谱分布（频率成分）</td>
+</tr>
+</tbody></table>
 
                 
               </div>
@@ -379,8 +392,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>散度旋度</div>
-      <div>http://example.com/2026/02/07/散度旋度/</div>
+      <div>幂级数和傅里叶级数</div>
+      <div>http://example.com/2026/02/13/幂级数和傅里叶级数/</div>
     </div>
     <div class="license-meta">
       
@@ -392,7 +405,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年2月7日</div>
+          <div>2026年2月13日</div>
         </div>
       
       
@@ -424,18 +437,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/02/13/%E5%B9%82%E7%BA%A7%E6%95%B0%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/" title="幂级数和傅里叶级数">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">幂级数和傅里叶级数</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2026/02/05/%E7%AC%AC%E4%BA%8C%E5%9E%8B%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86/" title="第二型曲线积分">
-                        <span class="hidden-mobile">第二型曲线积分</span>
+                      <a href="/2026/02/07/%E6%95%A3%E5%BA%A6%E6%97%8B%E5%BA%A6/" title="散度旋度">
+                        <span class="hidden-mobile">散度旋度</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
