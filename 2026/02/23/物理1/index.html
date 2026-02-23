@@ -19,22 +19,22 @@
   <meta name="author" content="Kisara">
   <meta name="keywords" content="">
   
-    <meta name="description" content="级数理论解析 第一部分：幂级数 (Power Series)幂级数是研究函数局部性质（导数、积分）最强有力的工具。 1. 收敛半径 $R$ 的深入理解根据 阿贝尔(Abel)定理：如果幂级数 $\sum a_n x^n$ 在 $x_0$ 处收敛，则对于所有 $|x| &lt; |x_0|$ 都绝对收敛。  计算公式 (Cauchy-Hadamard)：$$ \rho &#x3D; \lim_{n">
+    <meta name="description" content="📖 大学物理复习笔记：质点运动学的描述一、 描述运动的基础框架 质点模型：忽略形状大小，只考虑质量（条件：物体尺寸 $\ll$ 运动空间，或做平动）。 参考系与坐标系：运动具有相对性，必须选定参考系。常用直角坐标系 $(x,y,z)$ 或自然坐标系 $(\tau, n)$。 运动方程：$\vec{r}(t) &#x3D; x(t)\vec{i} + y(t)\vec{j} + z(t)\vec{">
 <meta property="og:type" content="article">
-<meta property="og:title" content="幂级数和傅里叶级数">
-<meta property="og:url" content="http://example.com/2026/02/13/%E5%B9%82%E7%BA%A7%E6%95%B0%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/index.html">
+<meta property="og:title" content="物理1">
+<meta property="og:url" content="http://example.com/2026/02/23/%E7%89%A9%E7%90%861/index.html">
 <meta property="og:site_name" content="Kisara&#39;s space">
-<meta property="og:description" content="级数理论解析 第一部分：幂级数 (Power Series)幂级数是研究函数局部性质（导数、积分）最强有力的工具。 1. 收敛半径 $R$ 的深入理解根据 阿贝尔(Abel)定理：如果幂级数 $\sum a_n x^n$ 在 $x_0$ 处收敛，则对于所有 $|x| &lt; |x_0|$ 都绝对收敛。  计算公式 (Cauchy-Hadamard)：$$ \rho &#x3D; \lim_{n">
+<meta property="og:description" content="📖 大学物理复习笔记：质点运动学的描述一、 描述运动的基础框架 质点模型：忽略形状大小，只考虑质量（条件：物体尺寸 $\ll$ 运动空间，或做平动）。 参考系与坐标系：运动具有相对性，必须选定参考系。常用直角坐标系 $(x,y,z)$ 或自然坐标系 $(\tau, n)$。 运动方程：$\vec{r}(t) &#x3D; x(t)\vec{i} + y(t)\vec{j} + z(t)\vec{">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-02-13T10:37:10.000Z">
-<meta property="article:modified_time" content="2026-02-13T10:38:21.679Z">
+<meta property="article:published_time" content="2026-02-23T06:01:17.000Z">
+<meta property="article:modified_time" content="2026-02-23T06:09:21.735Z">
 <meta property="article:author" content="Kisara">
-<meta property="article:tag" content="数学">
+<meta property="article:tag" content="物理">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>幂级数和傅里叶级数 - Kisara&#39;s space</title>
+  <title>物理1 - Kisara&#39;s space</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="幂级数和傅里叶级数"></span>
+            <span id="subtitle" data-typed-text="物理1"></span>
           
         </div>
 
@@ -195,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-02-13 18:37" pubdate>
-          2026年2月13日 晚上
+        <time datetime="2026-02-23 14:01" pubdate>
+          2026年2月23日 下午
         </time>
       </span>
     
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.2k 字
+          2.3k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          27 分钟
+          20 分钟
         
       </span>
     
@@ -255,119 +255,138 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">幂级数和傅里叶级数</h1>
+            <h1 id="seo-header">物理1</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="级数理论解析"><a href="#级数理论解析" class="headerlink" title="级数理论解析"></a>级数理论解析</h1><hr>
-<h2 id="第一部分：幂级数-Power-Series"><a href="#第一部分：幂级数-Power-Series" class="headerlink" title="第一部分：幂级数 (Power Series)"></a>第一部分：幂级数 (Power Series)</h2><p>幂级数是研究函数局部性质（导数、积分）最强有力的工具。</p>
-<h3 id="1-收敛半径-R-的深入理解"><a href="#1-收敛半径-R-的深入理解" class="headerlink" title="1. 收敛半径 $R$ 的深入理解"></a>1. 收敛半径 $R$ 的深入理解</h3><p>根据 <strong>阿贝尔(Abel)定理</strong>：如果幂级数 $\sum a_n x^n$ 在 $x_0$ 处收敛，则对于所有 $|x| &lt; |x_0|$ 都绝对收敛。</p>
-<ul>
-<li><strong>计算公式 (Cauchy-Hadamard)</strong>：<br>$$ \rho &#x3D; \lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right| \quad \text{或} \quad \rho &#x3D; \lim_{n \to \infty} \sqrt[n]{|a_n|} $$<br>$$ R &#x3D; \frac{1}{\rho} \quad (\text{注意：若 } \rho&#x3D;0, R&#x3D;\infty; \text{ 若 } \rho&#x3D;\infty, R&#x3D;0) $$</li>
-<li><strong>收敛域的坑</strong>：<br>求出 $R$ 后，区间为 $(-R, R)$。但在端点 $x&#x3D;R$ 和 $x&#x3D;-R$ 处，级数可能收敛也可能发散，<strong>必须代入原式化为常数项级数进行判定</strong>（常配合 P-级数判别法）。</li>
+                <h1 id="📖-大学物理复习笔记：质点运动学的描述"><a href="#📖-大学物理复习笔记：质点运动学的描述" class="headerlink" title="📖 大学物理复习笔记：质点运动学的描述"></a>📖 大学物理复习笔记：质点运动学的描述</h1><h2 id="一、-描述运动的基础框架"><a href="#一、-描述运动的基础框架" class="headerlink" title="一、 描述运动的基础框架"></a>一、 描述运动的基础框架</h2><ol>
+<li><strong>质点模型</strong>：忽略形状大小，只考虑质量（条件：物体尺寸 $\ll$ 运动空间，或做平动）。</li>
+<li><strong>参考系与坐标系</strong>：运动具有相对性，必须选定参考系。常用直角坐标系 $(x,y,z)$ 或自然坐标系 $(\tau, n)$。</li>
+<li><strong>运动方程</strong>：$\vec{r}(t) &#x3D; x(t)\vec{i} + y(t)\vec{j} + z(t)\vec{k}$。<ul>
+<li><em>技巧</em>：消去参数 $t$ 即可得到<strong>轨迹方程</strong>。</li>
 </ul>
-<h3 id="2-泰勒-Taylor-展开的本质"><a href="#2-泰勒-Taylor-展开的本质" class="headerlink" title="2. 泰勒 (Taylor) 展开的本质"></a>2. 泰勒 (Taylor) 展开的本质</h3><p>如果 $f(x)$ 在 $x_0$ 处无限可导，则其展开式为：<br>$$ f(x) &#x3D; \sum_{n&#x3D;0}^{\infty} \frac{f^{(n)}(x_0)}{n!} (x-x_0)^n $$</p>
-<ul>
-<li><strong>余项 (Remainder)</strong>：级数是否等于原函数，取决于拉格朗日余项 $R_n(x)$ 当 $n \to \infty$ 时是否趋于 0。</li>
-<li><strong>常用展开式</strong>：<ol>
-<li>$\frac{1}{1-x} &#x3D; \sum_{n&#x3D;0}^{\infty} x^n, \quad x \in (-1, 1)$</li>
-<li>$e^x &#x3D; \sum_{n&#x3D;0}^{\infty} \frac{x^n}{n!}, \quad x \in (-\infty, +\infty)$</li>
-<li>$\sin x &#x3D; \sum_{n&#x3D;0}^{\infty} (-1)^n \frac{x^{2n+1}}{(2n+1)!}, \quad \cos x &#x3D; \sum_{n&#x3D;0}^{\infty} (-1)^n \frac{x^{2n}}{(2n)!}$</li>
-<li>$\ln(1+x) &#x3D; \sum_{n&#x3D;1}^{\infty} (-1)^{n-1} \frac{x^n}{n}, \quad x \in (-1, 1]$ （注意右端点收敛）</li>
-<li>$\arctan x &#x3D; \sum_{n&#x3D;0}^{\infty} (-1)^n \frac{x^{2n+1}}{2n+1}, \quad x \in [-1, 1]$</li>
+</li>
 </ol>
+<h2 id="二、-核心物理量（微积分定义）"><a href="#二、-核心物理量（微积分定义）" class="headerlink" title="二、 核心物理量（微积分定义）"></a>二、 核心物理量（微积分定义）</h2><ol>
+<li><strong>位矢 $\vec{r}$</strong>：从原点指向质点。</li>
+<li><strong>位移 $\Delta \vec{r}$</strong>：$\Delta \vec{r} &#x3D; \vec{r}(t+\Delta t) - \vec{r}(t)$（矢量，初位置指向末位置）。<ul>
+<li><em>注意</em>：位移模 $|\Delta \vec{r}|$ $\neq$ 路程 $\Delta s$（仅在单向直线运动且 $\Delta t \to 0$ 时近似相等）。</li>
+</ul>
 </li>
-</ul>
-<h3 id="3-幂级数的运算技巧"><a href="#3-幂级数的运算技巧" class="headerlink" title="3. 幂级数的运算技巧"></a>3. 幂级数的运算技巧</h3><ul>
-<li><strong>间接展开法</strong>：利用已知公式通过换元、变形求新函数的展开。<ul>
-<li><em>例</em>：求 $\frac{1}{1+x^2}$ 的展开，将几何级数中的 $x$ 换为 $-x^2$。</li>
+<li><strong>速度 $\vec{v}$</strong>：$\vec{v} &#x3D; \frac{d\vec{r}}{dt}$。方向为轨迹切线指向。<ul>
+<li><strong>速率</strong>：$v &#x3D; |\vec{v}| &#x3D; \frac{ds}{dt}$。</li>
 </ul>
 </li>
-<li><strong>逐项求导与积分</strong>：<br>这是求和函数的终极武器。例如求 $\sum_{n&#x3D;1}^{\infty} n x^n$ 的和函数，可以先积分变为 $\sum x^{n+1}$（等比级数），求和后再求导还原。</li>
-</ul>
+<li><strong>加速度 $\vec{a}$</strong>：$\vec{a} &#x3D; \frac{d\vec{v}}{dt} &#x3D; \frac{d^2\vec{r}}{dt^2}$。</li>
+</ol>
 <hr>
-<h2 id="第二部分：傅里叶级数-Fourier-Series"><a href="#第二部分：傅里叶级数-Fourier-Series" class="headerlink" title="第二部分：傅里叶级数 (Fourier Series)"></a>第二部分：傅里叶级数 (Fourier Series)</h2><p>傅里叶级数研究的是函数的全局周期性。</p>
-<h3 id="1-三角函数的正交性（推导的基础）"><a href="#1-三角函数的正交性（推导的基础）" class="headerlink" title="1. 三角函数的正交性（推导的基础）"></a>1. 三角函数的正交性（推导的基础）</h3><p>傅里叶系数公式之所以成立，是因为在周期区间内：</p>
-<ul>
-<li>$\int \sin(nx)\cos(mx) dx &#x3D; 0$</li>
-<li>$\int \cos(nx)\cos(mx) dx &#x3D; 0 \text{ (当 } n \neq m)$</li>
-<li><strong>只有相同频率的自乘积分不为 0</strong>，这保证了我们可以通过积分“提取”出特定的系数。</li>
-</ul>
-<h3 id="2-完整的展开公式-2L-周期"><a href="#2-完整的展开公式-2L-周期" class="headerlink" title="2. 完整的展开公式 ($2L$ 周期)"></a>2. 完整的展开公式 ($2L$ 周期)</h3><p>设周期 $T &#x3D; 2L$，函数 $f(x)$ 在 $[-L, L]$ 上：<br>$$ f(x) \sim \frac{a_0}{2} + \sum_{n&#x3D;1}^{\infty} \left[ a_n \cos\left(\frac{n\pi x}{L}\right) + b_n \sin\left(\frac{n\pi x}{L}\right) \right] $$</p>
-<ul>
-<li>$a_n &#x3D; \frac{1}{L} \int_{-L}^{L} f(x) \cos\left(\frac{n\pi x}{L}\right) dx$</li>
-<li>$b_n &#x3D; \frac{1}{L} \int_{-L}^{L} f(x) \sin\left(\frac{n\pi x}{L}\right) dx$</li>
-<li><strong>注意</strong>：$a_0$ 实际上就是 $a_n$ 公式中 $n&#x3D;0$ 的结果。</li>
-</ul>
-<h3 id="3-奇偶对称性与半程展开-核心考点"><a href="#3-奇偶对称性与半程展开-核心考点" class="headerlink" title="3. 奇偶对称性与半程展开 (核心考点)"></a>3. 奇偶对称性与半程展开 (核心考点)</h3><p>如果题目只给出 $[0, L]$ 上的定义，要求展开：</p>
+<h2 id="三、-自然坐标系与加速度分解（重难点）"><a href="#三、-自然坐标系与加速度分解（重难点）" class="headerlink" title="三、 自然坐标系与加速度分解（重难点）"></a>三、 自然坐标系与加速度分解（重难点）</h2><p>当质点沿曲线运动时，在轨迹上任一点建立切向（$\tau$）和法向（$n$）坐标：</p>
 <ol>
-<li><strong>余项展开 (Cosine Series)</strong>：隐含进行<strong>偶延拓</strong>。此时 $b_n&#x3D;0$，只需计算 $a_n$。</li>
-<li><strong>正弦展开 (Sine Series)</strong>：隐含进行<strong>奇延拓</strong>。此时 $a_n&#x3D;0$，只需计算 $b_n$。<ul>
-<li><em>提速公式</em>：$b_n &#x3D; \frac{2}{L} \int_0^L f(x) \sin\frac{n\pi x}{L} dx$。</li>
+<li><strong>切向加速度 $a_\tau$</strong>：<ul>
+<li>公式：$a_\tau &#x3D; \frac{dv}{dt}$</li>
+<li>意义：描述**速度大小（速率）**的变化快慢。</li>
+</ul>
+</li>
+<li><strong>法向加速度 $a_n$</strong>：<ul>
+<li>公式：$a_n &#x3D; \frac{v^2}{\rho}$ （$\rho$ 为曲率半径）</li>
+<li>意义：描述<strong>速度方向</strong>的变化快慢。</li>
+</ul>
+</li>
+<li><strong>总加速度 $\vec{a}$</strong>：<ul>
+<li>$\vec{a} &#x3D; \vec{a}_\tau + \vec{a}_n$</li>
+<li>大小：$a &#x3D; \sqrt{a_\tau^2 + a_n^2}$</li>
 </ul>
 </li>
 </ol>
-<h3 id="4-迪利克雷收敛定理的细节"><a href="#4-迪利克雷收敛定理的细节" class="headerlink" title="4. 迪利克雷收敛定理的细节"></a>4. 迪利克雷收敛定理的细节</h3><p>$S(x)$ 是级数和，$f(x)$ 是原函数：</p>
-<ul>
-<li>如果 $f(x)$ 在 $x$ 处有跳跃 $h$，则 $S(x)$ 会指向跳变的中点。</li>
-<li><strong>周期性暗示</strong>：如果 $f(-L) \neq f(L)$，那么在端点处级数收敛于 $\frac{f(-L^+) + f(L^-)}{2}$。</li>
-</ul>
-<h3 id="5-复数形式的傅里叶级数-进阶"><a href="#5-复数形式的傅里叶级数-进阶" class="headerlink" title="5. 复数形式的傅里叶级数 (进阶)"></a>5. 复数形式的傅里叶级数 (进阶)</h3><p>利用欧拉公式 $e^{ix} &#x3D; \cos x + i\sin x$，傅里叶级数可以写得极其优雅：<br>$$ f(x) &#x3D; \sum_{n&#x3D;-\infty}^{\infty} c_n e^{i \frac{n\pi x}{L}} $$<br>其中 $c_n &#x3D; \frac{1}{2L} \int_{-L}^{L} f(x) e^{-i \frac{n\pi x}{L}} dx$。</p>
-<ul>
-<li>$c_n$ 与 $a_n, b_n$ 的关系：$c_n &#x3D; \frac{a_n - ib_n}{2}, c_{-n} &#x3D; \frac{a_n + ib_n}{2}$。</li>
-</ul>
 <hr>
-<h2 id="第三部分：综合考点与解题模板"><a href="#第三部分：综合考点与解题模板" class="headerlink" title="第三部分：综合考点与解题模板"></a>第三部分：综合考点与解题模板</h2><h3 id="1-如何求级数的和（幂级数）"><a href="#1-如何求级数的和（幂级数）" class="headerlink" title="1. 如何求级数的和（幂级数）"></a>1. 如何求级数的和（幂级数）</h3><ul>
-<li><strong>第一步</strong>：观察通项，看是否像某个已知函数的导数或积分。</li>
-<li><strong>第二步</strong>：通过逐项积分或求导，将系数 $n$ 消除或移动。</li>
-<li><strong>第三步</strong>：利用等比级数公式 $\sum x^n &#x3D; \frac{1}{1-x}$ 求和。</li>
-<li><strong>第四步</strong>：对求和结果进行反向运算（如果你之前积分过，现在就求导）。</li>
-</ul>
-<h3 id="2-傅里叶级数系数计算中的“零积分”"><a href="#2-傅里叶级数系数计算中的“零积分”" class="headerlink" title="2. 傅里叶级数系数计算中的“零积分”"></a>2. 傅里叶级数系数计算中的“零积分”</h3><p>在计算 $a_n, b_n$ 的积分时，经常遇到 $\int \cos(nx) dx$ 在周期上的积分为 0。</p>
-<ul>
-<li><strong>必杀技</strong>：$\sin(n\pi) &#x3D; 0$，$ \cos(n\pi) &#x3D; (-1)^n$。</li>
-<li>计算 $b_n$ 时，常出现 $1 - \cos(n\pi) &#x3D; 1 - (-1)^n$。<ul>
-<li>当 $n$ 为偶数时，结果为 0；</li>
-<li>当 $n$ 为奇数时，结果为 2。</li>
-<li><strong>结论</strong>：很多级数只剩下奇数项。</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-帕塞瓦尔-Parseval-等式（常用于求级数数值）"><a href="#3-帕塞瓦尔-Parseval-等式（常用于求级数数值）" class="headerlink" title="3. 帕塞瓦尔 (Parseval) 等式（常用于求级数数值）"></a>3. 帕塞瓦尔 (Parseval) 等式（常用于求级数数值）</h3><p>$$ \frac{1}{L} \int_{-L}^{L} [f(x)]^2 dx &#x3D; \frac{a_0^2}{2} + \sum_{n&#x3D;1}^{\infty} (a_n^2 + b_n^2) $$</p>
-<ul>
-<li><em>用途</em>：如果题目要求你证明 $\sum \frac{1}{n^2} &#x3D; \frac{\pi^2}{6}$，通常先求 $f(x)&#x3D;x$ 的傅里叶级数，然后套用帕塞瓦尔等式。</li>
-</ul>
-<hr>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><table>
+<h2 id="四、-圆周运动：线量与角量的深度整合"><a href="#四、-圆周运动：线量与角量的深度整合" class="headerlink" title="四、 圆周运动：线量与角量的深度整合"></a>四、 圆周运动：线量与角量的深度整合</h2><p>圆周运动是曲线运动的特例（半径 $\rho &#x3D; R$ 恒定）。</p>
+<h3 id="1-物理量对应桥梁"><a href="#1-物理量对应桥梁" class="headerlink" title="1. 物理量对应桥梁"></a>1. 物理量对应桥梁</h3><p>线量（沿圆弧）与角量（绕圆心）通过半径 $R$ 紧密联系：</p>
+<table>
 <thead>
 <tr>
-<th align="left">维度</th>
-<th align="left">幂级数 (Taylor)</th>
-<th align="left">傅里叶级数 (Fourier)</th>
+<th align="left">物理意义</th>
+<th align="left">线量 (Linear)</th>
+<th align="left">角量 (Angular)</th>
+<th align="left">关系式 ($R$为常数)</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left"><strong>逼近工具</strong></td>
-<td align="left">多项式 (Polynomials)</td>
-<td align="left">三角函数 (Oscillations)</td>
+<td align="left"><strong>位置&#x2F;位移</strong></td>
+<td align="left">弧长 $s$</td>
+<td align="left">角度 $\theta$</td>
+<td align="left">$s &#x3D; R\theta$</td>
 </tr>
 <tr>
-<td align="left"><strong>局部 vs 全局</strong></td>
-<td align="left">展开点附近精确，远处失效</td>
-<td align="left">整个周期内平均误差最小</td>
+<td align="left"><strong>速度</strong></td>
+<td align="left">线速率 $v$</td>
+<td align="left">角速度 $\omega &#x3D; \frac{d\theta}{dt}$</td>
+<td align="left">$v &#x3D; R\omega$</td>
 </tr>
 <tr>
-<td align="left"><strong>平滑度要求</strong></td>
-<td align="left">要求极高（需无限次可导）</td>
-<td align="left">要求极低（只要段内连续即可）</td>
-</tr>
-<tr>
-<td align="left"><strong>物理意义</strong></td>
-<td align="left">函数的瞬时变化趋势</td>
-<td align="left">信号的频谱分布（频率成分）</td>
+<td align="left"><strong>加速度变化率</strong></td>
+<td align="left"><strong>切向加速度 $a_\tau$</strong></td>
+<td align="left"><strong>角加速度 $\alpha &#x3D; \frac{d\omega}{dt}$</strong></td>
+<td align="left"><strong>$a_\tau &#x3D; R\alpha$</strong></td>
 </tr>
 </tbody></table>
+<h3 id="2-a-tau-、-a-n-与-alpha-的核心关系解析"><a href="#2-a-tau-、-a-n-与-alpha-的核心关系解析" class="headerlink" title="2. $a_\tau$、$a_n$ 与 $\alpha$ 的核心关系解析"></a>2. $a_\tau$、$a_n$ 与 $\alpha$ 的核心关系解析</h3><p>这是本章最容易混淆的地方，请务必掌握：</p>
+<ul>
+<li><p><strong>$a_\tau$（切向）与 $\alpha$（角加）的“父子关系”</strong>：</p>
+<ul>
+<li>由于 $v &#x3D; R\omega$，对时间求导得：$\frac{dv}{dt} &#x3D; R\frac{d\omega}{dt}$。</li>
+<li>结论：<strong>$a_\tau &#x3D; R\alpha$</strong>。</li>
+<li><em>理解</em>：转得越来越快（$\alpha$），轨迹上的点就跑得越来越快（$a_\tau$）。</li>
+</ul>
+</li>
+<li><p><strong>$a_n$（法向）与 $\omega$（角速）的“平方关系”</strong>：</p>
+<ul>
+<li>代入 $v&#x3D;R\omega$ 到 $a_n &#x3D; \frac{v^2}{R}$ 中。</li>
+<li>结论：<strong>$a_n &#x3D; R\omega^2$</strong>。</li>
+<li><em>理解</em>：只要在转（$\omega \neq 0$），就一定有法向加速度。</li>
+</ul>
+</li>
+<li><p><strong>总加速度的角量表示</strong>：</p>
+<ul>
+<li>$a &#x3D; \sqrt{a_\tau^2 + a_n^2} &#x3D; \sqrt{(R\alpha)^2 + (R\omega^2)^2} &#x3D; R\sqrt{\alpha^2 + \omega^4}$</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-运动状态判别"><a href="#3-运动状态判别" class="headerlink" title="3. 运动状态判别"></a>3. 运动状态判别</h3><ul>
+<li>若 $\alpha &#x3D; 0 \Rightarrow a_\tau &#x3D; 0$：<strong>匀速圆周运动</strong>（只有 $a_n$，加速度指向圆心）。</li>
+<li>若 $\alpha &#x3D;$ 常数 $\Rightarrow a_\tau &#x3D;$ 常数：<strong>匀变速圆周运动</strong>。</li>
+<li>若 $\alpha$ 随 $t$ 变：<strong>变加速圆周运动</strong>。</li>
+</ul>
+<hr>
+<h2 id="五、-运动学的两类典型问题"><a href="#五、-运动学的两类典型问题" class="headerlink" title="五、 运动学的两类典型问题"></a>五、 运动学的两类典型问题</h2><ol>
+<li><strong>第一类问题（求导）</strong>：<ul>
+<li>已知：运动方程 $\vec{r}(t)$。</li>
+<li>过程：$\vec{r}(t) \xrightarrow{\text{求导}} \vec{v}(t) \xrightarrow{\text{求导}} \vec{a}(t)$。</li>
+</ul>
+</li>
+<li><strong>第二类问题（积分）</strong>：<ul>
+<li>已知：加速度 $\vec{a}(t)$ 及初值条件（$t_0, \vec{v}_0, \vec{r}_0$）。</li>
+<li>过程：$\vec{a}(t) \xrightarrow{\text{积分}} \vec{v}(t) \xrightarrow{\text{积分}} \vec{r}(t)$。</li>
+<li><em>关键</em>：<strong>分离变量</strong>，注意积分上下限。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="六、-易错陷阱总结"><a href="#六、-易错陷阱总结" class="headerlink" title="六、 易错陷阱总结"></a>六、 易错陷阱总结</h2><ol>
+<li><strong>矢量性</strong>：加速度 $\vec{a}$ 是 $\vec{v}$ 的变化，包含大小和方向。匀速圆周运动的 $\vec{a}$ <strong>不为零</strong>！</li>
+<li><strong>三个容易混淆的量</strong>：<ul>
+<li>$\frac{dv}{dt}$：即 $a_\tau$，速率的变化率。</li>
+<li>$\frac{d|\vec{r}|}{dt}$：向径长度的变化率（不等于速率）。</li>
+<li>$|\frac{d\vec{r}}{dt}|$：即速率 $v$。</li>
+</ul>
+</li>
+<li><strong>相对运动</strong>：<ul>
+<li>$\vec{v}<em>{绝对} &#x3D; \vec{v}</em>{相对} + \vec{v}_{牵连}$</li>
+<li>解题技巧：画出矢量三角形，利用余弦定理或分量法求解。</li>
+</ul>
+</li>
+</ol>
+<hr>
 
                 
               </div>
@@ -380,7 +399,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%B0%E5%AD%A6/" class="print-no-link">#数学</a>
+        <a href="/tags/%E7%89%A9%E7%90%86/" class="print-no-link">#物理</a>
       
     </div>
   
@@ -392,8 +411,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>幂级数和傅里叶级数</div>
-      <div>http://example.com/2026/02/13/幂级数和傅里叶级数/</div>
+      <div>物理1</div>
+      <div>http://example.com/2026/02/23/物理1/</div>
     </div>
     <div class="license-meta">
       
@@ -405,7 +424,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年2月13日</div>
+          <div>2026年2月23日</div>
         </div>
       
       
@@ -437,18 +456,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/02/23/%E7%89%A9%E7%90%861/" title="物理1">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">物理1</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2026/02/07/%E6%95%A3%E5%BA%A6%E6%97%8B%E5%BA%A6/" title="散度旋度">
-                        <span class="hidden-mobile">散度旋度</span>
+                      <a href="/2026/02/13/%E5%B9%82%E7%BA%A7%E6%95%B0%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/" title="幂级数和傅里叶级数">
+                        <span class="hidden-mobile">幂级数和傅里叶级数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
