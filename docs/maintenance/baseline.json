@@ -1,0 +1,24 @@
+{
+  "sourceCommit": "e8a08da56e0d96ffd418f147c649115b29c8702d",
+  "publishedCommit": "9862527086803bcfe89ce5b15e1a815892966add",
+  "siteUrl": "https://www.kisara.com.cn",
+  "articlePaths": [
+    "/2026/01/20/Introduction-to-kisara-s-blog/",
+    "/2026/01/27/一元函数与二元函数中连续性与导数介值性的分析/",
+    "/2026/01/29/多元函数综合分析/",
+    "/2026/01/31/二重积分/",
+    "/2026/02/05/第二型曲线积分/",
+    "/2026/02/07/散度旋度/",
+    "/2026/02/13/幂级数和傅里叶级数/",
+    "/2026/02/23/物理1/"
+  ],
+  "requiredPaths": [
+    "/",
+    "/archives/",
+    "/tags/",
+    "/categories/",
+    "/links/",
+    "/memos/",
+    "/404.html"
+  ]
+}

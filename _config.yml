@@ -9,11 +9,11 @@ description: ''
 keywords:
 author: Kisara
 language: zh-CN
-timezone: ''
+timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://www.kisara.com.cn
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -80,7 +80,7 @@ meta_generator: true
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
 ## updated_option supports 'mtime', 'date', 'empty'
-updated_option: 'mtime'
+updated_option: 'date'
 
 # Pagination
 ## Set per_page to 0 to disable pagination
@@ -104,25 +104,3 @@ deploy:
   type: git
   repo: git@github.com:kisara174/kisara174.github.io.git
   branch: main
-
-# Live2D 看板娘配置
-live2d:
-  enable: true
-  scriptFrom: local
-  pluginRootPath: live2dw/
-  pluginJsPath: lib/
-  pluginModelPath: assets/
-  tagMode: false
-  debug: false
-  model:
-    use: live2d-widget-model-tororo # 这里改成了 tororo
-  display:
-    position: right # 建议放在右边，因为你的 APlayer 在左边
-    width: 100      # 猫咪模型比较小，100-150 就够了
-    height: 200
-    hOffset: 30     # 往左边挪一点，离边缘远些
-    vOffset: -10    # 稍微调整垂直高度
-  mobile:
-    show: false
-  react:
-    opacity: 0.89    # 猫咪可以不透明，看着更真实

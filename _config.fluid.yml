@@ -233,68 +233,14 @@ font:
 
 # 指定自定义 .js 文件路径，支持列表；路径是相对 source 目录，如 /js/custom.js 对应存放目录 source/js/custom.js
 # Specify the path of your custom js file, support list. The path is relative to the source directory, such as `/js/custom.js` corresponding to the directory `source/js/custom.js`
-custom_js:
-  - /js/click-text.js
+custom_js: []
 # 指定自定义 .css 文件路径，用法和 custom_js 相同
 # The usage is the same as custom_js
 custom_css:
   - /css/custom.css
 # 自定义 html
-custom_html: |
-  <!-- 引入 APlayer 资源 -->
-  <link rel="stylesheet" href="https://lib.baomitu.com/aplayer/1.10.1/APlayer.min.css">
-  <script src="https://lib.baomitu.com/aplayer/1.10.1/APlayer.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+custom_html: ""
 
-  <div id="aplayer-fixed"></div>
-
-  <script>
-    (function() {
-      var loadPlayer = function() {
-        var apContainer = document.getElementById('aplayer-fixed');
-        if (!apContainer) return;
-        
-        // 如果已经初始化过，先销毁，防止重复
-        if (window.ap) { window.ap.destroy(); }
-
-        window.ap = new APlayer({
-            container: apContainer,
-            fixed: true,          // 吸附在左下角
-            mini: true,          // 先用大的，容易看见
-            autoplay: false,
-            theme: '#4dcaff',
-            loop: 'all',
-            order: 'random',
-            preload: 'auto',
-            listFolded: true,
-            audio: [{
-                name: '正在获取...',
-                artist: 'Please wait',
-                url: '', 
-                cover: ''
-            }]
-        });
-
-        // 使用 MetingJS 解析歌单并注入播放器
-        // 这里的 id 4992498533 是你的网易云歌单
-        fetch('https://api.injahow.cn/meting/?server=netease&type=playlist&id= 4992498533')
-          .then(res => res.json())
-          .then(data => {
-            window.ap.list.clear();
-            window.ap.list.add(data);
-            console.log('播放器歌单装载完毕');
-          });
-      };
-
-      // 首次加载
-      window.addEventListener('load', loadPlayer);
-      // 兼容 Pjax
-      document.addEventListener('pjax:complete', loadPlayer);
-    })();
-  </script>
-
-# 网页访问统计
-# Analysis of website visitors
 web_analytics:
   enable: false
 
@@ -1068,19 +1014,19 @@ links:
       title: "Fluid Blog",
       intro: "主题博客",
       link: "https://hexo.fluid-dev.com/",
-      avatar: "/img/favicon.png"
+      avatar: "/img/fluid0.png"
     }
     - {
       title: "Fluid Docs",
       intro: "主题使用指南",
       link: "https://hexo.fluid-dev.com/docs/",
-      avatar: "/img/favicon.png"
+      avatar: "/img/fluid0.png"
     }
     - {
       title: "Fluid Repo",
       intro: "主题 GitHub 仓库",
       link: "https://github.com/fluid-dev/hexo-theme-fluid",
-      avatar: "/img/favicon.png"
+      avatar: "/img/fluid0.png"
     }
 
   # 当成员头像加载失败时，替换为指定图片
