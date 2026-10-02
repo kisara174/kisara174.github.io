@@ -1,7 +1,20 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 20
+  - package-ecosystem: npm
+    directory: /
+    target-branch: source
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      compatible-updates:
+        update-types: [minor, patch]
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: source
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    groups:
+      actions:
+        patterns: ['*']

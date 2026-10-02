@@ -3,10 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "hexo generate",
-    "clean": "hexo clean",
+    "build": "TZ=Asia/Shanghai hexo generate",
+    "test": "node --test tests/*.test.mjs",
+    "check:site": "node tools/check-site.mjs --public public",
+    "verify": "npm test && npm run clean && npm run build && npm run check:site",
+    "clean": "TZ=Asia/Shanghai hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server"
+    "server": "TZ=Asia/Shanghai hexo server --ip 127.0.0.1"
   },
   "hexo": {
     "version": "8.1.1"
@@ -18,13 +21,15 @@
     "hexo-generator-category": "^2.0.0",
     "hexo-generator-index": "^4.0.0",
     "hexo-generator-tag": "^2.0.0",
-    "hexo-helper-live2d": "^3.1.1",
     "hexo-renderer-ejs": "^2.0.0",
     "hexo-renderer-marked": "^7.0.0",
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
-    "hexo-theme-landscape": "^1.0.0",
-    "live2d-widget-model-shizuku": "^1.0.5",
-    "live2d-widget-model-tororo": "^1.0.5"
+    "hexo-theme-fluid": "1.9.9"
+  },
+  "devDependencies": {
+    "hexo-front-matter": "4.2.1",
+    "htmlparser2": "9.1.0",
+    "linkedom": "0.18.12"
   }
 }
