@@ -18,7 +18,7 @@ npm run server
 
 预览：[localhost:4000](http://localhost:4000/)。按 Ctrl+C 停止。
 
-文章在 `source/_posts/`，使用 Markdown。新文章可以运行 `npm exec hexo new "文章标题"`，填写 `title`、`date` 和 `tags`。日期统一北京时间，例如 `date: 2026-10-02 16:30:00`；修改旧文章时保留原日期和文件名，避免改变网址和评论关联。希望展示真实修订时间时显式填写 `updated`，否则使用发布日期。
+文章在 `source/_posts/`，使用 Markdown。新文章可以运行 `TZ=Asia/Shanghai npm exec hexo new "文章标题"`，填写 `title`、`date` 和 `tags`。日期统一北京时间，例如 `date: 2026-10-02 16:30:00`；修改旧文章时保留原日期和文件名，避免改变网址和评论关联。希望展示真实修订时间时显式填写 `updated`，否则使用发布日期。
 
 ```sh
 npm run verify

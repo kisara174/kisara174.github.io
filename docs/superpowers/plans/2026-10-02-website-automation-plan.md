@@ -32,11 +32,11 @@
 | 1 | 基线与可回退起点 | 无 | 已验证 |
 | 2 | 简洁页面和一致的本机环境 | 1 | 已验证 |
 | 3 | 只检查、构建的 CI | 2 | 已验证 |
-| 4 | 验证后的自动发布切换 | 3 | 待上线 |
+| 4 | 验证后的自动发布切换 | 3 | 已上线，源站证书待恢复 |
 | 5 | 主题依赖和配置精简 | 4 | 已验证 |
 | 6 | 内容质量检查 | 5 | 已验证 |
 | 7 | 稳定、安全的 Memos 展示 | 5 | 客户端已验证，服务 404 |
-| 8 | 维护文档和完整验收 | 6、7、9 | 待正式验收 |
+| 8 | 维护文档和完整验收 | 6、7、9 | 发布已验收，外部待办已记录 |
 
 任务 6 与 7 功能独立，但当前默认由主代理顺序执行。
 
@@ -120,13 +120,13 @@ gh run list --workflow pages.yml --limit 5
 
 **Interfaces:** build 输出 public artifact；deploy 仅在 source push 或明确的 source 人工触发后执行，依赖成功的 build/check。PR 仍只验证。
 
-- [ ] 添加官方 upload-pages-artifact/deploy-pages；部署 job 使用必要的 Pages/OIDC 权限，构建 job 维持只读。
-- [ ] 设置 github-pages 环境与发布任务串行顺序，确保旧提交不会在新提交后覆盖网站；检查环境允许 source。
+- [x] 添加官方 upload-pages-artifact/deploy-pages；部署 job 使用必要的 Pages/OIDC 权限，构建 job 维持只读。
+- [x] 设置 github-pages 环境与发布任务串行顺序，确保旧提交不会在新提交后覆盖网站；检查环境允许 source。
 - [ ] 在上线前呈现完整 diff、CI 结果、域名基线和回退步骤，明确这一步会更新正式网站。
 - [ ] 将默认分支改为 source、Pages 来源切到 GitHub Actions；保留现有域名和 HTTPS 设置，不改 DNS。
-- [ ] 首次部署完成后，用实际运行结果核对正式域名和根域跳转，浏览器核对核心功能和 8 个文章路径。
-- [ ] 部署验证成功后删除 hexo-deployer-git、旧 deploy 配置及本地 deploy npm 脚本；判断 source/CNAME 是否保留为迁移记录或删除，README 明确域名以 Pages 设置为准。
-- [ ] 保留旧 main，不新增产物提交；记录成功的源码提交及 Actions run。
+- [x] 首次部署完成后，用实际运行结果核对正式域名和根域跳转，浏览器核对核心功能和 8 个文章路径。
+- [x] 部署验证成功后删除 hexo-deployer-git、旧 deploy 配置及本地 deploy npm 脚本；判断 source/CNAME 是否保留为迁移记录或删除，README 明确域名以 Pages 设置为准。
+- [x] 保留旧 main，不新增产物提交；记录成功的源码提交及 Actions run。
 
 **Validation:**
 
@@ -195,9 +195,9 @@ npm run check:site
 
 **Interfaces:** 页面保留 `/memos/` 和 `memos-list` 容器；JS 继续只读请求现有公开 API。加载中、空列表、超时/接口错误有独立提示；正文默认纯文本加换行，不执行 HTML。
 
-- [ ] 先用测试固定接口列表解析、createTime/createdTs 日期兼容、空列表和错误结果，以及正文包含 HTML 标签时仅作为文字展示。
-- [ ] 从 Markdown 移出逻辑；明确初始化时机，不依赖覆盖 window.onload；不重复加载或插入内容。
-- [ ] 使用 textContent/安全 DOM 构造内容、CSS 保留换行；请求增加有限超时和非 2xx/错误响应结构处理，不把所有错误都提示为匿名访问问题。
+- [x] 先用测试固定接口列表解析、createTime/createdTs 日期兼容、空列表和错误结果，以及正文包含 HTML 标签时仅作为文字展示。
+- [x] 从 Markdown 移出逻辑；明确初始化时机，不依赖覆盖 window.onload；不重复加载或插入内容。
+- [x] 使用 textContent/安全 DOM 构造内容、CSS 保留换行；请求增加有限超时和非 2xx/错误响应结构处理，不把所有错误都提示为匿名访问问题。
 - [ ] 用模拟网络测试成功、空数据、超时与失败，浏览器再核对实际公开内容；不引入令牌，不读取私有内容。
 
 **Validation:**
@@ -216,11 +216,11 @@ npm run check:site
 
 **Interfaces:** 一个编辑/预览入口、一个检查入口、一个源码发布入口；Dependabot 提供 npm 和 Actions 更新 PR，质量检查决定能否合并。
 
-- [ ] README 写清 source 分支、固定 Node/npm、npm ci、创建文章、npm run server、构建检查、推送源码后的发布，以及失败恢复。
-- [ ] 仓库维护规则记录 GraphFlow 上下文入口、文章路径/评论映射保护、主题覆盖位置、实际验证命令和现有执行器资格政策；避免复制大段与网站无关的说明。
-- [ ] Dependabot 改成每周、按合理范围汇总 npm 和 GitHub Actions；不自动合并未经验证的依赖更新。
-- [ ] 从干净副本完成安装、构建、检查和预览；确认 .gitignore 保护 node_modules/public/工具缓存。
-- [ ] 用一篇文章的正常改动完成 PR 检查 → 合并/源码提交 → 自动部署的完整路径，浏览器核对域名、核心功能、移动导航和所有基线路由。
+- [x] README 写清 source 分支、固定 Node/npm、npm ci、创建文章、npm run server、构建检查、推送源码后的发布，以及失败恢复。
+- [x] 仓库维护规则记录 GraphFlow 上下文入口、文章路径/评论映射保护、主题覆盖位置、实际验证命令和现有执行器资格政策；避免复制大段与网站无关的说明。
+- [x] Dependabot 改成每周、按合理范围汇总 npm 和 GitHub Actions；不自动合并未经验证的依赖更新。
+- [x] 从干净副本完成安装、构建、检查和预览；确认 .gitignore 保护 node_modules/public/工具缓存。
+- [x] 用一篇文章的正常改动完成 PR 检查 → 合并/源码提交 → 自动部署的完整路径，浏览器核对域名、核心功能、移动导航和所有基线路由。
 - [ ] 对照设计文档的项目完成标准逐项验收，保留关键命令退出码、CI run 与浏览器核对结果；只有实际通过的事项才勾选。
 
 **Validation:**
@@ -267,3 +267,5 @@ git status --short
 - npm audit 修复兼容范围内的锁定依赖，当前安装检查 0 个已报告漏洞。
 - Memos 原公开接口 HTTP 404，浏览器因跨源网络失败显示可重试提示；成功/空数据/超时/失败/HTML 纯文本等由测试覆盖。实际公开内容需服务恢复后核对。
 - 为验收一次文章修改发布链路，仅整理介绍文章的段落和空格并显式记录 updated，不改变事实、标题、发布日期或路径。
+
+- PR #2 已合并，首次 build/deploy 均 success；默认 source、workflow 发布、旧 main 未改。Pages 切换触发 GitHub 源站证书待签发，强制 HTTPS 暂不能恢复；已重触发一次签发，不更改 DNS，验收留此项待办。详见 baseline.md。

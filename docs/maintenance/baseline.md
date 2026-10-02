@@ -19,3 +19,15 @@
 ## 核对范围
 
 首页、8 篇文章、归档、标签、分类、友链、Memos、404；桌面/移动导航、搜索、MathJax、Giscus 和根域跳转。
+
+## 自动发布验收（2026-10-02）
+
+- PR #2 已合并到 source，首次发布源码：355eda9c4357a34e0dfd1176e36132d903fc7434。
+- [PR 检查](https://github.com/kisara174/kisara174.github.io/actions/runs/36991339072) 通过，deploy 被跳过。
+- [首次正式发布](https://github.com/kisara174/kisara174.github.io/actions/runs/36991540854) build/deploy 均 success。
+- 默认分支已是 source，Pages build_type 是 workflow；github-pages 环境已允许 source，无需扩大规则。
+- 正式首页和新 CSS 已返回 HTTP 200，Last-Modified 为首次自动发布之后；根域 HTTPS 返回 301 到 https://www.kisara.com.cn/。
+- 介绍文章段落整理经 PR、31 个测试、正式构建和发布完成；原 date/title/path 保持。旧 main 仍是上述基线提交。
+- 安装依赖从原 688 个降到首次精简 241 个；主题/检查依赖迁移及旧部署器移除后约 242 个，当前 npm audit 0 个已报告漏洞。
+- 外部限制：Memos 原公开 API 返回 404；客户端已经有安全文字渲染、超时和准确错误/重试提示。
+- HTTPS 待办：GitHub 切换 workflow 后 https_enforced 变为 false，重新开启返回“certificate does not exist yet”。已按官方文档重触发一次域名证书签发，最终 cname 仍是 www.kisara.com.cn。Cloudflare 代理下 HTTPS 页面可访问，但 GitHub 源站证书/强制 HTTPS 尚待恢复，不将这一项标为通过。DNS 没有变更。

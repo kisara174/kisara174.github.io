@@ -98,9 +98,4 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: fluid
 
-# Deployment
-## Docs: https://hexo.io/docs/one-command-deployment
-deploy:
-  type: git
-  repo: git@github.com:kisara174/kisara174.github.io.git
-  branch: main
+# 发布由 .github/workflows/pages.yml 自动完成；不在本机推送生成文件。
