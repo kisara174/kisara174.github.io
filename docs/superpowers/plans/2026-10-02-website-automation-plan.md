@@ -14,7 +14,7 @@
 
 - 项目根目录：`/Users/kisara/Documents/ChatGPT/个人网站/kisara174.github.io`。本文任务中的相对路径均以此为根。
 - 8 篇文章现有 pathname 保持不变；不批量改日期、重命名文章或重建评论关联。
-- 正式 URL：`https://www.kisara.com.cn`；保留 `kisara.com.cn` 访问和现有跳转，不改 DNS。
+- 正式 URL：`https://www.kisara.com.cn`；保留 `kisara.com.cn` 访问和现有跳转。原计划不改 DNS；用户已追加授权必要的 Cloudflare DNS/HTTPS 修复，范围见任务 10。
 - 明确使用 `Asia/Shanghai`；updated 未提供时使用发布日期，不依赖 CI 文件 mtime。
 - 用户已选择移除音乐、Live2D、点击文字；保留公式、搜索、归档、标签、Giscus、Memos 和现有栏目路由。
 - 默认沿用 npm/package-lock；本机和 CI 计划固定 Node 24.21.0 LTS，实施时先验证兼容性。
@@ -37,6 +37,7 @@
 | 6 | 内容质量检查 | 5 | 已验证 |
 | 7 | 稳定、安全的 Memos 展示 | 5 | 客户端已验证，服务 404 |
 | 8 | 维护文档和完整验收 | 6、7、9 | 发布已验收，外部待办已记录 |
+| 10 | Cloudflare DNS / HTTPS 修复 | 4 | 待 Cloudflare 登录后检查 |
 
 任务 6 与 7 功能独立，但当前默认由主代理顺序执行。
 
@@ -116,14 +117,15 @@ gh run list --workflow pages.yml --limit 5
 
 ## Task 4：切换到 Pages artifact 自动发布
 
-**Files:** 修改 `.github/workflows/pages.yml`、`package.json`、`package-lock.json`、`_config.yml`；更新 `docs/maintenance/baseline.md`。外部设置范围只包括默认分支、Pages 发布来源与 github-pages 环境的对应分支规则。
+**Files:** 修改 `.github/workflows/pages.yml`、`package.json`、`package-lock.json`、`_config.yml`；更新 `docs/maintenance/baseline.md`。此任务外部设置包括默认分支、Pages 发布来源与 github-pages 环境的对应分支规则；追加的 Cloudflare 修复单列在任务 10。
 
 **Interfaces:** build 输出 public artifact；deploy 仅在 source push 或明确的 source 人工触发后执行，依赖成功的 build/check。PR 仍只验证。
 
 - [x] 添加官方 upload-pages-artifact/deploy-pages；部署 job 使用必要的 Pages/OIDC 权限，构建 job 维持只读。
 - [x] 设置 github-pages 环境与发布任务串行顺序，确保旧提交不会在新提交后覆盖网站；检查环境允许 source。
 - [ ] 在上线前呈现完整 diff、CI 结果、域名基线和回退步骤，明确这一步会更新正式网站。
-- [ ] 将默认分支改为 source、Pages 来源切到 GitHub Actions；保留现有域名和 HTTPS 设置，不改 DNS。
+- [x] 将默认分支改为 source、Pages 来源切到 GitHub Actions；正式域名仍为 www.kisara.com.cn。
+- [ ] 恢复 GitHub 源站证书与强制 HTTPS；由任务 10 继续验收。
 - [x] 首次部署完成后，用实际运行结果核对正式域名和根域跳转，浏览器核对核心功能和 8 个文章路径。
 - [x] 部署验证成功后删除 hexo-deployer-git、旧 deploy 配置及本地 deploy npm 脚本；判断 source/CNAME 是否保留为迁移记录或删除，README 明确域名以 Pages 设置为准。
 - [x] 保留旧 main，不新增产物提交；记录成功的源码提交及 Actions run。
@@ -256,6 +258,17 @@ git status --short
 - [x] 保存实际页面截图并核对文章、公式、搜索及评论没有遮挡或横向溢出。
 
 **Validation:** 本地构建检查，以及真实浏览器桌面/390px 手机和深色交互核对。
+
+## Task 10：Cloudflare DNS / HTTPS 修复（追加授权）
+
+**Scope:** 用户已授权检查和修复必要的 DNS/HTTPS 设置。先读取实际配置；外部变更只涉及网站域名的解析、证书和 HTTPS 跳转。记录更新到 `docs/maintenance/baseline.md`。
+
+- [ ] 完成 Cloudflare 登录，记录 www / 根域的实际 DNS 目标、代理状态、SSL 模式与跳转规则。
+- [ ] 按 GitHub 官方域名要求修复发现的问题，恢复源站证书；具体变更依实际配置确定。
+- [ ] 恢复 GitHub 强制 HTTPS，并验证 Cloudflare 到源站的加密与 HTTP 跳转；核对其他子域名的影响范围。
+- [ ] 验收根域及 www 的 HTTP/HTTPS、8 篇文章路径，记录最终设置和实际结果。
+
+**Current state:** 管理页处于登录页面，DNS 尚未变更。HTTPS 首页 200，HTTP 首页 200 且未跳转，GitHub 源站证书仍为空。
 
 ## 实施记录（2026-10-02）
 

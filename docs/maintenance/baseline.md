@@ -31,3 +31,13 @@
 - 安装依赖从原 688 个降到首次精简 241 个；主题/检查依赖迁移及旧部署器移除后约 242 个，当前 npm audit 0 个已报告漏洞。
 - 外部限制：Memos 原公开 API 返回 404；客户端已经有安全文字渲染、超时和准确错误/重试提示。
 - HTTPS 待办：GitHub 切换 workflow 后 https_enforced 变为 false，重新开启返回“certificate does not exist yet”。已按官方文档重触发一次域名证书签发，最终 cname 仍是 www.kisara.com.cn。Cloudflare 代理下 HTTPS 页面可访问，但 GitHub 源站证书/强制 HTTPS 尚待恢复，不将这一项标为通过。DNS 没有变更。
+
+## DNS / HTTPS 后续修复
+
+用户已于 2026-10-02 授权检查并修复必要的 Cloudflare DNS/HTTPS 设置。此授权扩展原计划“不改 DNS”的边界，仅用于正式网站的解析和加密修复。
+
+- 当前实测：HTTPS 首页返回 200；HTTP 首页返回 200，没有重定向；GitHub `https_certificate` 为 null，`https_enforced` 为 false。
+- Cloudflare 管理页已打开至登录页面，尚无可用登录会话；DNS 和 Cloudflare 设置尚未变更。
+- 登录后先记录 `www` / 根域的实际目标、代理状态、SSL 模式和相关重定向规则。按照 [GitHub 域名文档](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site)，核对 `www` 的 CNAME 是否直接指向 `kisara174.github.io`。
+- 源站具备有效匹配证书后，再采用 [Full (strict)](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/full-strict/) 并恢复 GitHub 强制 HTTPS。Cloudflare 的整区设置会影响其他子域名，先核对影响范围；必要时只配置正式网站对应的域名。
+- 验收 HTTP 跳转、HTTPS 正常响应且没有循环、GitHub 证书与强制 HTTPS 状态；保留根域跳转和 8 篇文章路径。实际通过后再勾选计划，不以 Cloudflare 边缘 HTTPS 可访问替代源站证书验收。
