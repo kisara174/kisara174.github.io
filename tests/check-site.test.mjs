@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { spawnSync } from 'node:child_process';
 import { checkSite } from '../tools/check-site.mjs';
 
 function fixture(t, overrides = {}) {
@@ -150,4 +152,16 @@ test('reports an empty search index', t => {
   f.baseline.searchIndex = '/local-search.xml';
   f.write('local-search.xml', '<search></search>');
   assert.match(checkSite(f).errors.join('\n'), /搜索索引/);
+});
+
+test('CLI succeeds on a valid site and exits 1 with a file-specific failure', t => {
+  const f = fixture(t);
+  f.write('.cache/site-manifest.json',JSON.stringify(f.manifest));
+  f.write('docs/maintenance/baseline.json',JSON.stringify(f.baseline));
+  const run = () => spawnSync(process.execPath,[fileURLToPath(new URL('../tools/check-site.mjs',import.meta.url)),'--public',f.publicDir],{cwd:f.publicDir,encoding:'utf8'});
+  assert.equal(run().status,0);
+  f.write('index.html','<img src="/missing.png">');
+  const failure = run();
+  assert.equal(failure.status,1);
+  assert.match(failure.stderr,/index.html.*missing.png/);
 });
