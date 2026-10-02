@@ -2,6 +2,7 @@
   "sourceCommit": "e8a08da56e0d96ffd418f147c649115b29c8702d",
   "publishedCommit": "9862527086803bcfe89ce5b15e1a815892966add",
   "siteUrl": "https://www.kisara.com.cn",
+  "searchIndex": "/local-search.xml",
   "articlePaths": [
     "/2026/01/20/Introduction-to-kisara-s-blog/",
     "/2026/01/27/一元函数与二元函数中连续性与导数介值性的分析/",

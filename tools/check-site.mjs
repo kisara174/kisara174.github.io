@@ -8,6 +8,7 @@ export function checkSite({ publicDir, manifest, baseline }) {
   const warnings = [];
   const fail = (file, reason) => errors.add(`${file}: ${reason}`);
   const site = new URL(manifest.siteUrl);
+  if (baseline.siteUrl && new URL(baseline.siteUrl).href !== site.href) fail('站点配置', `域名与基线不一致 ${site.href}`);
   const routeFile = pathname => {
     const decoded = decodeURIComponent(pathname).replace(/^\/+/, '');
     const target = resolve(publicDir, decoded || '.');
@@ -41,6 +42,23 @@ export function checkSite({ publicDir, manifest, baseline }) {
     } catch { fail(post.source, `无效文章 URL ${post.path}`); }
   }
   for (const route of [...baseline.articlePaths, ...baseline.requiredPaths]) reference('基线路由', route);
+  if (baseline.searchIndex) {
+    reference('搜索索引', baseline.searchIndex);
+    const indexFile = routeFile(baseline.searchIndex);
+    if (validFile(indexFile)) {
+      const indexedRoutes = new Set();
+      const parser = new Parser({ onopentag(name, attributes) {
+        if (name !== 'link' || !attributes.href) return;
+        reference(baseline.searchIndex, attributes.href);
+        try {
+          const url = new URL(attributes.href, site);
+          if (url.origin === site.origin) indexedRoutes.add(routeFile(url.pathname));
+        } catch { /* reference 已输出无效 URL */ }
+      } }, {xmlMode:true});
+      parser.end(readFileSync(indexFile,'utf8'));
+      for (const [route, source] of routes) if (!indexedRoutes.has(route)) fail(baseline.searchIndex, `搜索索引缺少文章 ${source}`);
+    }
+  }
   const walk = directory => readdirSync(directory, { withFileTypes: true }).flatMap(entry => entry.isDirectory() ? walk(join(directory, entry.name)) : [join(directory, entry.name)]);
   for (const path of walk(publicDir)) {
     const file = relative(publicDir, path).replaceAll('\\', '/');

@@ -127,3 +127,27 @@ test('rejects residual music and Live2D markup in the generated site', t => {
   f.write('index.html', '<script src="https://cdn.example.org/APlayer.min.js"></script>');
   assert.match(checkSite(f).errors.join('\n'), /装饰/);
 });
+
+test('rejects a site URL that differs from the recorded domain', t => {
+  const f = fixture(t);
+  f.baseline.siteUrl = 'https://www.kisara.com.cn';
+  f.manifest.siteUrl = 'https://wrong.example.org';
+  assert.match(checkSite(f).errors.join('\n'), /域名/);
+});
+
+test('requires the search index and checks its actual output links', t => {
+  const f = fixture(t);
+  f.baseline.searchIndex = '/local-search.xml';
+  assert.match(checkSite(f).errors.join('\n'), /local-search.xml/);
+  f.write('local-search.xml', '<search><entry><title>笔记</title><link href="/笔记/"/></entry></search>');
+  assert.deepEqual(checkSite(f).errors, []);
+  f.write('local-search.xml', '<search><entry><link href="/missing/"/></entry></search>');
+  assert.match(checkSite(f).errors.join('\n'), /local-search.xml.*missing/);
+});
+
+test('reports an empty search index', t => {
+  const f = fixture(t);
+  f.baseline.searchIndex = '/local-search.xml';
+  f.write('local-search.xml', '<search></search>');
+  assert.match(checkSite(f).errors.join('\n'), /搜索索引/);
+});
