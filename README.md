@@ -51,7 +51,7 @@ Memos 只读现有公开服务，不使用令牌；内容按纯文本显示并�
 
 GitHub **Settings → Pages** 管理正式域名和源站证书，Cloudflare 管理 DNS、代理和边缘 HTTPS。保持 `www.kisara.com.cn`，根域继续跳转到正式地址。`source/CNAME` 保留迁移记录；artifact 部署以 Pages 设置为准。发布采用 [GitHub 官方 Pages workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。
 
-2026-10-02 检查时，Cloudflare 下 HTTPS 首页可访问，HTTP 首页尚未跳转，GitHub 源站证书仍为空。用户已授权必要的 DNS/HTTPS 修复，待 Cloudflare 登录后继续；状态和验收步骤见 [基线与恢复](docs/maintenance/baseline.md)。
+2026-10-03 已恢复 GitHub 源站证书和强制 HTTPS。Cloudflare 的根域与 `www` 保持代理，配置规则 **GitHub Pages strict TLS** 仅对这两个域名启用 Strict；其他子域名的设置保留。HTTP 自动跳转到 HTTPS，8 篇原文章及栏目、搜索和个人资源均验证通过。最终设置、证书检查和恢复步骤见 [基线与恢复](docs/maintenance/baseline.md)。
 
 源码回归时 `git revert` 引入问题的源码提交，推送并等待重新部署。首次迁移出现发布问题时，在 Pages 把发布来源恢复为 **Deploy from a branch → main → / (root)**，保留域名和 HTTPS，详见 [基线与回退](docs/maintenance/baseline.md)。不要手工编辑生成 HTML。
 

@@ -32,12 +32,12 @@
 | 1 | 基线与可回退起点 | 无 | 已验证 |
 | 2 | 简洁页面和一致的本机环境 | 1 | 已验证 |
 | 3 | 只检查、构建的 CI | 2 | 已验证 |
-| 4 | 验证后的自动发布切换 | 3 | 已上线，源站证书待恢复 |
+| 4 | 验证后的自动发布切换 | 3 | 已上线，证书与强制 HTTPS 已恢复 |
 | 5 | 主题依赖和配置精简 | 4 | 已验证 |
 | 6 | 内容质量检查 | 5 | 已验证 |
 | 7 | 稳定、安全的 Memos 展示 | 5 | 客户端已验证，服务 404 |
-| 8 | 维护文档和完整验收 | 6、7、9 | 发布已验收，外部待办已记录 |
-| 10 | Cloudflare DNS / HTTPS 修复 | 4 | 待 Cloudflare 登录后检查 |
+| 8 | 维护文档和完整验收 | 6、7、9 | 已验收，Memos 服务 404 单独记录 |
+| 10 | Cloudflare DNS / HTTPS 修复 | 4 | 已完成，代理恢复，网站域名启用 Strict |
 
 任务 6 与 7 功能独立，但当前默认由主代理顺序执行。
 
@@ -123,9 +123,9 @@ gh run list --workflow pages.yml --limit 5
 
 - [x] 添加官方 upload-pages-artifact/deploy-pages；部署 job 使用必要的 Pages/OIDC 权限，构建 job 维持只读。
 - [x] 设置 github-pages 环境与发布任务串行顺序，确保旧提交不会在新提交后覆盖网站；检查环境允许 source。
-- [ ] 在上线前呈现完整 diff、CI 结果、域名基线和回退步骤，明确这一步会更新正式网站。
+- [x] 提供可审阅的 PR diff、CI 结果、域名基线和回退步骤；PR #2 已合并，正式上线已有实际运行记录。
 - [x] 将默认分支改为 source、Pages 来源切到 GitHub Actions；正式域名仍为 www.kisara.com.cn。
-- [ ] 恢复 GitHub 源站证书与强制 HTTPS；由任务 10 继续验收。
+- [x] 恢复 GitHub 源站证书与强制 HTTPS；任务 10 已于 2026-10-03 验收。
 - [x] 首次部署完成后，用实际运行结果核对正式域名和根域跳转，浏览器核对核心功能和 8 个文章路径。
 - [x] 部署验证成功后删除 hexo-deployer-git、旧 deploy 配置及本地 deploy npm 脚本；判断 source/CNAME 是否保留为迁移记录或删除，README 明确域名以 Pages 设置为准。
 - [x] 保留旧 main，不新增产物提交；记录成功的源码提交及 Actions run。
@@ -223,7 +223,7 @@ npm run check:site
 - [x] Dependabot 改成每周、按合理范围汇总 npm 和 GitHub Actions；不自动合并未经验证的依赖更新。
 - [x] 从干净副本完成安装、构建、检查和预览；确认 .gitignore 保护 node_modules/public/工具缓存。
 - [x] 用一篇文章的正常改动完成 PR 检查 → 合并/源码提交 → 自动部署的完整路径，浏览器核对域名、核心功能、移动导航和所有基线路由。
-- [ ] 对照设计文档的项目完成标准逐项验收，保留关键命令退出码、CI run 与浏览器核对结果；只有实际通过的事项才勾选。
+- [x] 对照设计文档记录实际验收：31 个测试、干净构建、正式部署、浏览器核心功能和域名 HTTPS 均通过；Memos 外部服务仍为 404，保留为独立待办，不将公开内容恢复标为通过。
 
 **Validation:**
 
@@ -263,12 +263,12 @@ git status --short
 
 **Scope:** 用户已授权检查和修复必要的 DNS/HTTPS 设置。先读取实际配置；外部变更只涉及网站域名的解析、证书和 HTTPS 跳转。记录更新到 `docs/maintenance/baseline.md`。
 
-- [ ] 完成 Cloudflare 登录，记录 www / 根域的实际 DNS 目标、代理状态、SSL 模式与跳转规则。
-- [ ] 按 GitHub 官方域名要求修复发现的问题，恢复源站证书；具体变更依实际配置确定。
-- [ ] 恢复 GitHub 强制 HTTPS，并验证 Cloudflare 到源站的加密与 HTTP 跳转；核对其他子域名的影响范围。
-- [ ] 验收根域及 www 的 HTTP/HTTPS、8 篇文章路径，记录最终设置和实际结果。
+- [x] 完成 Cloudflare 登录，记录 www / 根域的实际 DNS 目标、代理状态、SSL 模式与跳转规则。
+- [x] 临时将根域与 www 切为 DNS only，确认解析后重触发 GitHub 签发；源站证书已 approved，覆盖两个域名。
+- [x] 恢复 GitHub 强制 HTTPS 和 Cloudflare 代理；网站专用配置规则启用 Strict，其他子域名设置保留。
+- [x] 验收根域及 www 的 HTTP/HTTPS、8 篇文章及栏目/资源共 18 个地址；跳转无循环且保留路径与查询参数，记录最终设置和实际结果。
 
-**Current state:** 管理页处于登录页面，DNS 尚未变更。HTTPS 首页 200，HTTP 首页 200 且未跳转，GitHub 源站证书仍为空。
+**Current state（2026-10-03）:** GitHub 证书 approved，到期日 2027-01-01，https_enforced 为 true。根域和 www 的解析目标保持原值、代理已恢复；Cloudflare 配置规则 GitHub Pages strict TLS 仅覆盖这两个域名。HTTP 自动转 HTTPS，正式首页及 18 个地址检查通过。具体证据与后续检查见 baseline.md。
 
 ## 实施记录（2026-10-02）
 
@@ -281,4 +281,4 @@ git status --short
 - Memos 原公开接口 HTTP 404，浏览器因跨源网络失败显示可重试提示；成功/空数据/超时/失败/HTML 纯文本等由测试覆盖。实际公开内容需服务恢复后核对。
 - 为验收一次文章修改发布链路，仅整理介绍文章的段落和空格并显式记录 updated，不改变事实、标题、发布日期或路径。
 
-- PR #2 已合并，首次 build/deploy 均 success；默认 source、workflow 发布、旧 main 未改。Pages 切换触发 GitHub 源站证书待签发，强制 HTTPS 暂不能恢复；已重触发一次签发，不更改 DNS，验收留此项待办。详见 baseline.md。
+- PR #2 已合并，首次 build/deploy 均 success；默认 source、workflow 发布、旧 main 未改。首次切换后的源站证书问题已在追加授权范围内于 2026-10-03 修复，任务 10 已验收，详见 baseline.md。
