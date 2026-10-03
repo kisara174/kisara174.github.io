@@ -158,11 +158,11 @@ gh issue list --state all --search '网站健康检查异常 in:title'
 **Files:** 更新 README、本清单及对应 `docs/maintenance/memos.md`、`docs/maintenance/health.md`；只更新实际验证过的记录。
 
 - [x] 在 Mac 按文档完成临时草稿/图片/预览/转换，不发布验收文章。
-- [ ] `npm run verify` 全部通过，CI 正常构建并部署；核对旧路由、公式、搜索、评论和移动导航无回归。
+- [x] `npm run verify` 全部通过，CI 正常构建并部署；旧路由检查通过，浏览器复查公式、搜索和移动导航；Giscus 配置与生成脚本保留，未发布测试评论。
 - [ ] 正式 Memos 实际可读；源站和 Cloudflare 严格 HTTPS 通过；健康巡检与去重通知有对应证据。
 - [ ] 记录各部分提交、测试结果、正式部署 run、手动巡检 run 和首个定时 run。无法观察的事项保持未勾选。
 - [x] 记录回退：源码问题 revert 对应提交；巡检问题禁用独立 health workflow，不动 Pages 发布；Memos 外部服务改动保存修改前配置及恢复步骤。
-- [ ] 最后复查 Git 状态与文档链接，更新 GraphFlow 索引，交付可复用维护流程。
+- [x] 最后复查 Git 状态与文档链接，更新 GraphFlow 索引，交付可复用维护流程。
 
 ## 后续候选
 
@@ -188,3 +188,10 @@ AI 摘要和标签建议放在上述三个交付稳定之后，独立设计、�
 - [巡检一](https://github.com/kisara174/kisara174.github.io/actions/runs/37114532091)：25 项中 24 项健康，记录真实 Memos 404 至 [Issue #8](https://github.com/kisara174/kisara174.github.io/issues/8)，check/report 均成功。
 - [巡检二](https://github.com/kisara174/kisara174.github.io/actions/runs/37114598105)：相同结果，report 为 quiet，Issue 正文、状态、数量与更新时间不变。
 - 没有原 Memos 服务可重启；未恢复公开记录。首次定时巡检尚未发生，相关复选框保留未勾选。
+
+收尾记录：
+
+- [PR #9](https://github.com/kisara174/kisara174.github.io/pull/9) 已合并，每日 cron `17 3 * * *` 在默认 `source` 分支生效，健康 workflow 状态为 active。[调度提交的部署](https://github.com/kisara174/kisara174.github.io/actions/runs/37114810692) build/deploy 成功，Linux 再次通过 57 项测试与 8 篇原路径检查。
+- Edge 正式页面复查 MathJax、中文“傅里叶”搜索结果和 400px 视口的展开/收起移动导航；玻璃界面仍正常。Giscus 的 repo、category、pathname 映射和生成调用未修改，不发布测试评论。
+- 本机 `source` 与远端同步，旧 `main` 保留 `9862527`；仅清理本次创建的系统临时预览实例，已有 worktree 和忽略的备份均保留。文档相对链接、Git 空工作区及 GraphFlow 索引已检查。
+- 待完成项仍是原 Memos 内容恢复及首次 schedule 运行。观察前不勾选相关步骤。

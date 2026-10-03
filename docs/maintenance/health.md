@@ -41,3 +41,5 @@ Issue 标题为“网站健康检查异常”，正文有 `<!-- website-health:v
 正式 [首次手动巡检](https://github.com/kisara174/kisara174.github.io/actions/runs/37114532091) 成功，报告 24/25 健康，创建 [健康 Issue #8](https://github.com/kisara174/kisara174.github.io/issues/8)；[第二次巡检](https://github.com/kisara174/kisara174.github.io/actions/runs/37114598105) 同样成功，report 输出 `quiet`。Issue 数量仍为 1，正文、状态和 `updatedAt` 完全不变，确认没有重复写入。实际 runner 权限与上面的 job 配置相符。
 
 每日调度在手动验收之后启用；首个定时运行尚未发生，预期下一次为 2026-10-04 北京时间 11:17 附近，须以实际 run 为准。Memos 恢复仍待原服务或备份信息；绿色工作流不代表 Memos 已恢复。
+
+[调度 PR #9](https://github.com/kisara174/kisara174.github.io/pull/9) 已合并，[部署验收](https://github.com/kisara174/kisara174.github.io/actions/runs/37114810692) 成功，GitHub 查询 health.yml 状态为 active，默认分支上的每日 cron 已确认。首次 schedule 事件仍待观察。
