@@ -1,5 +1,7 @@
 # 迁移基线与恢复
 
+2026-10-04 调整：用户取消 Memos，当前基线只撤销 `/memos/`，8 篇原文章和其余栏目保持。下文含初次迁移与 HTTPS 修复的历史记录；其中 Memos 恢复待办已取消。
+
 基线记录：2026-10-02；HTTPS 修复验收：2026-10-03（Asia/Shanghai）。路由原始记录见 [baseline.json](baseline.json)。
 
 - source 起点：e8a08da56e0d96ffd418f147c649115b29c8702d。

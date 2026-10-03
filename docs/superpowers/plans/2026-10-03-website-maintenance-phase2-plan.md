@@ -2,13 +2,13 @@
 
 > **For agentic workers:** 使用 executing-plans 按任务推进。主代理负责判断、诊断和验收；遵循仓库 AGENTS.md 的执行器资格规则。步骤使用复选框跟踪，实际验证后再勾选。
 
-**Goal:** 恢复公开碎碎念，完善 Mac 草稿与图片流程，并建立独立、只在健康状态变化时记录异常的每日巡检。
+**Goal（2026-10-04 调整）:** 完善 Mac 草稿与图片流程，建立独立、只在健康状态变化时记录异常的每日巡检；用户已取消 Memos 功能，原恢复任务撤销。
 
-**Architecture:** 复用现有 Hexo 草稿、模板、验证和 Pages 发布。Memos 先按实际服务版本诊断修复；健康检查独立于构建，使用 Node 标准库、已有解析器和 GitHub Actions。每部分可独立交付。
+**Architecture:** 复用现有 Hexo 草稿、模板、验证和 Pages 发布。健康检查独立于构建，使用 Node 标准库、已有解析器和 GitHub Actions；已撤销 Memos 相关页面和外部服务检查。
 
-**Tech Stack:** Hexo 8.1.1、Fluid 1.9.9、Node 24.21.0、npm、GitHub Actions、现有 Memos/Zeabur。
+**Tech Stack:** Hexo 8.1.1、Fluid 1.9.9、Node 24.21.0、npm、GitHub Actions。
 
-**Spec:** [第二阶段设计](../specs/2026-10-03-website-maintenance-phase2-design.md)。状态：实施中；用户已授权按清单实施。写作工具与巡检已本机验证，Memos 恢复等待原服务地址或备份。
+**Spec:** [第二阶段设计](../specs/2026-10-03-website-maintenance-phase2-design.md)。状态：实施中；用户已授权按清单实施。写作工具与巡检已发布；2026-10-04 用户取消 Memos，恢复任务撤销，首次定时运行仍待观察。
 
 ## Global Constraints
 
@@ -16,23 +16,25 @@
 - 保留 `source` 自动 Pages 发布、旧 `main`、现有 8 篇文章路径及 Giscus pathname 映射。
 - 保留正式域名、Cloudflare 网站 Strict 规则和强制 HTTPS；本轮不再调整 DNS。
 - `scripts` 只放 Hexo 插件；CLI 放 `tools`，测试放 `tests`。
-- 私密数据和令牌不进入前端、生成网站、报告或文档；健康通知不包含 Memos 正文。
-- 构建检查不访问 Memos；外部故障不能阻断文章构建和发布。
+- 私密数据和令牌不进入前端、生成网站、报告或文档；健康通知不包含页面正文。
+- 构建检查不访问外部服务；外部故障不能阻断文章构建和发布。
 - 每部分独立验证、独立提交；不新增 CMS、图床服务、AI 自动改写或自动发布文章。
 
 ## 计划清单总览
 
 | 顺序 | 交付 | 完成标准 | 状态 |
 | --- | --- | --- | --- |
-| 1 | Memos 定位与恢复 | 正式页面可读取公开内容，故障提示准确 | 已诊断，恢复等待数据位置 |
+| 1 | Memos 定位与恢复 | 正式页面可读取公开内容，故障提示准确 | 已取消（2026-10-04） |
 | 2 | Mac 草稿、模板与图片入口 | 创建、预览、插图、转正式文章流程可用 | 本机验收通过 |
-| 3 | 独立健康检查 CLI | 可识别路径、跳转、源站证书及 API 故障 | 本机验收通过，24/25 健康 |
+| 3 | 独立健康检查 CLI | 可识别路径、资源、跳转及源站证书故障 | 本机 22/22 通过，待本次正式验收 |
 | 4 | 每日巡检与去重通知 | 手动/定时可运行，异常变化与恢复可记录 | 两次手动验收通过，启用每日调度；首次定时待观察 |
-| 5 | 端到端验收与维护说明 | Mac 使用步骤、运行证据、恢复入口完整 | 已正式发布；Memos 与首次定时仍待完成 |
+| 5 | 端到端验收与维护说明 | Mac 使用步骤、运行证据、恢复入口完整 | 已正式发布；Memos 已取消，首次定时待观察 |
 
-默认按表顺序执行。Memos 若因账户访问受阻，先记录证据和明确缺少的信息；写作入口可独立推进。健康检查完成后再接入通知，避免把未经验证的结果发送出去。
+写作入口与每日巡检已实施；本次完成 Memos 移除及发布验收，首次定时运行继续以实际记录为准。
 
-## Task 1：诊断并恢复公开 Memos
+## Task 1：诊断并恢复公开 Memos（已取消）
+
+2026-10-04 用户取消此功能及恢复待办。以下步骤是原计划的历史记录，不再执行；无需再提供迁移地址或数据库备份。
 
 **Files:** 修改 `source/js/memos.js`、`tests/memos.test.mjs`、`source/memos/index.md`；记录到 `docs/maintenance/memos.md`，更新 README 和旧计划中的服务待办。
 
@@ -159,7 +161,7 @@ gh issue list --state all --search '网站健康检查异常 in:title'
 
 - [x] 在 Mac 按文档完成临时草稿/图片/预览/转换，不发布验收文章。
 - [x] `npm run verify` 全部通过，CI 正常构建并部署；旧路由检查通过，浏览器复查公式、搜索和移动导航；Giscus 配置与生成脚本保留，未发布测试评论。
-- [ ] 正式 Memos 实际可读；源站和 Cloudflare 严格 HTTPS 通过；健康巡检与去重通知有对应证据。
+- [ ] 源站和 Cloudflare 严格 HTTPS 及取消 Memos 后的 22 项巡检通过；Memos 公开可读验收已随功能取消。
 - [ ] 记录各部分提交、测试结果、正式部署 run、手动巡检 run 和首个定时 run。无法观察的事项保持未勾选。
 - [x] 记录回退：源码问题 revert 对应提交；巡检问题禁用独立 health workflow，不动 Pages 发布；Memos 外部服务改动保存修改前配置及恢复步骤。
 - [x] 最后复查 Git 状态与文档链接，更新 GraphFlow 索引，交付可复用维护流程。
@@ -194,4 +196,8 @@ AI 摘要和标签建议放在上述三个交付稳定之后，独立设计、�
 - [PR #9](https://github.com/kisara174/kisara174.github.io/pull/9) 已合并，每日 cron `17 3 * * *` 在默认 `source` 分支生效，健康 workflow 状态为 active。[调度提交的部署](https://github.com/kisara174/kisara174.github.io/actions/runs/37114810692) build/deploy 成功，Linux 再次通过 57 项测试与 8 篇原路径检查。
 - Edge 正式页面复查 MathJax、中文“傅里叶”搜索结果和 400px 视口的展开/收起移动导航；玻璃界面仍正常。Giscus 的 repo、category、pathname 映射和生成调用未修改，不发布测试评论。
 - 本机 `source` 与远端同步，旧 `main` 保留 `9862527`；仅清理本次创建的系统临时预览实例，已有 worktree 和忽略的备份均保留。文档相对链接、Git 空工作区及 GraphFlow 索引已检查。
-- 待完成项仍是原 Memos 内容恢复及首次 schedule 运行。观察前不勾选相关步骤。
+- 本条是 2026-10-03 的待办状态；2026-10-04 Memos 内容恢复已取消，首次 schedule 运行仍待观察。
+
+## 2026-10-04 范围调整
+
+用户取消 Memos。删除网站入口、页面、JS、专用 CSS 和测试，移除路径基线及健康检查中的对应页面/JS/API。8 篇原文章、液态玻璃、写作工具、Giscus、HTTPS 和巡检调度继续保留。当前健康检查共 22 项。旧 Memos 异常按取消功能结案，不宣称服务恢复；首次定时运行仍需实际证据。

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 const reporter=await import('../tools/report-health.mjs').catch(e=>{if(e.code==='ERR_MODULE_NOT_FOUND')return {};throw e;});
 const report=(checks)=>({schemaVersion:1,checkedAt:'2026-10-03T00:00:00Z',checks});
-const bad={id:'memos',url:'https://memos.example/api',status:'fail',code:'HTTP_404'};
+const bad={id:'page:/missing/',url:'https://site.example/missing/',status:'fail',code:'HTTP_404'};
 const pass={...bad,status:'pass',code:'OK'};
 function fake(){const issues=[],writes=[],comments=[];return {issues,writes,comments,api:async(method,path,body)=>{
  if(method==='GET'&&path.includes('/comments'))return comments;

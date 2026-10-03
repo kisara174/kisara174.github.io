@@ -27,9 +27,6 @@ navbar:
     - key: tag
       link: /tags/
       icon: iconfont icon-tags-fill
-    - key: memos
-      link: /memos/
-      icon: iconfont icon-comment
 footer:
   content: |
     <span>Copyright © 2026 Kisara174</span>

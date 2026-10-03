@@ -4,9 +4,9 @@
 
 ## 检查与结果
 
-Node HTTP/HTTPS 标准库负责网络和 TLS，复用已有 linkedom 和 Memos 解析函数，没有新增依赖。检查基线内 8 篇文章和 7 个栏目、搜索 XML、个人 CSS/JS、4 条跳转以及 Cloudflare、GitHub 源站证书和公开 Memos API，共 25 项。
+Node HTTP/HTTPS 标准库负责网络和 TLS，复用已有 linkedom，没有新增依赖。检查基线内 8 篇文章和 6 个栏目、搜索 XML、个人 CSS、4 条跳转以及 Cloudflare、GitHub 源站证书，共 22 项。
 
-页面核对标题和站点标识，以及 Fluid 实际输出的 `og:url`（存在 canonical 时优先使用）；目录的 `index.html` 归一后必须与所请求页面相符。搜索检查 XML 类型和闭合的搜索/记录标记；API 检查 JSON 类型与已测试的结构，绝不保存正文。跳转最多 5 次，核对正式域名、路径和查询参数。
+页面核对标题和站点标识，以及 Fluid 实际输出的 `og:url`（存在 canonical 时优先使用）；目录的 `index.html` 归一后必须与所请求页面相符。搜索检查 XML 类型和闭合的搜索/记录标记；报告不保存响应正文。跳转最多 5 次，核对正式域名、路径和查询参数。
 
 源站请求直连 `185.199.108.153`，SNI/Host 保持 `www.kisara.com.cn`，启用 Node 默认证书链和主机名校验，不使用 HTTP 代理、不关闭验证。正常域名请求另外检查 Cloudflare 边缘证书。证书剩余少于 21 天返回 `CERT_EXPIRING`；过期、主机名错误、连接失败分别归类。
 
@@ -34,12 +34,20 @@ Issue 标题为“网站健康检查异常”，正文有 `<!-- website-health:v
 
 需要停止时在 Actions → Website health → 菜单 → Disable workflow；重新启用使用 Enable workflow。只暂停定时可从 `health.yml` 删除 `schedule`，保留 `workflow_dispatch`。这些操作不影响 **Website checks and Pages**。脚本问题按源码提交 revert 后重新验证；不要手动删除健康 Issue 的机器标记。
 
-## 实际验收记录
+## 历史验收记录（2026-10-03）
 
 2026-10-03 本机真实检查 24/25 通过：全部文章、栏目、资源、跳转和两条严格 TLS 检查通过；唯一失败是 Memos API 的 `HTTP_404`。[PR #7](https://github.com/kisara174/kisara174.github.io/pull/7) 已合并，[Pages 部署](https://github.com/kisara174/kisara174.github.io/actions/runs/37114485054) 成功。
 
 正式 [首次手动巡检](https://github.com/kisara174/kisara174.github.io/actions/runs/37114532091) 成功，报告 24/25 健康，创建 [健康 Issue #8](https://github.com/kisara174/kisara174.github.io/issues/8)；[第二次巡检](https://github.com/kisara174/kisara174.github.io/actions/runs/37114598105) 同样成功，report 输出 `quiet`。Issue 数量仍为 1，正文、状态和 `updatedAt` 完全不变，确认没有重复写入。实际 runner 权限与上面的 job 配置相符。
 
-每日调度在手动验收之后启用；首个定时运行尚未发生，预期下一次为 2026-10-04 北京时间 11:17 附近，须以实际 run 为准。Memos 恢复仍待原服务或备份信息；绿色工作流不代表 Memos 已恢复。
+每日调度在手动验收之后启用；首个定时运行尚未发生，预期下一次为 2026-10-04 北京时间 11:17 附近，须以实际 run 为准。当时 Memos 恢复尚未完成；2026-10-04 已按用户决定取消该功能及恢复待办。
 
 [调度 PR #9](https://github.com/kisara174/kisara174.github.io/pull/9) 已合并，[部署验收](https://github.com/kisara174/kisara174.github.io/actions/runs/37114810692) 成功，GitHub 查询 health.yml 状态为 active，默认分支上的每日 cron 已确认。首次 schedule 事件仍待观察。
+
+## 2026-10-04 调整
+
+按用户决定取消 Memos：删除页面、脚本与 API 三个检查项，剩余 22 项继续由相同手动/每日 workflow 检查。取消功能不等于修复外部服务，旧健康 Issue 的 Memos 故障将按功能取消结案；以后有其他异常仍复用该 Issue。
+
+本机 `npm run verify` 通过：47 项测试、8 篇原文章检查和完整构建通过；`npm run check:health` 真实检查 22/22 通过。生成目录没有 Memos 页面、脚本或导航引用。
+
+查询 GitHub 时还没有 `schedule` 事件，首次定时验收仍保留待观察。正式发布后的 22 项运行结果在观察后补充。

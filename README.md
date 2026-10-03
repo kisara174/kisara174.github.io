@@ -47,7 +47,6 @@ git push origin source
 | 菜单、横幅、公式、Giscus | `_config.fluid.yml`，只写个人覆盖 |
 | 液态玻璃、手机和深色样式 | `source/css/custom.css` |
 | 背景和图标 | `source/img/` |
-| 碎碎念公开接口（唯一配置） | `source/memos/index.md` 的 `data-memos-endpoint` |
 | 草稿、笔记模板与图片入口 | `tools/writing.mjs`、`scaffolds/`、`tools/templates/note.md` |
 | 上线后的独立巡检 | `.github/workflows/health.yml`、`tools/check-health.mjs` |
 | 自动检查/发布 | `.github/workflows/pages.yml` |
@@ -55,7 +54,7 @@ git push origin source
 
 Fluid 固定为 npm 依赖；不修改 `node_modules`。个人样式基于渐进增强 CSS：玻璃导航、卡片、搜索和手机浮层，正文接近实色；支持深色、减少动态与减少透明度，无 backdrop-filter 时使用实色。参考 [Apple 材质指南](https://developer.apple.com/design/human-interface-guidelines/materials)，通过网页 CSS 实现相近风格。
 
-Memos 只读现有公开服务，不使用令牌；内容按纯文本显示并保留换行。服务返回 404、网络失败或超时会显示状态和重试按钮。2026-10-03 复查：首页、API 和原 Zeabur 地址均返回 404，Zeabur 原项目没有服务。恢复原内容需要迁移后的地址或数据库备份；诊断和修改入口见 [Memos 维护](docs/maintenance/memos.md)。
+2026-10-04 按个人维护取舍取消 Memos：菜单、页面、脚本和相关巡检项已移除，旧 `/memos/` 地址进入网站 404 页面。取消记录见 [维护记录](docs/maintenance/memos.md)。
 
 ## 检查与恢复
 
@@ -71,7 +70,7 @@ Dependabot 每周提供 npm 和 Actions 更新 PR，兼容更新合组；先检�
 
 ## 上线后的巡检
 
-`npm run check:health` 独立检查真实网站的 25 项路径、资源、跳转、Cloudflare/源站证书和 Memos API，报告在忽略的 `.cache/website-health.json`。它不属于 `verify`，外部服务故障不会阻断写文章。
+`npm run check:health` 独立检查真实网站的 22 项路径、资源、跳转和 Cloudflare/源站证书，报告在忽略的 `.cache/website-health.json`。它不属于 `verify`，外部服务故障不会阻断写文章。
 
 Actions 的 **Website health** 每天北京时间 11:17 巡检，也支持手动运行。异常记录使用同一个标题为“网站健康检查异常”的 Issue：首次异常创建，变化或恢复时评论并更新，恢复后关闭；相同故障保持安静。工作流成功表示检查和记录完成，站点是否健康请看摘要和 Issue。关注该 Issue 可按已有 GitHub 通知偏好接收变化；工作流不修改账户设置。调度、退出代码和停用方法见 [健康检查维护](docs/maintenance/health.md)。
 
