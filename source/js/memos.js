@@ -40,11 +40,14 @@ function renderMemos(container, items) {
   }
 }
 
-async function loadMemos({ fetchImpl = globalThis.fetch, timeoutMs = 8000 } = {}) {
+async function loadMemos({ endpoint, fetchImpl = globalThis.fetch, timeoutMs = 8000 } = {}) {
+  let url;
+  try { url = new URL(endpoint); } catch { throw new Error('碎碎念接口配置缺失或无效。'); }
+  if (url.protocol !== 'https:' || url.username || url.password) throw new Error('碎碎念接口必须使用公开的 HTTPS 地址。');
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(new Error('请求超时，请稍后重试。')), timeoutMs);
   try {
-    const response = await fetchImpl('https://memos.kisara.com.cn/api/v1/memos?pageSize=10', {
+    const response = await fetchImpl(url.href, {
       signal: controller.signal, credentials: 'omit', headers: {Accept:'application/json'},
     });
     if (!response.ok) throw new Error(`碎碎念服务暂时无法访问（HTTP ${response.status}），请稍后重试。`);
@@ -64,7 +67,7 @@ async function mountMemos(container) {
   container.setAttribute('aria-busy','true');
   container.textContent = '正在加载碎碎念…';
   try {
-    renderMemos(container, await loadMemos());
+    renderMemos(container, await loadMemos({endpoint: container.getAttribute('data-memos-endpoint')}));
   } catch (error) {
     const message = document.createElement('p');
     message.className = 'memo-status';

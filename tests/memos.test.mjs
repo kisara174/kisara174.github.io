@@ -36,27 +36,33 @@ test('replaces the loading state with an explicit empty state', () => {
 });
 test('fetches only the public endpoint without credentials', async () => {
   let requested;
-  const list = await loadMemos({fetchImpl: async (url, options) => {
+  const list = await loadMemos({endpoint:'https://memos.example/api/v1/memos?pageSize=10',fetchImpl: async (url, options) => {
     requested = {url, options}; return {ok:true,json:async()=>({memos:[{content:'笔记'}]})};
   }});
   assert.equal(list[0].content,'笔记');
-  assert.equal(requested.url, 'https://memos.kisara.com.cn/api/v1/memos?pageSize=10');
+  assert.equal(requested.url, 'https://memos.example/api/v1/memos?pageSize=10');
   assert.equal(requested.options.credentials,'omit');
 });
 test('reports actual HTTP failures rather than assuming anonymous access', async () => {
-  await assert.rejects(loadMemos({fetchImpl:async()=>({ok:false,status:404})}), /404/);
+  await assert.rejects(loadMemos({endpoint:'https://memos.example/api/v1/memos?pageSize=10',fetchImpl:async()=>({ok:false,status:404})}), /404/);
 });
 test('aborts a stalled request and reports timeout', async () => {
   let aborted = false;
   const fetchImpl = (_, {signal}) => new Promise((resolve,reject) => {
     signal.addEventListener('abort', () => {aborted=true; reject(signal.reason);}, {once:true});
   });
-  await assert.rejects(loadMemos({fetchImpl,timeoutMs:10}), /超时/);
+  await assert.rejects(loadMemos({endpoint:'https://memos.example/api/v1/memos?pageSize=10',fetchImpl,timeoutMs:10}), /超时/);
   assert.equal(aborted,true);
 });
 test('validates JSON response structure before rendering', async () => {
-  await assert.rejects(loadMemos({fetchImpl:async()=>({ok:true,json:async()=>({message:'bad'})})}), /格式/);
+  await assert.rejects(loadMemos({endpoint:'https://memos.example/api/v1/memos?pageSize=10',fetchImpl:async()=>({ok:true,json:async()=>({message:'bad'})})}), /格式/);
 });
 test('network failure leaves a precise, recoverable error', async () => {
-  await assert.rejects(loadMemos({fetchImpl:async()=>{throw new TypeError('Failed to fetch');}}), /网络|服务/);
+  await assert.rejects(loadMemos({endpoint:'https://memos.example/api/v1/memos?pageSize=10',fetchImpl:async()=>{throw new TypeError('Failed to fetch');}}), /网络|服务/);
+});
+
+test('missing public endpoint fails before making a network request', async () => {
+  let requests=0;
+  await assert.rejects(loadMemos({fetchImpl:async()=>{requests++;return {ok:true,json:async()=>[]};}}), /接口|配置/);
+  assert.equal(requests,0);
 });
