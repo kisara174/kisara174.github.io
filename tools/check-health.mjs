@@ -4,7 +4,6 @@ import {readFile,mkdir,writeFile,appendFile} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {parseHTML} from 'linkedom';
-import {parseMemos} from '../source/js/memos.js';
 
 function errorCode(error){
  const codes={ERR_TLS_CERT_ALTNAME_INVALID:'CERT_HOSTNAME',CERT_HAS_EXPIRED:'CERT_EXPIRED',DEPTH_ZERO_SELF_SIGNED_CERT:'CERT_UNTRUSTED',UNABLE_TO_VERIFY_LEAF_SIGNATURE:'CERT_UNTRUSTED',ENOTFOUND:'DNS_ERROR',ECONNREFUSED:'CONNECT_ERROR',ECONNRESET:'CONNECT_ERROR',ETIMEDOUT:'TIMEOUT'};
@@ -50,10 +49,8 @@ function contentValid(target,response){
   }
   return true;
  }
- if(target.kind==='memos'){if(!type.includes('json'))return false;try{parseMemos(JSON.parse(body));return true;}catch{return false;}}
  if(target.kind==='xml'){return /(?:xml)/i.test(type)&&/^\s*(?:<\?xml[^>]*>\s*)?<search\b/.test(body)&&body.includes('<entry>')&&body.includes('</entry>')&&/<\/search>\s*$/.test(body);}
  if(target.kind==='css')return /text\/css/i.test(type)&&body.includes('.');
- if(target.kind==='js')return /javascript/i.test(type)&&body.includes('function');
  return true;
 }
 export async function checkTarget(target,{transport=requestUrl,timeoutMs=10000,now=new Date()}={}){
@@ -83,13 +80,10 @@ export async function runChecks(targets,options={}){
 export async function siteTargets(root=process.cwd()){
  const baseline=JSON.parse(await readFile(resolve(root,'docs/maintenance/baseline.json'),'utf8'));
  const base=baseline.siteUrl;const host=new URL(base).hostname,apex=host.startsWith('www.')?host.slice(4):host;
- const page=await readFile(resolve(root,'source/memos/index.md'),'utf8');const {document}=parseHTML(page);
- const endpoint=document.getElementById('memos-list')?.getAttribute('data-memos-endpoint');
- if(!endpoint)throw new Error('Memos 公开端点配置缺失。');
  const targets=[...baseline.requiredPaths,...baseline.articlePaths].map(path=>({id:`page:${path}`,url:new URL(path,base).href,canonical:new URL(path,base).href,kind:'html'}));
- targets.push({id:'search',url:new URL(baseline.searchIndex,base).href,kind:'xml'},{id:'css',url:new URL('/css/custom.css',base).href,kind:'css'},{id:'memos-js',url:new URL('/js/memos.js',base).href,kind:'js'});
+ targets.push({id:'search',url:new URL(baseline.searchIndex,base).href,kind:'xml'},{id:'css',url:new URL('/css/custom.css',base).href,kind:'css'});
  for(const url of [`http://${host}/`,`http://${apex}/`,`https://${apex}/`])targets.push({id:`redirect:${url}`,url,kind:'redirect',expectedUrl:new URL('/',base).href});
- targets.push({id:'redirect:query',url:`http://${host}/archives/?utm_source=health-check`,kind:'redirect',expectedUrl:`${base}/archives/?utm_source=health-check`},{id:'tls:edge',url:`${base}/`,kind:'tls'},{id:'tls:origin',url:`${base}/`,kind:'tls',address:'185.199.108.153'},{id:'memos-api',url:new URL(endpoint).href,kind:'memos'});
+ targets.push({id:'redirect:query',url:`http://${host}/archives/?utm_source=health-check`,kind:'redirect',expectedUrl:`${base}/archives/?utm_source=health-check`},{id:'tls:edge',url:`${base}/`,kind:'tls'},{id:'tls:origin',url:`${base}/`,kind:'tls',address:'185.199.108.153'});
  return targets;
 }
 export function summary(report){
