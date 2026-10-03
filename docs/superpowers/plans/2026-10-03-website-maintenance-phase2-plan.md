@@ -27,8 +27,8 @@
 | 1 | Memos 定位与恢复 | 正式页面可读取公开内容，故障提示准确 | 已诊断，恢复等待数据位置 |
 | 2 | Mac 草稿、模板与图片入口 | 创建、预览、插图、转正式文章流程可用 | 本机验收通过 |
 | 3 | 独立健康检查 CLI | 可识别路径、跳转、源站证书及 API 故障 | 本机验收通过，24/25 健康 |
-| 4 | 每日巡检与去重通知 | 手动/定时可运行，异常变化与恢复可记录 | 脚本已验证，待 GitHub 运行 |
-| 5 | 端到端验收与维护说明 | Mac 使用步骤、运行证据、恢复入口完整 | 本机已验证，待正式发布 |
+| 4 | 每日巡检与去重通知 | 手动/定时可运行，异常变化与恢复可记录 | 两次手动验收通过，启用每日调度；首次定时待观察 |
+| 5 | 端到端验收与维护说明 | Mac 使用步骤、运行证据、恢复入口完整 | 已正式发布；Memos 与首次定时仍待完成 |
 
 默认按表顺序执行。Memos 若因账户访问受阻，先记录证据和明确缺少的信息；写作入口可独立推进。健康检查完成后再接入通知，避免把未经验证的结果发送出去。
 
@@ -136,8 +136,9 @@ git diff --check
 - [x] 独立 workflow 先仅 `workflow_dispatch`；固定现有 Node，Actions 固定经核对的 SHA；job 超时 10 分钟，concurrency 防止两个运行同时更新同一记录。
 - [x] check job 仅 `contents: read`；report job 单独 `issues: write`，通过 artifact 取报告且使用 `actions: read`。不给 Pages/OIDC 写权限、不从 PR 运行通知、不改变账户全局通知偏好。
 - [x] CLI 退出 1 时仍发布有效报告并完成异常记录；退出 2、报告缺失/无效或 GitHub 写入失败使 workflow 失败。摘要清楚区分“巡检执行完成”和“网站存在异常”。
-- [ ] 单元测试确认去重/恢复后，手动跑正式配置；不制造真实站点故障，模拟异常只进入假 API 测试。核对实际报告、权限和摘要。
-- [ ] 手动验收通过后添加每日北京时间 11:17 调度（UTC 03:17），记录首个定时 run；README 写清查看 Issue、关闭调度及重新启用的方法。
+- [x] 单元测试确认去重/恢复后，手动跑正式配置；不制造真实站点故障，模拟异常只进入假 API 测试。核对实际报告、权限和摘要。
+- [x] 两次手动验收通过后添加每日北京时间 11:17 调度（UTC 03:17）；README 写清查看 Issue、关闭调度及重新启用的方法。
+- [ ] 观察并记录首个定时 run，确认 schedule 事件与报告正常；下一次预期 2026-10-04 北京时间 11:17 附近。
 
 **Validation:**
 
@@ -178,4 +179,12 @@ AI 摘要和标签建议放在上述三个交付稳定之后，独立设计、�
 - 当前 npm audit 有 7 个 high 传播条目，来自一个尚无补丁的 braces advisory；未强制降级 Hexo。详见 [依赖状态](../../maintenance/dependencies.md)。
 - GitHub PR、CI、实际手动巡检与首个定时 run 在观察后补充；不能把本机验收或手动运行当作首次定时运行。
 
-独立实现提交：Memos 配置与诊断 `38dc1eb`；Mac 写作入口 `7d67220`；健康检查与手动工作流见本次 PR 的后续提交。
+独立实现提交：Memos 配置与诊断 `38dc1eb`；Mac 写作入口 `7d67220`；健康检查与手动工作流 `258e2b2`；[PR #7](https://github.com/kisara174/kisara174.github.io/pull/7) 已合并。
+
+正式证据：
+
+- [PR CI](https://github.com/kisara174/kisara174.github.io/actions/runs/37114416828)：Linux runner 57/57 测试、8 篇原路径检查通过；PR 不执行 Pages deploy。
+- [部署](https://github.com/kisara174/kisara174.github.io/actions/runs/37114485054)：build/deploy 均成功，源码合并提交 `b7cc510`。正式页面已包含唯一 Memos 端点，浏览器故障提示和重试可用；GitHub Pages 证书 approved、强制 HTTPS true。
+- [巡检一](https://github.com/kisara174/kisara174.github.io/actions/runs/37114532091)：25 项中 24 项健康，记录真实 Memos 404 至 [Issue #8](https://github.com/kisara174/kisara174.github.io/issues/8)，check/report 均成功。
+- [巡检二](https://github.com/kisara174/kisara174.github.io/actions/runs/37114598105)：相同结果，report 为 quiet，Issue 正文、状态、数量与更新时间不变。
+- 没有原 Memos 服务可重启；未恢复公开记录。首次定时巡检尚未发生，相关复选框保留未勾选。

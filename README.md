@@ -73,6 +73,6 @@ Dependabot 每周提供 npm 和 Actions 更新 PR，兼容更新合组；先检�
 
 `npm run check:health` 独立检查真实网站的 25 项路径、资源、跳转、Cloudflare/源站证书和 Memos API，报告在忽略的 `.cache/website-health.json`。它不属于 `verify`，外部服务故障不会阻断写文章。
 
-Actions 的 **Website health** 支持手动运行。异常记录使用同一个标题为“网站健康检查异常”的 Issue：首次异常创建，变化或恢复时评论并更新，恢复后关闭；相同故障保持安静。工作流成功表示检查和记录完成，站点是否健康请看摘要和 Issue。关注该 Issue 可按已有 GitHub 通知偏好接收变化；工作流不修改账户设置。调度、退出代码和停用方法见 [健康检查维护](docs/maintenance/health.md)。
+Actions 的 **Website health** 每天北京时间 11:17 巡检，也支持手动运行。异常记录使用同一个标题为“网站健康检查异常”的 Issue：首次异常创建，变化或恢复时评论并更新，恢复后关闭；相同故障保持安静。工作流成功表示检查和记录完成，站点是否健康请看摘要和 Issue。关注该 Issue 可按已有 GitHub 通知偏好接收变化；工作流不修改账户设置。调度、退出代码和停用方法见 [健康检查维护](docs/maintenance/health.md)。
 
 第二阶段的完成项与待办见 [维护计划](docs/superpowers/plans/2026-10-03-website-maintenance-phase2-plan.md)。当前依赖审计及上游未修复问题见 [依赖状态](docs/maintenance/dependencies.md)。
