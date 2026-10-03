@@ -1,6 +1,6 @@
 # 网站维护第二阶段设计
 
-日期：2026-10-03（Asia/Shanghai）。状态：规划稿，供实施时审阅；本轮只编写文档。
+日期：2026-10-03（Asia/Shanghai）。状态：已批准并实施中，实际证据见计划清单。
 
 ## 目标与当前事实
 
@@ -32,7 +32,7 @@
 
 ### C. 健康检查与通知
 
-使用独立 GitHub Actions workflow，默认每天北京时间 11:17、支持手动运行。只读检查网站，不构建或部署、不改变 DNS/证书。健康检查 CLI 使用 Node 标准库，读取已有路径基线和 Memos 的公开配置。
+使用独立 GitHub Actions workflow，默认每天北京时间 11:17、支持手动运行。只读检查网站，不构建或部署、不改变 DNS/证书。健康检查 CLI 使用 Node HTTP/HTTPS 标准库并复用已有解析器，读取已有路径基线和 Memos 的公开配置。
 
 检查首页、8 篇旧文章、栏目、搜索 XML、个人资源、根域/www 跳转、Cloudflare HTTPS 与直接连接 GitHub 的源站 TLS；另检查 Memos API 的状态和结构。HTTP 200 不能代替实际页面核对：HTML 应具备页面标题/站点标识，搜索应是 XML，API 应是预期 JSON。证书剩余不足 21 天形成告警，不自动触发签发。
 
@@ -42,7 +42,7 @@
 
 检查 job 只读；通知 job 单独授予 `issues: write`，只处理默认分支的手动/定时运行，不在 PR 执行。站点异常写入报告和 Issue；工作流自身的执行状态代表检查/记录流程是否完成，脚本崩溃、报告无效或记录失败使工作流失败。README 必须解释到哪里查看站点健康状态。
 
-通知渠道是规划默认值，实施时确认用户接受 GitHub Issue 后再启用自动写入；计划阶段不创建 Issue、不改变全局通知偏好。GitHub 调度可能延迟，公开仓库长期不活跃时可能停用定时任务，因此首版属于每日巡检，不承诺实时可用性监控。
+用户已授权实施包括 GitHub Issue 渠道的本清单。先只上线手动入口，核对实际记录后启用调度；不改变全局通知偏好。GitHub 调度可能延迟，公开仓库长期不活跃时可能停用定时任务，因此首版属于每日巡检，不承诺实时可用性监控。
 
 ## 全局约束
 
@@ -59,3 +59,5 @@
 三项独立通过：公开 Memos 实际可读；草稿与图片流程在 Mac 操作成功且旧路由保持；巡检能识别故障、恢复，并对重复异常保持安静。详细勾选清单见 [实施计划](../plans/2026-10-03-website-maintenance-phase2-plan.md)。
 
 设计依据：[Hexo 写作与模板](https://hexo.io/docs/writing)、[Hexo 命令](https://hexo.io/docs/commands)、[资源目录](https://hexo.io/docs/asset-folders)、[Memos API](https://usememos.com/docs/api/latest)（实施时须切换到对应部署版本）、[GitHub 调度行为](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)。
+
+实施调整：`publish:draft` 为避免 Hexo 8.1.1 前缀匹配选错文件，使用精确文件转换并保留日期；创建与预览仍复用 Hexo。Memos 原项目为空，恢复等待迁移地址或原数据库备份，不能用新建空服务代替恢复。

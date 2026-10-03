@@ -18,14 +18,24 @@ npm run server
 
 预览：[localhost:4000](http://localhost:4000/)。按 Ctrl+C 停止。
 
-文章在 `source/_posts/`，使用 Markdown。新文章可以运行 `TZ=Asia/Shanghai npm exec hexo new "文章标题"`，填写 `title`、`date` 和 `tags`。日期统一北京时间，例如 `date: 2026-10-02 16:30:00`；修改旧文章时保留原日期和文件名，避免改变网址和评论关联。希望展示真实修订时间时显式填写 `updated`，否则使用发布日期。
+先从草稿开始写作：
 
 ```sh
+npm run draft -- "数学 笔记" --template note
+npm run preview
+npm run image -- "数学-笔记" "/绝对路径/示意图.png"
+npm run publish:draft -- "数学-笔记"
 npm run verify
-git add source/_posts/文章标题.md
-git commit -m "更新文章"
+git add source/_posts/数学-笔记.md source/img/posts/数学-笔记/
+git commit -m "新增数学笔记"
 git push origin source
 ```
+
+`draft` 默认普通文章模板，`--template note` 加入“问题、定义与条件、推导、例题、易错点”五个空章节。标题可含中文和空格，文件名会规范为 `数学-笔记.md`；命令会输出准确路径。编辑 `source/_drafts/` 中的文件，预览仍在 [localhost:4000](http://localhost:4000/)，正式构建不会包含草稿。`server` 只预览正式文章，`preview` 包含草稿；运行其中一个即可。
+
+`image` 复制 png/jpg/jpeg/webp/avif 到 `source/img/posts/<文章文件名>/`，输出可粘贴的 Markdown 图片引用。原图不变，同名图片不覆盖；超过 2 MiB 会提示。请使用命令输出的文章文件名，图片目录与文件名对应。
+
+`publish:draft` 只把指定本机草稿转为正式文章，保留完整内容和原日期，拒绝覆盖现有文章。它不会提交 Git 或推送。日期统一北京时间，例如 `date: 2026-10-03 11:17:00`；修改旧文章时保留原日期和文件名，避免改变网址和评论关联。希望展示真实修订时间时显式填写 `updated`，否则使用发布日期。图片和文章须一起提交。
 
 正式源码提交会触发 Actions：安装锁定依赖 → 测试 → 干净构建 → 路由/元数据/资源检查 → Pages 发布。检查失败时保留此前网站。较大改动先开 PR 到 `source`，PR 只验证。也可在 Actions 的 **Website checks and Pages** 手动运行，选择 `source` 才会发布。
 
@@ -37,13 +47,15 @@ git push origin source
 | 菜单、横幅、公式、Giscus | `_config.fluid.yml`，只写个人覆盖 |
 | 液态玻璃、手机和深色样式 | `source/css/custom.css` |
 | 背景和图标 | `source/img/` |
-| 碎碎念页面和公开接口 | `source/memos/index.md`、`source/js/memos.js` |
+| 碎碎念公开接口（唯一配置） | `source/memos/index.md` 的 `data-memos-endpoint` |
+| 草稿、笔记模板与图片入口 | `tools/writing.mjs`、`scaffolds/`、`tools/templates/note.md` |
+| 上线后的独立巡检 | `.github/workflows/health.yml`、`tools/check-health.mjs` |
 | 自动检查/发布 | `.github/workflows/pages.yml` |
 | 原文章路径保护 | `docs/maintenance/baseline.json` |
 
 Fluid 固定为 npm 依赖；不修改 `node_modules`。个人样式基于渐进增强 CSS：玻璃导航、卡片、搜索和手机浮层，正文接近实色；支持深色、减少动态与减少透明度，无 backdrop-filter 时使用实色。参考 [Apple 材质指南](https://developer.apple.com/design/human-interface-guidelines/materials)，通过网页 CSS 实现相近风格。
 
-Memos 只读现有公开服务，不使用令牌；内容按纯文本显示并保留换行。服务返回 404、网络失败或超时会显示状态和重试按钮。2026-10-02 验收时旧接口返回 404，需在 Memos 服务恢复后再次核对公开内容。
+Memos 只读现有公开服务，不使用令牌；内容按纯文本显示并保留换行。服务返回 404、网络失败或超时会显示状态和重试按钮。2026-10-03 复查：首页、API 和原 Zeabur 地址均返回 404，Zeabur 原项目没有服务。恢复原内容需要迁移后的地址或数据库备份；诊断和修改入口见 [Memos 维护](docs/maintenance/memos.md)。
 
 ## 检查与恢复
 
@@ -56,3 +68,11 @@ GitHub **Settings → Pages** 管理正式域名和源站证书，Cloudflare 管
 源码回归时 `git revert` 引入问题的源码提交，推送并等待重新部署。首次迁移出现发布问题时，在 Pages 把发布来源恢复为 **Deploy from a branch → main → / (root)**，保留域名和 HTTPS，详见 [基线与回退](docs/maintenance/baseline.md)。不要手工编辑生成 HTML。
 
 Dependabot 每周提供 npm 和 Actions 更新 PR，兼容更新合组；先检查和预览再合并，不自动合并。迁移差异见 [主题记录](docs/maintenance/theme-diff.md)，实施验收见 [计划清单](docs/superpowers/plans/2026-10-02-website-automation-plan.md)。
+
+## 上线后的巡检
+
+`npm run check:health` 独立检查真实网站的 25 项路径、资源、跳转、Cloudflare/源站证书和 Memos API，报告在忽略的 `.cache/website-health.json`。它不属于 `verify`，外部服务故障不会阻断写文章。
+
+Actions 的 **Website health** 支持手动运行。异常记录使用同一个标题为“网站健康检查异常”的 Issue：首次异常创建，变化或恢复时评论并更新，恢复后关闭；相同故障保持安静。工作流成功表示检查和记录完成，站点是否健康请看摘要和 Issue。关注该 Issue 可按已有 GitHub 通知偏好接收变化；工作流不修改账户设置。调度、退出代码和停用方法见 [健康检查维护](docs/maintenance/health.md)。
+
+第二阶段的完成项与待办见 [维护计划](docs/superpowers/plans/2026-10-03-website-maintenance-phase2-plan.md)。当前依赖审计及上游未修复问题见 [依赖状态](docs/maintenance/dependencies.md)。
