@@ -30,10 +30,14 @@ Issue 标题为“网站健康检查异常”，正文有 `<!-- website-health:v
 
 ## 调度和停止
 
-先只上线手动入口并验收，随后启用每天北京时间 11:17（UTC 03:17）。首次定时运行需有实际 run 才能验收，不能用手动运行替代。调度可能延迟；公开仓库 60 天不活跃可能自动停用，参见 [官方调度说明](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)。这属于每日巡检。
+已完成两次正式手动运行验收，启用每天北京时间 11:17（UTC 03:17，cron `17 3 * * *`）。首次定时运行需有实际 run 才能验收，不能用手动运行替代。调度可能延迟；公开仓库 60 天不活跃可能自动停用，参见 [官方调度说明](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)。这属于每日巡检。
 
 需要停止时在 Actions → Website health → 菜单 → Disable workflow；重新启用使用 Enable workflow。只暂停定时可从 `health.yml` 删除 `schedule`，保留 `workflow_dispatch`。这些操作不影响 **Website checks and Pages**。脚本问题按源码提交 revert 后重新验证；不要手动删除健康 Issue 的机器标记。
 
 ## 实际验收记录
 
-2026-10-03 本机真实检查 24/25 通过：全部文章、栏目、资源、跳转和两条严格 TLS 检查通过；唯一失败是 Memos API 的 `HTTP_404`。GitHub 手动运行、去重证据和调度状态在正式验收后补充，Memos 恢复仍待原服务或备份信息。
+2026-10-03 本机真实检查 24/25 通过：全部文章、栏目、资源、跳转和两条严格 TLS 检查通过；唯一失败是 Memos API 的 `HTTP_404`。[PR #7](https://github.com/kisara174/kisara174.github.io/pull/7) 已合并，[Pages 部署](https://github.com/kisara174/kisara174.github.io/actions/runs/37114485054) 成功。
+
+正式 [首次手动巡检](https://github.com/kisara174/kisara174.github.io/actions/runs/37114532091) 成功，报告 24/25 健康，创建 [健康 Issue #8](https://github.com/kisara174/kisara174.github.io/issues/8)；[第二次巡检](https://github.com/kisara174/kisara174.github.io/actions/runs/37114598105) 同样成功，report 输出 `quiet`。Issue 数量仍为 1，正文、状态和 `updatedAt` 完全不变，确认没有重复写入。实际 runner 权限与上面的 job 配置相符。
+
+每日调度在手动验收之后启用；首个定时运行尚未发生，预期下一次为 2026-10-04 北京时间 11:17 附近，须以实际 run 为准。Memos 恢复仍待原服务或备份信息；绿色工作流不代表 Memos 已恢复。

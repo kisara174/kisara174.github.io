@@ -2,6 +2,8 @@ name: Website health
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * *' # 每天北京时间 11:17
 
 permissions:
   contents: read
