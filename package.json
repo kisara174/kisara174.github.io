@@ -12,7 +12,8 @@
     "draft": "node tools/writing.mjs draft",
     "preview": "TZ=Asia/Shanghai hexo server --draft --ip 127.0.0.1",
     "image": "node tools/writing.mjs image",
-    "publish:draft": "node tools/writing.mjs publish"
+    "publish:draft": "node tools/writing.mjs publish",
+    "check:health": "node tools/check-health.mjs --output .cache/website-health.json"
   },
   "hexo": {
     "version": "8.1.1"
