@@ -46,8 +46,12 @@ Issue 标题为“网站健康检查异常”，正文有 `<!-- website-health:v
 
 ## 2026-10-04 调整
 
-按用户决定取消 Memos：删除页面、脚本与 API 三个检查项，剩余 22 项继续由相同手动/每日 workflow 检查。取消功能不等于修复外部服务，旧健康 Issue 的 Memos 故障将按功能取消结案；以后有其他异常仍复用该 Issue。
+按用户决定取消 Memos：删除页面、脚本与 API 三个检查项，剩余 22 项继续由相同手动/每日 workflow 检查。取消功能不等于修复外部服务，旧健康 Issue 的 Memos 故障已按功能取消结案；以后有其他异常仍复用该 Issue。
 
 本机 `npm run verify` 通过：47 项测试、8 篇原文章检查和完整构建通过；`npm run check:health` 真实检查 22/22 通过。生成目录没有 Memos 页面、脚本或导航引用。
 
-查询 GitHub 时还没有 `schedule` 事件，首次定时验收仍保留待观察。正式发布后的 22 项运行结果在观察后补充。
+[PR #10](https://github.com/kisara174/kisara174.github.io/pull/10) 已合并（`ae3094b`），[Pages 部署](https://github.com/kisara174/kisara174.github.io/actions/runs/37149045300) 成功。线上主页不含旧入口，`/memos/` 和 `/js/memos.js` 均返回 HTTP 404 和本站“页面不存在”。
+
+[健康 Issue #8](https://github.com/kisara174/kisara174.github.io/issues/8) 按“功能取消”关闭，`state_reason=not_planned`；正文明确原服务没有恢复，保留原故障历史和巡检机器标记。随后正式 [手动巡检](https://github.com/kisara174/kisara174.github.io/actions/runs/37149144421) check/report 都成功，22/22 通过（包括边缘和源站严格 TLS），report 输出 `quiet`。Issue 仍关闭，正文和 `updatedAt` 未变，没有新增评论。
+
+查询 GitHub 时还没有 `schedule` 事件，首次定时验收仍保留待观察。
