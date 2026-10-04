@@ -27,9 +27,15 @@ navbar:
     - key: tag
       link: /tags/
       icon: iconfont icon-tags-fill
+canonical:
+  enable: true
+open_graph:
+  enable: true
+  image: https://www.kisara.com.cn/img/eva.jpg
 footer:
   content: |
     <span>Copyright © 2026 Kisara174</span>
+    <a href="/rss.xml" aria-label="RSS 订阅">RSS</a>
     <a href="https://github.com/kisara174/Kisara" rel="nofollow noopener"><span>Kisara's git</span></a>
 index:
   banner_img: /img/eva.jpg

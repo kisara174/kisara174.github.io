@@ -5,7 +5,7 @@
 # Site
 title: Kisara's space
 subtitle: ''
-description: ''
+description: '学习笔记与个人记录，分享数学、物理及学习过程中的思考。'
 keywords:
 author: Kisara
 language: zh-CN
@@ -99,3 +99,13 @@ ignore:
 theme: fluid
 
 # 发布由 .github/workflows/pages.yml 自动完成；不在本机推送生成文件。
+
+# 官方生成器输出订阅摘要和站点地图；全部正式文章。
+feed:
+  enable: true
+  type: rss2
+  path: rss.xml
+  limit: 0
+  content: false
+sitemap:
+  path: sitemap.xml
