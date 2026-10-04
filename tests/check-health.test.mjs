@@ -85,7 +85,8 @@ test('website targets need only the baseline and no retired service configuratio
  await mkdir(join(root,'docs/maintenance'),{recursive:true});
  await writeFile(join(root,'docs/maintenance/baseline.json'),JSON.stringify(baseline));
  const targets=await health.siteTargets(root);
- assert.equal(targets.length,22);
+ assert.equal(targets.length,23);
+ assert.ok(targets.some(target=>target.url===new URL("/series/",baseline.siteUrl).href));
  assert.ok(targets.every(target=>!target.id.includes('memos')&&!target.url.includes('memos')));
  for(const path of baseline.articlePaths)assert.ok(targets.some(target=>target.url===new URL(path,baseline.siteUrl).href));
  assert.ok(targets.some(target=>target.id==='tls:origin'&&target.address==='185.199.108.153'));

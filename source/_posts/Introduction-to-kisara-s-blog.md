@@ -3,6 +3,7 @@ title: Introduction to kisara's blog
 date: 2026-01-20 00:41:22
 updated: 2026-10-02 17:41:18
 tags: [生活]
+description: "欢迎来到 Kisara 的博客，这里记录学习笔记与个人小项目。"
 ---
 欢迎来到我的博客！
 
