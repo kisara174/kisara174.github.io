@@ -42,7 +42,7 @@ Issue 标题为“网站健康检查异常”，正文有 `<!-- website-health:v
 
 每日调度在手动验收之后启用；首个定时运行尚未发生，预期下一次为 2026-10-04 北京时间 11:17 附近，须以实际 run 为准。当时 Memos 恢复尚未完成；2026-10-04 已按用户决定取消该功能及恢复待办。
 
-[调度 PR #9](https://github.com/kisara174/kisara174.github.io/pull/9) 已合并，[部署验收](https://github.com/kisara174/kisara174.github.io/actions/runs/37114810692) 成功，GitHub 查询 health.yml 状态为 active，默认分支上的每日 cron 已确认。首次 schedule 事件仍待观察。
+[调度 PR #9](https://github.com/kisara174/kisara174.github.io/pull/9) 已合并，[部署验收](https://github.com/kisara174/kisara174.github.io/actions/runs/37114810692) 成功，GitHub 查询 health.yml 状态为 active，默认分支上的每日 cron 已确认。当时首次 schedule 事件仍待观察；后续验收见下文。
 
 ## 2026-10-04 调整
 
@@ -54,4 +54,10 @@ Issue 标题为“网站健康检查异常”，正文有 `<!-- website-health:v
 
 [健康 Issue #8](https://github.com/kisara174/kisara174.github.io/issues/8) 按“功能取消”关闭，`state_reason=not_planned`；正文明确原服务没有恢复，保留原故障历史和巡检机器标记。随后正式 [手动巡检](https://github.com/kisara174/kisara174.github.io/actions/runs/37149144421) check/report 都成功，22/22 通过（包括边缘和源站严格 TLS），report 输出 `quiet`。Issue 仍关闭，正文和 `updatedAt` 未变，没有新增评论。
 
-查询 GitHub 时还没有 `schedule` 事件，首次定时验收仍保留待观察。
+上述移除发布验收时还没有 schedule 事件；后续已经完成首次定时验收。
+
+## 首次定时验收（2026-10-04）
+
+实际 [schedule 运行](https://github.com/kisara174/kisara174.github.io/actions/runs/37193437502) 的事件为 schedule，源码 SHA 为 `5bf6f6250a5233f38452b31bcba6c32a72d6ae4e`。北京时间 17:50:33 创建，17:51 附近完成；check/report 成功，22/22 通过，边缘和源站严格 TLS 均通过，report 输出 `quiet，Issue #8`。这是实际调度验收，不是手动运行代替。
+
+该次较配置的北京时间 11:17 延迟；不改变 cron，也不将 GitHub schedule 当作准点保证。首次定时待办已完成，今后按实际运行记录观察异常变化。

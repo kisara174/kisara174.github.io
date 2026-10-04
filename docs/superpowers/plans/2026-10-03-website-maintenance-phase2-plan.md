@@ -8,7 +8,7 @@
 
 **Tech Stack:** Hexo 8.1.1、Fluid 1.9.9、Node 24.21.0、npm、GitHub Actions。
 
-**Spec:** [第二阶段设计](../specs/2026-10-03-website-maintenance-phase2-design.md)。状态：实施中；用户已授权按清单实施。写作工具与巡检已发布；2026-10-04 用户取消 Memos，恢复任务撤销，首次定时运行仍待观察。
+**Spec:** [第二阶段设计](../specs/2026-10-03-website-maintenance-phase2-design.md)。状态：已交付；用户已授权按清单实施。写作工具与巡检已发布；2026-10-04 用户取消 Memos，恢复任务撤销，首次定时运行已验收（见末尾记录）。
 
 ## Global Constraints
 
@@ -27,8 +27,8 @@
 | 1 | Memos 定位与恢复 | 正式页面可读取公开内容，故障提示准确 | 已取消（2026-10-04） |
 | 2 | Mac 草稿、模板与图片入口 | 创建、预览、插图、转正式文章流程可用 | 本机验收通过 |
 | 3 | 独立健康检查 CLI | 可识别路径、资源、跳转及源站证书故障 | 本机及正式手动巡检 22/22 通过 |
-| 4 | 每日巡检与去重通知 | 手动/定时可运行，异常变化与恢复可记录 | 两次手动验收通过，启用每日调度；首次定时待观察 |
-| 5 | 端到端验收与维护说明 | Mac 使用步骤、运行证据、恢复入口完整 | 已正式发布；Memos 已取消，首次定时待观察 |
+| 4 | 每日巡检与去重通知 | 手动/定时可运行，异常变化与恢复可记录 | 两次手动验收通过，启用每日调度；首次定时已验收（见末尾记录） |
+| 5 | 端到端验收与维护说明 | Mac 使用步骤、运行证据、恢复入口完整 | 已正式发布；Memos 已取消，首次定时已验收（见末尾记录） |
 
 写作入口与每日巡检已实施；本次完成 Memos 移除及发布验收，首次定时运行继续以实际记录为准。
 
@@ -140,7 +140,7 @@ git diff --check
 - [x] CLI 退出 1 时仍发布有效报告并完成异常记录；退出 2、报告缺失/无效或 GitHub 写入失败使 workflow 失败。摘要清楚区分“巡检执行完成”和“网站存在异常”。
 - [x] 单元测试确认去重/恢复后，手动跑正式配置；不制造真实站点故障，模拟异常只进入假 API 测试。核对实际报告、权限和摘要。
 - [x] 两次手动验收通过后添加每日北京时间 11:17 调度（UTC 03:17）；README 写清查看 Issue、关闭调度及重新启用的方法。
-- [ ] 观察并记录首个定时 run，确认 schedule 事件与报告正常；下一次预期 2026-10-04 北京时间 11:17 附近。
+- [x] 观察并记录首个定时 run，确认 schedule 事件与报告正常；2026-10-04 北京时间17:50实际触发，发生延迟。
 
 **Validation:**
 
@@ -163,7 +163,7 @@ gh issue list --state all --search '网站健康检查异常 in:title'
 - [x] `npm run verify` 全部通过，CI 正常构建并部署；旧路由检查通过，浏览器复查公式、搜索和移动导航；Giscus 配置与生成脚本保留，未发布测试评论。
 - [x] 源站和 Cloudflare 严格 HTTPS 及取消 Memos 后的 22 项巡检通过；Memos 公开可读验收已随功能取消。
 - [x] 记录各部分提交、测试结果、正式部署 run 与手动巡检 run。
-- [ ] 记录首个定时 run；无法观察的事项保持未勾选。
+- [x] 记录首个定时 run，见下面实际运行证据。
 - [x] 记录回退：源码问题 revert 对应提交；巡检问题禁用独立 health workflow，不动 Pages 发布；本次没有修改 Memos 外部服务。
 - [x] 最后复查 Git 状态与文档链接，更新 GraphFlow 索引，交付可复用维护流程。
 
@@ -197,12 +197,18 @@ AI 摘要和标签建议放在上述三个交付稳定之后，独立设计、�
 - [PR #9](https://github.com/kisara174/kisara174.github.io/pull/9) 已合并，每日 cron `17 3 * * *` 在默认 `source` 分支生效，健康 workflow 状态为 active。[调度提交的部署](https://github.com/kisara174/kisara174.github.io/actions/runs/37114810692) build/deploy 成功，Linux 再次通过 57 项测试与 8 篇原路径检查。
 - Edge 正式页面复查 MathJax、中文“傅里叶”搜索结果和 400px 视口的展开/收起移动导航；玻璃界面仍正常。Giscus 的 repo、category、pathname 映射和生成调用未修改，不发布测试评论。
 - 本机 `source` 与远端同步，旧 `main` 保留 `9862527`；仅清理本次创建的系统临时预览实例，已有 worktree 和忽略的备份均保留。文档相对链接、Git 空工作区及 GraphFlow 索引已检查。
-- 本条是 2026-10-03 的待办状态；2026-10-04 Memos 内容恢复已取消，首次 schedule 运行仍待观察。
+- 本条是 2026-10-03 的待办状态；2026-10-04 Memos 内容恢复已取消，当时首次 schedule 运行待观察，后续已验收，见末尾。
 
 ## 2026-10-04 范围调整
 
-用户取消 Memos。删除网站入口、页面、JS、专用 CSS 和测试，移除路径基线及健康检查中的对应页面/JS/API。8 篇原文章、液态玻璃、写作工具、Giscus、HTTPS 和巡检调度继续保留。当前健康检查共 22 项。旧 Memos 异常按取消功能结案，不宣称服务恢复；首次定时运行仍需实际证据。
+用户取消 Memos。删除网站入口、页面、JS、专用 CSS 和测试，移除路径基线及健康检查中的对应页面/JS/API。8 篇原文章、液态玻璃、写作工具、Giscus、HTTPS 和巡检调度继续保留。当前健康检查共 22 项。旧 Memos 异常按取消功能结案，不宣称服务恢复；该时点首次定时运行尚待实际证据，后续验收见末尾。
 
 - [PR #10](https://github.com/kisara174/kisara174.github.io/pull/10) 已合并（`ae3094b`）。本机和 Linux CI 通过 47 项测试、46 个构建资源及 8 篇原文章检查；[Pages 部署](https://github.com/kisara174/kisara174.github.io/actions/runs/37149045300) 成功。
 - 线上主页无 Memos 入口；旧 `/memos/` 和 `/js/memos.js` 实测返回 HTTP 404 与本站“页面不存在”。其余 22 项在正式 [手动巡检](https://github.com/kisara174/kisara174.github.io/actions/runs/37149144421) 全部通过，包含边缘与源站严格 TLS。
-- [健康 Issue #8](https://github.com/kisara174/kisara174.github.io/issues/8) 按功能取消关闭（`not_planned`），不是服务恢复。手动巡检 report 输出 `quiet`，Issue 正文、状态及更新时间不变，没有新增评论。首次 schedule 仍待实际运行记录。
+- [健康 Issue #8](https://github.com/kisara174/kisara174.github.io/issues/8) 按功能取消关闭（`not_planned`），不是服务恢复。手动巡检 report 输出 `quiet`，Issue 正文、状态及更新时间不变，没有新增评论。该时点首次 schedule 尚待实际记录，后续已完成验收。
+
+## 首次定时巡检结案（2026-10-04）
+
+- [x] [运行 37193437502](https://github.com/kisara174/kisara174.github.io/actions/runs/37193437502) 实际事件 schedule，source SHA `5bf6f6250a5233f38452b31bcba6c32a72d6ae4e`。
+- [x] 北京时间17:50:33开始、17:51附近完成；check/report成功，22/22通过，严格边缘/源站TLS通过，report quiet。
+- [x] 原Memos恢复任务已取消，首次定时运行已验收；第二阶段的当前有效交付完成。此次有调度延迟，继续保留11:17的cron，不承诺准点。
