@@ -27,8 +27,8 @@ npm run image -- "数学-笔记" "/绝对路径/示意图.png"
 npm run publish:draft -- "数学-笔记"
 npm run verify
 git add source/_posts/数学-笔记.md source/img/posts/数学-笔记/
-git commit -m "新增数学笔记"
-git push origin source
+npm run publish:site
+npm run publish:site -- --apply --message "新增数学笔记"
 ```
 
 `draft` 默认普通文章模板，`--template note` 加入“问题、定义与条件、推导、例题、易错点”五个空章节。标题可含中文和空格，文件名会规范为 `数学-笔记.md`；命令会输出准确路径。编辑 `source/_drafts/` 中的文件，预览仍在 [localhost:4000](http://localhost:4000/)，正式构建不会包含草稿。`server` 只预览正式文章，`preview` 包含草稿；运行其中一个即可。
@@ -36,6 +36,8 @@ git push origin source
 `image` 复制 png/jpg/jpeg/webp/avif 到 `source/img/posts/<文章文件名>/`，输出可粘贴的 Markdown 图片引用。原图不变，同名图片不覆盖；超过 2 MiB 会提示。请使用命令输出的文章文件名，图片目录与文件名对应。
 
 `publish:draft` 只把指定本机草稿转为正式文章，保留完整内容和原日期，拒绝覆盖现有文章。它不会提交 Git 或推送。日期统一北京时间，例如 `date: 2026-10-03 11:17:00`；修改旧文章时保留原日期和文件名，避免改变网址和评论关联。希望展示真实修订时间时显式填写 `updated`，否则使用发布日期。图片和文章须一起提交。
+
+先明确暂存文章、图片和已跟踪草稿的删除，再运行 `publish:site` 预检；通过后用 `--apply --message` 提交并推送。命令会拒绝未暂存的跟踪文件及未跟踪的构建输入，核对验证前后的 HEAD/暂存树，并按新 SHA 观察 build/deploy。详细用法及失败恢复见 [发布入口](docs/maintenance/publishing.md)。
 
 正式源码提交会触发 Actions：安装锁定依赖 → 测试 → 干净构建 → 路由/元数据/资源检查 → Pages 发布。检查失败时保留此前网站。较大改动先开 PR 到 `source`，PR 只验证。也可在 Actions 的 **Website checks and Pages** 手动运行，选择 `source` 才会发布。
 
