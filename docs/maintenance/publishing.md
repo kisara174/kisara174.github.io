@@ -22,3 +22,5 @@ npm run publish:status -- --sha "$(git rev-parse HEAD)"
 - deploy：源码已推送。查看 run 失败 job，修复后以新提交发布；超时后也可用 publish:status 继续观察。它先 fetch 并验证 SHA 属于 origin/source，只观察，绝不提交或推送。
 
 不使用自动暂存、pull/rebase/reset/force。预检缺 gh 时仍可完成本地检查，但不能继续 apply。现有 Pages workflow、域名和旧文章路由均不变。回退代码可通过实际源码提交 revert；已推送历史不会由命令自动删除。
+
+2026-10-04 验收：[PR #11](https://github.com/kisara174/kisara174.github.io/pull/11) 的 Linux 构建通过；合并 source 为 97dbf32b066caebc790b2cf223f39fcd1ed7bb9a。[Pages run](https://github.com/kisara174/kisara174.github.io/actions/runs/37209802343) 的 build/deploy 均成功，实际运行 publish:status 确认同一 SHA。默认预检与执行由临时真实 Git 仓库测试覆盖（28项，统一75项），后续功能扩展后统一97项。

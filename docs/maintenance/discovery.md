@@ -11,3 +11,5 @@ npm run verify 继续作为唯一本地/CI 检查入口。baseline.discovery 启
 本地验收：检查覆盖 8 篇正式文章；RSS 8 项、站点地图 12 项（含首页和3个标签），404 与 Memos 未收录；原 22 项健康巡检保持独立。真实部署后还需核对 RSS/sitemap/robots 的 HTTP 状态和类型，验收链接见下方记录。依赖审计见 dependencies.md。
 
 回退时同时撤销插件/lock、配置、页脚入口、robots 和 discovery 硬要求；保留此前路由与资源检查。
+
+2026-10-04 验收：[PR #12](https://github.com/kisara174/kisara174.github.io/pull/12) Linux 97/97，通过后合并 055e5d89389d1740d2861bbaab2878232246a90e。[Pages run](https://github.com/kisara174/kisara174.github.io/actions/runs/37211026474) 成功，publish:status 按 SHA 确认。随后实际请求 /rss.xml、/sitemap.xml 均 HTTP200/application/xml，/robots.txt 为 HTTP200/text/plain；独立 XML 解析确认8篇覆盖和12项地图。B 交付时巡检22项，D新增系列页后为23项，地图随页面自动扩展。

@@ -93,7 +93,7 @@ Sitemap: https://www.kisara.com.cn/sitemap.xml
 - [x] 给懒加载真实图片缺失、中文编码和合法 srcset 写失败测试；不要把占位图可用当作正文图片可用。
 - [x] 旧 check-site fixture 不设 discovery 时保持原断链、中文路径、搜索和资源合同；产品 baseline 必须启用 discovery，增加对应回归断言。
 - [x] 若新增校验已由 check-site 调用，pages.yml 不需新 job；npm run verify 在本机/Linux同时检查。
-- [ ] PR CI和真实部署后检查 /rss.xml、/sitemap.xml、/robots.txt HTTP200与类型/内容，8篇文章仍通过；记录维护文档。
+- [x] PR CI和真实部署后检查 /rss.xml、/sitemap.xml、/robots.txt HTTP200与类型/内容，8篇文章仍通过；记录维护文档。
 
 失败测试示例（沿用现有 fixture(t)）：
 
@@ -125,3 +125,5 @@ curl只在真实部署成功之后运行，不能以旧站结果验收新功能�
 回退同一交付的实际提交，同时撤销包/锁、配置、入口和新增 discovery 硬要求；保留此前原路径、断链和资源检查。审计报告如有新增风险，先解释影响再决定方案，不把绿色构建当成没有风险。
 
 本地验收：核心 fixture 仍通过，新 discovery RED 17 项暴露缺失功能；元信息补充另有实际 RED。npm ci 与完整 verify 通过，RSS 8 项、sitemap 12 项由 Python XML 解析独立核对。audit 7→8 high，新增条目仅既有 braces advisory 的 sitemap 依赖链传播，详见 dependencies.md。真实部署验收待下。
+
+上线：PR #12 / source 055e5d8 / Pages 37211026474；RSS/sitemap/robots正式HTTP200与类型、XML覆盖核对通过。完整verify97项。浏览器视觉验收待Mac解锁后继续。

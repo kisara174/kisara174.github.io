@@ -33,7 +33,7 @@ CLI 导入不得自动操作 Git。repository 固定 kisara174/kisara174.github.
 - [x] 写失败测试：默认无 add/commit/push；空暂存、错误分支/远端、冲突、未暂存跟踪变化和未跟踪构建输入都停止。
 - [x] 本地临时 bare origin 与 source 工作树测试中文/空格文件名；不访问 GitHub。测试运行器只将 remote get-url 的返回值模拟为正式仓库地址，其余 Git 操作在临时本地仓库真实执行；产品不提供绕过远端校验的选项。
 - [x] 跑 `node --test tests/publish-site.test.mjs`，记录接口不存在的实际失败。
-- [x] 实现 branch/HEAD/remote、status --porcelain=v1 -z、diff --cached --name-status -z、write-tree；路径按 NUL 解析。
+- [x] 实现 branch/HEAD/remote、status --porcelain=v1 -z、diff --cached --name-only -z、write-tree；路径按 NUL 解析。
 - [x] 预检 Node 与 .nvmrc 相符、npm/git 可运行；构建输入含 source/scripts/tools/tests/scaffolds 和根配置/包文件。
 - [x] fetch origin source 后要求 ahead=0、behind=0；失败或不一致给出实际下一步，不自动同步。
 - [x] 展示暂存清单/摘要/差异，执行 verify；它可写忽略的 public/cache，不改 index/commit/push。
@@ -73,7 +73,7 @@ assert.ok(calls.every(c => !['add','commit','push'].includes(c[1])));
 - [x] build/deploy 两个 job 都 success 才成功；10分钟超时返回 SHA/runUrl。
 - [x] publish:status -- --sha 接受40位hex，fetch 后用 git merge-base --is-ancestor SHA origin/source 验证是目标仓库 source 提交，只观察不 commit/push。
 - [x] 缺 gh/未认证时 apply 前停止，预检可继续但标明不能观察部署；不提供隐藏令牌。
-- [ ] 测试及 verify 已通过，待 PR 后用本交付真实提交验收 Linux/build/deploy，记录 SHA/run。
+- [x] 测试及 verify、PR/Linux 与同 SHA 实际 build/deploy 已验收，记录见 publishing.md。
 
 ## 用法（实施后）
 
@@ -100,3 +100,5 @@ git diff --check
 回退模块/npm scripts/说明后恢复原 git add/commit/push；已推送内容通过实际提交 revert，不能自动删除历史。现有 pages.yml 不变。
 
 本地验收（2026-10-04）：首次红灯 24 项因接口尚未实现失败；完善冲突、版本与状态观察后，统一 verify 75/75 通过，8 篇文章检查 0 错误。临时 bare Git 仓库验证真实提交和推送，gh 仅在测试中模拟；真实部署验收待下。
+
+上线：PR #11 / source 97dbf32 / Pages 37209802343，实际 publish:status 成功。本批真实维护记录将使用 --apply 执行，作为实际提交/推送/部署链验收；不是测试文章。

@@ -61,3 +61,7 @@ Issue 标题为“网站健康检查异常”，正文有 `<!-- website-health:v
 实际 [schedule 运行](https://github.com/kisara174/kisara174.github.io/actions/runs/37193437502) 的事件为 schedule，源码 SHA 为 `5bf6f6250a5233f38452b31bcba6c32a72d6ae4e`。北京时间 17:50:33 创建，17:51 附近完成；check/report 成功，22/22 通过，边缘和源站严格 TLS 均通过，report 输出 `quiet，Issue #8`。这是实际调度验收，不是手动运行代替。
 
 该次较配置的北京时间 11:17 延迟；不改变 cron，也不将 GitHub schedule 当作准点保证。首次定时待办已完成，今后按实际运行记录观察异常变化。
+
+## 系列页上线（2026-10-04）
+
+[内容导航 PR #13](https://github.com/kisara174/kisara174.github.io/pull/13) 增加 /series/，基线从22变23项。实际本机检查和 [GitHub手动巡检](https://github.com/kisara174/kisara174.github.io/actions/runs/37211453317) 全部23/23通过（含两条严格TLS），report输出quiet。Issue #8仍关闭，updatedAt保持2026-10-03T19:46:55Z，没有重复通知；既有每日调度继续按新基线工作。

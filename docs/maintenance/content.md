@@ -9,3 +9,5 @@
 本地快照在忽略的 .cache/content-before.json；与修改后的实际 manifest/front matter/body 比对。全部原文、标题、日期、标签和路径需完全一致，系列页应有 8 条原文链接及 1 条首页链接。新页面进入 baseline.requiredPaths，独立健康巡检因此从22变23项。
 
 回退系列页时一并移除菜单和 baseline 路径，健康目标计数回到22。摘要可独立撤销对应 front matter 行，不重命名原文或修改日期。上线与视觉验收记录见下方。
+
+2026-10-04 验收：[PR #13](https://github.com/kisara174/kisara174.github.io/pull/13) Linux 构建通过，合并 5ed778b9f8ea7966b06f4f3f144387a82f2c2437。[Pages run](https://github.com/kisara174/kisara174.github.io/actions/runs/37211367193) 成功；本机实际健康检查23/23，[GitHub巡检](https://github.com/kisara174/kisara174.github.io/actions/runs/37211453317) 也是23/23，记录输出quiet，Issue #8保持关闭且没有新增通知。独立核对原8篇正文、title/date/tags/path一致、系列9条实际链接、RSS8条正确摘要；视觉验收仍待性能阶段完成。
