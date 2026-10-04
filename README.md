@@ -45,6 +45,7 @@ npm run publish:site -- --apply --message "新增数学笔记"
 
 | 需求 | 文件 |
 | --- | --- |
+| 学习系列导航 | `source/series/index.md`、`_config.fluid.yml` |
 | 标题、域名、时区、文章链接 | `_config.yml` |
 | 菜单、横幅、公式、Giscus | `_config.fluid.yml`，只写个人覆盖 |
 | 液态玻璃、手机和深色样式 | `source/css/custom.css` |
@@ -60,6 +61,8 @@ Fluid 固定为 npm 依赖；不修改 `node_modules`。个人样式基于渐进
 
 ## 检查与恢复
 
+读者可从 [系列导航](https://www.kisara.com.cn/series/) 按主题阅读笔记，维护方式见 [内容导航](docs/maintenance/content.md)。
+
 读者可用页脚 [RSS](https://www.kisara.com.cn/rss.xml) 订阅文章摘要。站点地图、robots 和分享元信息随构建自动更新，维护方式见 [订阅与搜索发现](docs/maintenance/discovery.md)。
 
 `npm run verify` 是统一检查入口。`npm run check:site` 可单独检查已生成的 `public`：保护旧文章及栏目、标题/日期/标签、重复文章路由、本地 HTML/CSS 资源和失效内链。不以第三方外链的临时故障阻断发布。
@@ -74,7 +77,7 @@ Dependabot 每周提供 npm 和 Actions 更新 PR，兼容更新合组；先检�
 
 ## 上线后的巡检
 
-`npm run check:health` 独立检查真实网站的 22 项路径、资源、跳转和 Cloudflare/源站证书，报告在忽略的 `.cache/website-health.json`。它不属于 `verify`，外部服务故障不会阻断写文章。
+`npm run check:health` 独立检查真实网站的 23 项路径、资源、跳转和 Cloudflare/源站证书，报告在忽略的 `.cache/website-health.json`。它不属于 `verify`，外部服务故障不会阻断写文章。
 
 Actions 的 **Website health** 每天北京时间 11:17 巡检，也支持手动运行。异常记录使用同一个标题为“网站健康检查异常”的 Issue：首次异常创建，变化或恢复时评论并更新，恢复后关闭；相同故障保持安静。工作流成功表示检查和记录完成，站点是否健康请看摘要和 Issue。关注该 Issue 可按已有 GitHub 通知偏好接收变化；工作流不修改账户设置。调度、退出代码和停用方法见 [健康检查维护](docs/maintenance/health.md)。
 

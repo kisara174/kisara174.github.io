@@ -27,6 +27,8 @@ navbar:
     - key: tag
       link: /tags/
       icon: iconfont icon-tags-fill
+    - name: 系列
+      link: /series/
 canonical:
   enable: true
 open_graph:

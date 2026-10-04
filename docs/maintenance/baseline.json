@@ -19,7 +19,8 @@
     "/tags/",
     "/categories/",
     "/links/",
-    "/404.html"
+    "/404.html",
+    "/series/"
   ],
   "discovery": {
     "feed": "/rss.xml",

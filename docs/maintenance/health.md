@@ -4,7 +4,7 @@
 
 ## 检查与结果
 
-Node HTTP/HTTPS 标准库负责网络和 TLS，复用已有 linkedom，没有新增依赖。检查基线内 8 篇文章和 6 个栏目、搜索 XML、个人 CSS、4 条跳转以及 Cloudflare、GitHub 源站证书，共 22 项。
+Node HTTP/HTTPS 标准库负责网络和 TLS，复用已有 linkedom，没有新增依赖。检查基线内 8 篇文章和 7 个栏目（含系列页）、搜索 XML、个人 CSS、4 条跳转以及 Cloudflare、GitHub 源站证书，共 23 项。
 
 页面核对标题和站点标识，以及 Fluid 实际输出的 `og:url`（存在 canonical 时优先使用）；目录的 `index.html` 归一后必须与所请求页面相符。搜索检查 XML 类型和闭合的搜索/记录标记；报告不保存响应正文。跳转最多 5 次，核对正式域名、路径和查询参数。
 
