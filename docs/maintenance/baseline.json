@@ -20,5 +20,11 @@
     "/categories/",
     "/links/",
     "/404.html"
-  ]
+  ],
+  "discovery": {
+    "feed": "/rss.xml",
+    "sitemap": "/sitemap.xml",
+    "robots": "/robots.txt",
+    "socialImage": "/img/eva.jpg"
+  }
 }

@@ -60,6 +60,8 @@ Fluid 固定为 npm 依赖；不修改 `node_modules`。个人样式基于渐进
 
 ## 检查与恢复
 
+读者可用页脚 [RSS](https://www.kisara.com.cn/rss.xml) 订阅文章摘要。站点地图、robots 和分享元信息随构建自动更新，维护方式见 [订阅与搜索发现](docs/maintenance/discovery.md)。
+
 `npm run verify` 是统一检查入口。`npm run check:site` 可单独检查已生成的 `public`：保护旧文章及栏目、标题/日期/标签、重复文章路由、本地 HTML/CSS 资源和失效内链。不以第三方外链的临时故障阻断发布。
 
 GitHub **Settings → Pages** 管理正式域名和源站证书，Cloudflare 管理 DNS、代理和边缘 HTTPS。保持 `www.kisara.com.cn`，根域继续跳转到正式地址。`source/CNAME` 保留迁移记录；artifact 部署以 Pages 设置为准。发布采用 [GitHub 官方 Pages workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。

@@ -7,3 +7,5 @@
 审计给出的自动建议包含把 Hexo 降级至 3.9.0，是不兼容的大版本改变，不能通过 `npm audit fix --force` 直接应用。本次保持锁文件和主题版本，没有添加依赖。问题位于本机/CI 构建与 watch 的依赖链；正式网站发布的是静态页面，不能把构建依赖的告警等同于浏览器中已注入漏洞代码，也不能宣称依赖无漏洞。
 
 后续在上游有可用补丁时审阅 Dependabot PR，运行 `npm run verify` 并检查主题兼容性。不要自动合并、盲目 override 或用旧 Hexo 消除报告。此前维护记录中的审计值是当时的结果，以本次日期和实际 advisory 为新的现状。
+
+2026-10-04 新增官方 hexo-generator-feed 4.0.0（Node >=20.19.0）与 hexo-generator-sitemap 3.0.1（Node >=12.13.0），固定版本并更新 lock。安装前 audit 为 7 high，安装后为 8 high：新增 sitemap 条目仍是既有 braces/micromatch/Nunjucks 链的传播，没有新增独立 advisory；依赖审计未清零。保持 Node 24.21.0 和现有主题，不执行 force、降级或 override。实际构建与错误产物校验通过后再发布。

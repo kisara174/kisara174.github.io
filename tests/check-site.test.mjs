@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -164,4 +164,87 @@ test('CLI succeeds on a valid site and exits 1 with a file-specific failure', t 
   const failure = run();
   assert.equal(failure.status,1);
   assert.match(failure.stderr,/index.html.*missing.png/);
+});
+
+function discoveryFixture(t) {
+  const f=fixture(t);
+  f.baseline.discovery={feed:'/rss.xml',sitemap:'/sitemap.xml',robots:'/robots.txt',socialImage:'/img/eva.jpg'};
+  f.write('img/eva.jpg','image');
+  const page=url=>'<meta property="og:title" content="笔记"><meta property="og:url" content="'+url+'"><meta name="description" content="学习笔记"><link rel="canonical" href="'+url+'"><meta property="og:image" content="https://www.kisara.com.cn/img/eva.jpg">';
+  f.write('index.html',page('https://www.kisara.com.cn/'));
+  f.write('笔记/index.html',page('https://www.kisara.com.cn/%E7%AC%94%E8%AE%B0/'));
+  f.write('rss.xml','<?xml version="1.0"?><rss version="2.0"><channel><title>Kisara</title><link>https://www.kisara.com.cn/</link><item><title>笔记</title><link>https://www.kisara.com.cn/笔记/</link></item></channel></rss>');
+  f.write('sitemap.xml','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://www.kisara.com.cn/</loc></url><url><loc>https://www.kisara.com.cn/笔记/</loc></url></urlset>');
+  f.write('robots.txt','User-agent: *\nAllow: /\nSitemap: https://www.kisara.com.cn/sitemap.xml\n');
+  return f;
+}
+test('accepts complete feeds, sitemap, robots and canonical/social metadata',t=>{
+  assert.deepEqual(checkSite(discoveryFixture(t)).errors,[]);
+});
+for (const [name,path,content,pattern] of [
+  ['empty feed','rss.xml','<rss version="2.0"><channel/></rss>',/rss.xml/],
+  ['truncated XML','rss.xml','<rss><channel><item></channel></rss>',/XML/],
+  ['wrong RSS root','rss.xml','<feed><item/></feed>',/rss.xml/],
+  ['foreign feed URL','rss.xml','<rss><channel><item><link>https://wrong.invalid/笔记/</link></item></channel></rss>',/rss.xml/],
+  ['duplicated feed item','rss.xml','<rss><channel><item><link>https://www.kisara.com.cn/笔记/</link></item><item><link>https://www.kisara.com.cn/%E7%AC%94%E8%AE%B0/</link></item></channel></rss>',/重复/],
+  ['missing sitemap article','sitemap.xml','<urlset><url><loc>https://www.kisara.com.cn/</loc></url></urlset>',/sitemap.xml/],
+  ['draft sitemap URL','sitemap.xml','<urlset><url><loc>https://www.kisara.com.cn/_drafts/test/</loc></url></urlset>',/sitemap.xml/],
+  ['retired page sitemap URL','sitemap.xml','<urlset><url><loc>https://www.kisara.com.cn/memos/</loc></url></urlset>',/sitemap.xml/],
+  ['404 sitemap URL','sitemap.xml','<urlset><url><loc>https://www.kisara.com.cn/404.html</loc></url></urlset>',/sitemap.xml/],
+  ['wrong robots sitemap','robots.txt','User-agent: *\nSitemap: http://wrong.invalid/sitemap.xml\n',/robots.txt/],
+  ['robots blocks whole site','robots.txt','User-agent: *\nDisallow: /\nSitemap: https://www.kisara.com.cn/sitemap.xml\n',/robots.txt/],
+  ['empty description','笔记/index.html','<meta name="description" content=""><link rel="canonical" href="https://www.kisara.com.cn/笔记/"><meta property="og:image" content="https://www.kisara.com.cn/img/eva.jpg">',/description/],
+  ['wrong canonical','笔记/index.html','<meta name="description" content="学习"><link rel="canonical" href="https://www.kisara.com.cn/"><meta property="og:image" content="https://www.kisara.com.cn/img/eva.jpg">',/canonical/],
+  ['relative social image','index.html','<meta name="description" content="学习"><link rel="canonical" href="https://www.kisara.com.cn/"><meta property="og:image" content="/img/eva.jpg">',/og:image/],
+  ['duplicate canonical','index.html','<meta name="description" content="学习"><link rel="canonical" href="https://www.kisara.com.cn/"><link rel="canonical" href="https://www.kisara.com.cn/"><meta property="og:image" content="https://www.kisara.com.cn/img/eva.jpg">',/canonical/]
+]) test('discovery rejects '+name,t=>{
+  const f=discoveryFixture(t);f.write(path,content);
+  assert.match(checkSite(f).errors.join('\n'),pattern);
+});
+test('discovery checks are required by the production baseline',t=>{
+  const f=fixture(t);
+  const baseline=JSON.parse(readFileSync(new URL('../docs/maintenance/baseline.json',import.meta.url),'utf8'));
+  f.baseline.discovery=baseline.discovery;
+  assert.ok(f.baseline.discovery);
+  assert.match(checkSite(f).errors.join('\n'),/rss.xml/);
+});
+test('missing lazy and responsive images are caught, data URL candidates are ignored',t=>{
+  const f=fixture(t);
+  f.write('img/ok.png','image');
+  f.write('index.html','<img src="data:image/gif;base64,AA==" data-src="/img/missing.png"><img srcset="data:image/png;base64,AAAA 1x, /img/missing2.png 2x"><source srcset="/img/ok.png 400w, /img/missing3.png 800w">');
+  assert.match(checkSite(f).errors.join('\n'),/missing.png/);
+  assert.match(checkSite(f).errors.join('\n'),/missing2.png/);
+  assert.match(checkSite(f).errors.join('\n'),/missing3.png/);
+  f.write('index.html','<img srcset="data:image/png;base64,AAAA 1x, /img/ok.png 2x">');
+  assert.deepEqual(checkSite(f).errors,[]);
+});
+
+test('missing RSS file and incorrect OG title/url block discovery',t=>{
+  const f=discoveryFixture(t);
+  rmSync(join(f.publicDir,'rss.xml'));
+  assert.match(checkSite(f).errors.join('\n'),/rss.xml/);
+  const g=discoveryFixture(t);
+  g.write('index.html','<meta name="description" content="学习"><link rel="canonical" href="https://www.kisara.com.cn/"><meta property="og:image" content="https://www.kisara.com.cn/img/eva.jpg"><meta property="og:url" content="https://wrong.invalid/">');
+  assert.match(checkSite(g).errors.join('\n'),/og:title/);
+  assert.match(checkSite(g).errors.join('\n'),/og:url/);
+});
+test('sitemap rejects duplicate URLs even with differently encoded paths',t=>{
+  const f=discoveryFixture(t);
+  f.write('sitemap.xml','<urlset><url><loc>https://www.kisara.com.cn/</loc></url><url><loc>https://www.kisara.com.cn/笔记/</loc></url><url><loc>https://www.kisara.com.cn/%E7%AC%94%E8%AE%B0/</loc></url></urlset>');
+  assert.match(checkSite(f).errors.join('\n'),/重复/);
+});
+test('existing 404, drafts and retired pages are forbidden even when their files exist',t=>{
+  for (const path of ['404.html','memos/index.html','_drafts/test/index.html']) {
+    const f=discoveryFixture(t);f.write(path,'<h1>not indexed</h1>');
+    f.write('sitemap.xml','<urlset><url><loc>https://www.kisara.com.cn/</loc></url><url><loc>https://www.kisara.com.cn/笔记/</loc></url><url><loc>https://www.kisara.com.cn/'+path+'</loc></url></urlset>');
+    assert.match(checkSite(f).errors.join('\n'),/不应索引/);
+  }
+});
+test('data-srcset candidates are checked using encoded local paths',t=>{
+  const f=fixture(t);
+  f.write('img/中文 图.png','image');
+  f.write('index.html','<img data-srcset="/img/%E4%B8%AD%E6%96%87%20%E5%9B%BE.png 1x, /img/missing.png 2x">');
+  assert.match(checkSite(f).errors.join('\n'),/missing.png/);
+  f.write('index.html','<img data-srcset="/img/%E4%B8%AD%E6%96%87%20%E5%9B%BE.png 1x">');
+  assert.deepEqual(checkSite(f).errors,[]);
 });

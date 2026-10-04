@@ -37,14 +37,14 @@ checkSite({publicDir,manifest,baseline}) 的返回合同保持 {errors,warnings,
 
 ## Task B1：生成器与产物
 
-- [ ] 先在现有 fixture 增加 discovery 场景：缺 RSS/sitemap/robots 要出现具体文件错误，记录 RED。
-- [ ] 检查候选版本/Node engines，执行下列安装；比较 audit 与现有记录，不使用 audit fix --force、盲目降级或 override。
-- [ ] 配置 RSS2 摘要和 sitemap；测试生成覆盖正式文章，不含 drafts/Memos/404，XML中链接解码后仍为正式域名。
-- [ ] 将 discovery 写入实际 baseline；只撤销/增加功能对应配置，不改8篇 articlePaths。
-- [ ] 核对默认404来自 Fluid generator，并非 source/404.md；不得修改 node_modules。若生成器意外收录404，先查上游过滤接口，不能删除正式404来迁就 sitemap。
-- [ ] clean/build 与 verify，记录新包版本、真实审计和产物；独立提交生成器和检查。
+- [x] 先在现有 fixture 增加 discovery 场景：缺 RSS/sitemap/robots 要出现具体文件错误，记录 RED。
+- [x] 检查候选版本/Node engines，执行下列安装；比较 audit 与现有记录，不使用 audit fix --force、盲目降级或 override。
+- [x] 配置 RSS2 摘要和 sitemap；测试生成覆盖正式文章，不含 drafts/Memos/404，XML中链接解码后仍为正式域名。
+- [x] 将 discovery 写入实际 baseline；只撤销/增加功能对应配置，不改8篇 articlePaths。
+- [x] 核对默认404来自 Fluid generator，并非 source/404.md；不得修改 node_modules。若生成器意外收录404，先查上游过滤接口，不能删除正式404来迁就 sitemap。
+- [x] clean/build 与 verify，记录新包版本、真实审计和产物；独立提交生成器和检查。
 
-未来安装命令（规划阶段不执行）：
+已执行的安装命令：
 
 ```sh
 npm install --save-exact hexo-generator-feed@4.0.0 hexo-generator-sitemap@3.0.1
@@ -77,22 +77,22 @@ Sitemap: https://www.kisara.com.cn/sitemap.xml
 
 ## Task B2：真实元信息和订阅入口
 
-- [ ] 打开 Fluid 原有 canonical.enable；不更改 pretty_urls/permalink。
-- [ ] 首页和8篇文章核对唯一 canonical，正确 www/HTTPS；缺失/错误域名/重复 canonical 用 fixture 验证会失败。
-- [ ] 使用现有 open_graph 配置给出绝对分享图 https://www.kisara.com.cn/img/eva.jpg；核对不重复 meta，不引入分享 SDK。
-- [ ] description 存在且非空、为文字；OG title/url/image 核对真实输出，兼容主题已经输出的 og:url。
-- [ ] 页脚增加简单 RSS 链接，读者可复制/订阅；不再增加顶层导航。
-- [ ] 浏览器查看首页和长文章、手机分享信息、RSS可读；实际 XML 解析在本地验证，不要求已被搜索引擎收录。
-- [ ] 文档说明后续文章的 description 来源与 sitemap 排除方式，独立提交配置/入口。
+- [x] 打开 Fluid 原有 canonical.enable；不更改 pretty_urls/permalink。
+- [x] 首页和8篇文章核对唯一 canonical，正确 www/HTTPS；缺失/错误域名/重复 canonical 用 fixture 验证会失败。
+- [x] 使用现有 open_graph 配置给出绝对分享图 https://www.kisara.com.cn/img/eva.jpg；核对不重复 meta，不引入分享 SDK。
+- [x] description 存在且非空、为文字；OG title/url/image 核对真实输出，兼容主题已经输出的 og:url。
+- [x] 页脚增加简单 RSS 链接，读者可复制/订阅；不再增加顶层导航。
+- [ ] XML 已独立解析；浏览器查看首页和长文章、手机分享信息与 RSS 在性能阶段统一验收。
+- [x] 文档说明后续文章的 description 来源与 sitemap 排除方式，独立提交配置/入口。
 
 ## Task B3：完整覆盖与现有 CI
 
-- [ ] fixture 覆盖：RSS伪HTML、截断/空items、错误域名、重复链接、缺正式文章、草稿/Memos/404泄漏；sitemap 对应场景；robots错误Sitemap；meta缺失/错域名/缺分享图。
-- [ ] RSS用rss/channel/item/link、sitemap用urlset/url/loc核对预期结构和闭合。检查实际生成文件与manifest全集；拒绝空输出和错误根节点，不声称验证整个XML标准。
-- [ ] 新语义检查调用已有资源解析。扩展现有 HTML 资源覆盖 data-src、data-srcset/srcset，支持多候选URL与descriptor；data URI和外站仍忽略。
-- [ ] 给懒加载真实图片缺失、中文编码和合法 srcset 写失败测试；不要把占位图可用当作正文图片可用。
-- [ ] 旧 check-site fixture 不设 discovery 时保持原断链、中文路径、搜索和资源合同；产品 baseline 必须启用 discovery，增加对应回归断言。
-- [ ] 若新增校验已由 check-site 调用，pages.yml 不需新 job；npm run verify 在本机/Linux同时检查。
+- [x] fixture 覆盖：RSS伪HTML、截断/空items、错误域名、重复链接、缺正式文章、草稿/Memos/404泄漏；sitemap 对应场景；robots错误Sitemap；meta缺失/错域名/缺分享图。
+- [x] RSS用rss/channel/item/link、sitemap用urlset/url/loc核对预期结构和闭合。检查实际生成文件与manifest全集；拒绝空输出和错误根节点，不声称验证整个XML标准。
+- [x] 新语义检查调用已有资源解析。扩展现有 HTML 资源覆盖 data-src、data-srcset/srcset，支持多候选URL与descriptor；data URI和外站仍忽略。
+- [x] 给懒加载真实图片缺失、中文编码和合法 srcset 写失败测试；不要把占位图可用当作正文图片可用。
+- [x] 旧 check-site fixture 不设 discovery 时保持原断链、中文路径、搜索和资源合同；产品 baseline 必须启用 discovery，增加对应回归断言。
+- [x] 若新增校验已由 check-site 调用，pages.yml 不需新 job；npm run verify 在本机/Linux同时检查。
 - [ ] PR CI和真实部署后检查 /rss.xml、/sitemap.xml、/robots.txt HTTP200与类型/内容，8篇文章仍通过；记录维护文档。
 
 失败测试示例（沿用现有 fixture(t)）：
@@ -123,3 +123,5 @@ curl --fail --max-time 20 https://www.kisara.com.cn/robots.txt
 curl只在真实部署成功之后运行，不能以旧站结果验收新功能。验收：全部正式文章在RSS/sitemap中，草稿与404不在，元信息正确、RSS入口可用，错误产物使CI失败。XML fixtures和完整生成集各有证据。
 
 回退同一交付的实际提交，同时撤销包/锁、配置、入口和新增 discovery 硬要求；保留此前原路径、断链和资源检查。审计报告如有新增风险，先解释影响再决定方案，不把绿色构建当成没有风险。
+
+本地验收：核心 fixture 仍通过，新 discovery RED 17 项暴露缺失功能；元信息补充另有实际 RED。npm ci 与完整 verify 通过，RSS 8 项、sitemap 12 项由 Python XML 解析独立核对。audit 7→8 high，新增条目仅既有 braces advisory 的 sitemap 依赖链传播，详见 dependencies.md。真实部署验收待下。
