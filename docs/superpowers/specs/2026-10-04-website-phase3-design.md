@@ -73,3 +73,7 @@ canonical 的 index.html 归一只用于比较，不改原 URL 配置。首页�
 - [gh run list](https://cli.github.com/manual/gh_run_list)、[gh run watch](https://cli.github.com/manual/gh_run_watch)。
 - [Lighthouse](https://developer.chrome.com/docs/devtools/lighthouse/)、[LCP 优化](https://web.dev/articles/optimize-lcp)。
 - [减少透明度的兼容性](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/prefers-reduced-transparency)：不能将这一媒体查询当作所有浏览器的唯一回退。
+
+## 2026-10-05/06 实施进展
+
+上述“已核对状态”保留规划时的历史快照。A/B/D已通过PR #11/#12/#13上线，原8篇正文与URL保持，统一verify97项、健康目标23项。C完成12次基线与12次预载候选复测；PR #14候选无稳定收益，决定撤销，仅保留报告和原22px玻璃。详见 [性能记录](../../maintenance/performance.md) 与总清单；最后无障碍/打印/Safari深色检查待Mac解锁后继续，不声明第三阶段全部完成。

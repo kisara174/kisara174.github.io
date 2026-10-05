@@ -101,4 +101,4 @@ git diff --check
 
 本地验收（2026-10-04）：首次红灯 24 项因接口尚未实现失败；完善冲突、版本与状态观察后，统一 verify 75/75 通过，8 篇文章检查 0 错误。临时 bare Git 仓库验证真实提交和推送，gh 仅在测试中模拟；真实部署验收待下。
 
-上线：PR #11 / source 97dbf32 / Pages 37209802343，实际 publish:status 成功。本批真实维护记录将使用 --apply 执行，作为实际提交/推送/部署链验收；不是测试文章。
+上线：PR #11 / source 97dbf32 / Pages 37209802343，实际 publish:status 成功。真实维护记录已通过默认预检和 --apply 执行：source ebae059444bf7eb831dab8e29386cdf95a11b45f，Pages 37212140157 build/deploy 成功，实际提交/普通推送/同SHA部署链验收完成；没有测试文章。
