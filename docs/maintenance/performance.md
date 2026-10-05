@@ -33,7 +33,7 @@ LCP、TBT 是 Lighthouse simulate 估计；Network / LCP breakdown 中的请求�
 
 使用 [Fluid 自定义 head](https://fluid-dev.github.io/hexo-fluid-docs/guide/) 与 [Chrome 对 CSS LCP 背景图的优先级建议](https://web.dev/articles/fetch-priority)。候选必须通过构建、视觉和同正式域名12次复测，才可认定改善；若无可重复收益或出现回归，撤销预载。候选已通过构建并完成12次复测，结果不支持接受，详见下文。
 
-CSS 已核对：默认实色底，supports 内22px玻璃，接近实色正文，手机布局、深色、减少动态/透明度、forced-colors和打印回退均在 source/css/custom.css；以下记录实际性能判断和已经执行的视觉检查；未完成的项目明确列出。
+CSS 已核对：默认实色底，supports 内22px玻璃，接近实色正文，手机布局、深色、减少动态/透明度、forced-colors和打印回退均在 source/css/custom.css；以下记录实际性能判断和已执行的视觉检查。
 
 ## 预载候选的12次复测与回退决定
 
@@ -66,7 +66,7 @@ Chrome Responsive 400×625、Performance实际CPU 4×、Network无额外节流�
 
 - 已通过Computer Use实际操作：Chrome400px深色系列页，菜单展开有首页/归档/标签/系列/搜索/外观6项且无遮挡；Tab逐项可到搜索，Return打开，自动焦点落到关键词，查询“傅里叶”返回原文章；Tab到结果有明显蓝色焦点边框，Return进入原URL。上午400px浅色滚动/搜索及长公式局部横向滚动已经检查。
 - Chrome909px深色系列页、400px深色长文章标题与正文可读；实际Safari Mac首页、系列页、长文章浅色已经查看。预载只修改head，不修改视觉CSS。
-- 待Mac解锁后继续：减少动态、减少透明度与forced-colors的实际模拟、打印及Safari深色/正文复查；当前仅确认这些回退CSS存在，不将源码检查冒充浏览器验收。
+- 2026-10-06补齐减少动态/透明度、forced-colors、三页打印预览与Safari深色正文/公式/搜索/导航。forced-colors暴露菜单图标消失，已用系统色ButtonText作一行修复并在本地实际复查，详见 [最终视觉验收](visual-acceptance.md)。
 
 ## 后续优先级
 
@@ -74,4 +74,4 @@ Chrome Responsive 400×625、Performance实际CPU 4×、Network无额外节流�
 
 ## 回退上线验收（2026-10-06）
 
-[PR #15](https://github.com/kisara174/kisara174.github.io/pull/15) 的Linux CI 37358297281通过，source合并提交6633ce566154f2a92027a720e2fe1fddbd8d6cb8；[Pages 37358442751](https://github.com/kisara174/kisara174.github.io/actions/runs/37358442751) build/deploy均成功，publish:status按完整SHA确认。正式首页HTTP200且无横幅预载，canonical域名正确；RSS8项、sitemap13项、robots声明独立解析通过；部署后重新运行健康检查23/23、两端严格TLS通过。原配置与实验前ebae059逐字一致，97项测试及原8篇内容快照通过。Mac的source工作目录已安全快进到合并源码，main没有改动。最后视觉待办仍见上文，未声称第三阶段全部结案。
+[PR #15](https://github.com/kisara174/kisara174.github.io/pull/15) 的Linux CI 37358297281通过，source合并提交6633ce566154f2a92027a720e2fe1fddbd8d6cb8；[Pages 37358442751](https://github.com/kisara174/kisara174.github.io/actions/runs/37358442751) build/deploy均成功，publish:status按完整SHA确认。正式首页HTTP200且无横幅预载，canonical域名正确；RSS8项、sitemap13项、robots声明独立解析通过；部署后重新运行健康检查23/23、两端严格TLS通过。原配置与实验前ebae059逐字一致，97项测试及原8篇内容快照通过。Mac的source工作目录已安全快进到合并源码，main没有改动。该回退发布时最后视觉尚未完成；2026-10-06已继续验收并记录菜单系统色修复，见上文。
