@@ -15,6 +15,8 @@ custom_js: []
 custom_css:
   - /css/custom.css
 custom_html: ''
+# 当前全部页面共用横幅；改 banner_img 时同步核对这个预载，避免重复下载。
+custom_head: '<link rel="preload" href="/img/eva.jpg" as="image" fetchpriority="high">'
 navbar:
   blog_title: Kisara
   menu:
