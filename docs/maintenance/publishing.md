@@ -24,3 +24,5 @@ npm run publish:status -- --sha "$(git rev-parse HEAD)"
 不使用自动暂存、pull/rebase/reset/force。预检缺 gh 时仍可完成本地检查，但不能继续 apply。现有 Pages workflow、域名和旧文章路由均不变。回退代码可通过实际源码提交 revert；已推送历史不会由命令自动删除。
 
 2026-10-04 验收：[PR #11](https://github.com/kisara174/kisara174.github.io/pull/11) 的 Linux 构建通过；合并 source 为 97dbf32b066caebc790b2cf223f39fcd1ed7bb9a。[Pages run](https://github.com/kisara174/kisara174.github.io/actions/runs/37209802343) 的 build/deploy 均成功，实际运行 publish:status 确认同一 SHA。默认预检与执行由临时真实 Git 仓库测试覆盖（28项，统一75项），后续功能扩展后统一97项。
+
+2026-10-04 真实执行：在 source 明确暂存8份维护文档后运行 publish:site 默认预检，再以 --apply --message 完成实际提交、普通推送和同SHA部署观察。产出 ebae059444bf7eb831dab8e29386cdf95a11b45f，[Pages 37212140157](https://github.com/kisara174/kisara174.github.io/actions/runs/37212140157) build/deploy 均成功；发布的是维护记录，没有测试文章。
