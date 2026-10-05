@@ -71,3 +71,7 @@ Chrome Responsive 400×625、Performance实际CPU 4×、Network无额外节流�
 ## 后续优先级
 
 先单独测长文章MathJax约321KiB传输和外部首屏CSS加载路径，保留公式正确性及现有懒渲染；或者独立比较横幅WebP副本的清晰度、大小与同条件性能。每次只试一项，以重复测量决定接受或回退；不添加永久Lighthouse服务或硬分数门槛。
+
+## 回退上线验收（2026-10-06）
+
+[PR #15](https://github.com/kisara174/kisara174.github.io/pull/15) 的Linux CI 37358297281通过，source合并提交6633ce566154f2a92027a720e2fe1fddbd8d6cb8；[Pages 37358442751](https://github.com/kisara174/kisara174.github.io/actions/runs/37358442751) build/deploy均成功，publish:status按完整SHA确认。正式首页HTTP200且无横幅预载，canonical域名正确；RSS8项、sitemap13项、robots声明独立解析通过；部署后重新运行健康检查23/23、两端严格TLS通过。原配置与实验前ebae059逐字一致，97项测试及原8篇内容快照通过。Mac的source工作目录已安全快进到合并源码，main没有改动。最后视觉待办仍见上文，未声称第三阶段全部结案。
