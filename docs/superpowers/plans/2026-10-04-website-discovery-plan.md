@@ -82,7 +82,7 @@ Sitemap: https://www.kisara.com.cn/sitemap.xml
 - [x] 使用现有 open_graph 配置给出绝对分享图 https://www.kisara.com.cn/img/eva.jpg；核对不重复 meta，不引入分享 SDK。
 - [x] description 存在且非空、为文字；OG title/url/image 核对真实输出，兼容主题已经输出的 og:url。
 - [x] 页脚增加简单 RSS 链接，读者可复制/订阅；不再增加顶层导航。
-- [ ] XML 已独立解析；浏览器查看首页和长文章、手机分享信息与 RSS 在性能阶段统一验收。
+- [x] XML独立解析、首页/长文章视觉与正式RSS浏览器显示已验收；分享元信息通过真实HTML核对，不声称第三方分享平台预览已测试。
 - [x] 文档说明后续文章的 description 来源与 sitemap 排除方式，独立提交配置/入口。
 
 ## Task B3：完整覆盖与现有 CI
@@ -126,4 +126,6 @@ curl只在真实部署成功之后运行，不能以旧站结果验收新功能�
 
 本地验收：核心 fixture 仍通过，新 discovery RED 17 项暴露缺失功能；元信息补充另有实际 RED。npm ci 与完整 verify 通过，RSS 8 项、sitemap 12 项由 Python XML 解析独立核对。audit 7→8 high，新增条目仅既有 braces advisory 的 sitemap 依赖链传播，详见 dependencies.md。真实部署验收待下。
 
-上线：PR #12 / source 055e5d8 / Pages 37211026474；RSS/sitemap/robots正式HTTP200与类型、XML覆盖核对通过。完整verify97项。浏览器视觉验收待Mac解锁后继续。
+上线：PR #12 / source 055e5d8 / Pages 37211026474；RSS/sitemap/robots正式HTTP200与类型、XML覆盖核对通过。完整verify97项。该发布时浏览器视觉尚未完成；2026-10-06已验收，见下文。
+
+2026-10-06最终验收：Chrome实际打开正式RSS显示8篇标题/日期/摘要/原链接；首页和长文章的桌面/手机视觉、canonical/description/OG生成检查通过。RSS8/sitemap13/robots由独立XML解析再核对，第三方分享平台缓存/预览未测试。见 [最终验收](../../maintenance/visual-acceptance.md)。

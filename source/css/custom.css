@@ -115,6 +115,7 @@ body {
 }
 @media (forced-colors: active) {
   #navbar, #board, .index-card, .modal-dialog .modal-content { background: Canvas; color: CanvasText; border: 1px solid CanvasText; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  #navbar .navbar-toggler .animated-icon span { background: ButtonText; }
 }
 @media print {
   #board { background: #fff; box-shadow: none; border: none; }

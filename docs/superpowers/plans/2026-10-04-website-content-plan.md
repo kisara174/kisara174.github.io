@@ -57,11 +57,11 @@ tags:
 
 - [x] 新建layout:page的Markdown导航；大纲：连续与微分（2篇）、积分与向量分析（3篇）、级数（1篇）、物理运动学（1篇）、个人记录（介绍1篇），另放一条回首页链接。
 - [x] 用真实文章链接生成列表，不以首页作为失败链接的替代。系列组织不是新的文章分类URL。
-- [ ] navbar“系列”已生成；手机展开/收起视觉验收待继续，维持当前首页/归档/标签入口。
+- [x] navbar“系列”已生成，手机菜单展开/收起实际验收通过，维持首页/归档/标签入口。
 - [x] baseline.requiredPaths增加/series/，利用现有check-site验证它和全部站内链接；新增测试先证明系列页应受监控，然后更新目标数量断言为23。
 - [x] 默认健康检查会因requiredPaths多一页从22变23项；更新README/health维护说明，并核对真实报告，不继续声称只有22。
 - [x] B已实施时核对新页出现在sitemap、RSS仍只包含正式文章；系列页description不混入RSS文章列表。
-- [ ] clean/build/verify 已通过；手机400px和桌面、深浅色、搜索和长公式在性能阶段统一视觉验收。
+- [x] clean/build/verify、400px和桌面、深浅色、搜索和长公式已统一验收。
 - [x] PR #13、Linux、Pages 37211367193 与23/23健康run 37211453317已验收。
 
 页面骨架（链接列表使用实际manifest输出填写）：
@@ -96,4 +96,6 @@ npm run check:health
 
 本地验收：新增23项巡检目标断言先RED（实际22），实施后统一 verify 97/97、8篇检查0错误。独立快照比较原8篇正文/title/date/tags/path完全一致；系列页正文9条有效内链，RSS8条摘要与front matter一致。发布与视觉验收待下。
 
-上线：source 5ed778b；本机与GitHub23/23健康检查通过，report quiet。原文与RSS独立比较通过，手机与深浅色实际视觉待性能阶段，不以构建成功代替。
+上线：source 5ed778b；本机与GitHub23/23健康检查通过，report quiet。原文与RSS独立比较通过；该发布时手机与深浅色视觉未完成，已于2026-10-06在性能阶段实际验收。
+
+2026-10-06补齐最终视觉：Chrome400px深浅色系列页、手机菜单开关、从系列页进入原长文章路径；Safari桌面深色系列列表/导航、正文/公式/搜索通过。原8篇正文/title/date/tags/路径与RSS摘要独立复查通过。见 [最终验收](../../maintenance/visual-acceptance.md)。
