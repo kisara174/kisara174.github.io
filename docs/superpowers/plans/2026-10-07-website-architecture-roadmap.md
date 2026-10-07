@@ -62,9 +62,9 @@
 
 **候选文件：** `source/img/eva.jpg`（保留原图）、新建 `source/img/eva.webp`、`_config.fluid.yml`、`docs/maintenance/performance.md`。仅在实际引用需要时调整 `source/css/custom.css`。
 
-- [ ] 用现有图片工具生成 WebP 副本，保持相同画面和裁切；比较尺寸、体积、天空渐变和人物细节。
+- [x] 用现有图片工具生成 WebP 副本，保持相同画面和裁切；比较尺寸、体积、天空渐变和人物细节。
 - [ ] 在本地候选中统一对应横幅引用，检查首页、文章及系列页，不追加预载或改变玻璃效果。
-- [ ] 同条件比较当前版与候选的首页、长文章：手机/桌面各至少 3 次，记录 LCP、CLS、TBT、传输量及图片请求。
+- [x] 同条件比较当前版与候选的首页、长文章：手机/桌面各至少 3 次，记录 LCP、CLS、TBT、传输量及图片请求。
 - [ ] 图片视觉可接受且体积降低后，再判断加载收益；不以单次 Lighthouse 分数做决定。有明显网络波动时另批复测。
 - [ ] 保存接受/拒绝理由，拒绝时撤销候选引用和未使用副本。
 
@@ -147,4 +147,6 @@
 
 第 0 项已通过 [PR #17](https://github.com/kisara174/kisara174.github.io/pull/17) 交付；source 为 4060a33124946542c83ff7678ca74518ead1d5a6，[Pages](https://github.com/kisara174/kisara174.github.io/actions/runs/37592863456) 的 build/deploy 已按完整 SHA 确认成功。Mac source 已同步。
 
-公式按页加载与新增资源校验已通过本地 verify 101/101、8 篇检查 0 错误；7 篇数学文章完整生成 HTML 与基线逐字一致。恢复 Computer Use 后完成介绍页、滚动公式、400px 手机菜单/搜索、首页与系列页验收，并导出12份同条件 Lighthouse：介绍页减少2个MathJax请求/332927 bytes，手机LCP中位数6.170→4.510s，桌面1.139→0.873s；仅说明本地结果。公式改动在 [PR #18](https://github.com/kisara174/kisara174.github.io/pull/18) 独立交付，实际部署另按完整SHA确认。图片副本仅在缓存，体积约减39.1%，其页面视觉/性能仍待独立实验。外部资源与主题边界已审查记录，未修改CDN或CSS；Astro启动条件尚未触发。
+公式按页加载与新增资源校验已通过 [PR #18](https://github.com/kisara174/kisara174.github.io/pull/18) 交付。source 为 `6cc8d0a3b13d7ecbfe1f6f2b72f1da41d5a27d3d`，[Pages 37595016787](https://github.com/kisara174/kisara174.github.io/actions/runs/37595016787) build/deploy 成功，`publish:status` 按完整 SHA 确认；部署后健康 23/23、Mac source 已同步。本地 verify 101/101、8 篇检查 0 错误，7 篇数学文章完整生成 HTML 与基线逐字一致。Computer Use 完成介绍页、滚动公式、400px 手机菜单/搜索、首页与系列页验收；12 份同条件 Lighthouse 表明介绍页减少 2 个 MathJax 请求 / 332927 bytes，手机 LCP 中位数 6.170→4.510s、桌面 1.139→0.873s，仅说明本地结果。
+
+横幅 WebP 已完成独立 24 份对照：体积降低 39.1%，手机首页 LCP 基本不变，不宣称全站变快。候选仅替换 8 处横幅配置并新增副本，原 JPG / 分享图 URL 保留。桌面浅深色及 400px 手机首页已实际查看；系列页、文章页最终视觉因 `noWindowsAvailable` 待恢复，候选暂不合并发布。完整数据与限制见性能记录。外部资源与主题边界已审查记录，未修改 CDN 或 CSS；Astro 启动条件尚未触发。

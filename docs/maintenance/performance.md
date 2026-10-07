@@ -99,13 +99,26 @@ MathJax 3.2.2 URL、引擎、`ui/lazy` 与其余脚本保持。独立构建对�
 
 原始报告 `math-{baseline,candidate}-{mobile,desktop}-{1,2,3}.json`、时间/配置/哈希及各次指标收据 `math-lighthouse-receipt.json` 保存在忽略的 `.cache/architecture-resources/`。代码候选为 e99f2110196065e0dcd5eb437c1c7e8e6c549cfc；恢复验收时重新 verify 101/101、8 篇检查 0 错误。
 
-### 横幅 WebP 候选
+### 横幅 WebP 对照（2026-10-07）
 
-使用现有 cwebp 1.6.0，原 JPG 1920×1080 / 298059 bytes。`-q 85 -m 6` 副本 256798 bytes；`-q 75 -m 6` 副本 181592 bytes，比原图小 116467 bytes（约39.1%），画面和尺寸保持。已读取原图和 q75 副本做初步细线对照，未完成页面视觉与性能判断。转换参数参考 [cwebp 官方文档](https://developers.google.com/speed/webp/docs/cwebp)。
+使用现有 cwebp 1.6.0，原 JPG 1920×1080 / 298059 bytes。`-q 85 -m 6` 副本 256798 bytes；采用 `-q 75 -m 6` 的候选 181592 bytes，比原图小 116467 bytes（39.1%），尺寸和画面保持。转换参数参考 [cwebp 官方文档](https://developers.google.com/speed/webp/docs/cwebp)。8 个 `banner_img` 统一使用 WebP；保留原 JPG 及 Open Graph 分享图 URL。不添加预载，不改 CSS、公式或其他资源。
 
-原 JPG 和正式配置保持。WebP 副本与仅替换横幅的独立构建保存在忽略的 `.cache/architecture-resources/`，没有将未验收图片放入此次交付。`baseline-public` 和 `image-public` 只用于该单因素实验；后续切换同一个 127.0.0.1 本地地址、Clear storage 和相同 Lighthouse 设置，每组至少3次。这个本地对照不包含正式站 Cloudflare 边缘链路，不能替代线上效果说明。
+独立快照 `baseline-public` / `image-public` 的 21 个 HTML 差异只在内联横幅的 `url('/img/eva.jpg')` → `url('/img/eva.webp')`，其余既有产物相同，新增 WebP 与 q75 副本哈希一致。同一个 `127.0.0.1:4173` 切换两版；首页及长文章《幂级数和傅里叶级数》，各手机/桌面 3 次基线与 3 次候选，共 24 份真实 Chrome DevTools Lighthouse 13.4.1 JSON。设置与公式对照相同：Navigation、Performance only、Clear storage、Simulated throttling，JS sampling 关闭。按组顺序运行，未随机交错。
 
-截至此记录没有产生本次 Lighthouse 测量报告，不报告新的 LCP/CLS/TBT，也不将之前的12次线上基线与本地候选混为同条件对照。
+| 页面 / 设备 / 中位数（3 次） | LCP 基线 → 候选 | CLS 基线 → 候选 | TBT 基线 → 候选 | 传输量基线 → 候选 | 请求数 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 首页 / 手机 | 4.210 → 4.211s | 0.0069 → 0.0069 | 0 → 0ms | 650811 → 534342 bytes | 23 → 23 |
+| 首页 / 桌面 | 0.927 → 0.855s | 0.0108 → 0.0108 | 0 → 0ms | 650789 → 534329 bytes | 23 → 23 |
+| 长文章 / 手机 | 4.207 → 3.615s | 0.0342 → 0.0342 | 40.5 → 38ms | 1111844 → 995363 bytes | 38 → 38 |
+| 长文章 / 桌面 | 0.672 → 0.670s | 0.0108 → 0.0108 | 0 → 0ms | 1111839 → 995380 bytes | 38 → 38 |
+
+首页手机 LCP 范围为基线 3.538–4.812s、候选 3.538–4.218s；首页桌面为 0.920–0.930s、0.848–0.855s。文章手机为 2.979–4.214s、2.962–3.759s；文章桌面为 0.650–0.851s、0.629–0.771s。不能推导各组一致速度改善：手机首页中位数基本相同，文章范围重叠，外部 CDN 仍有网络波动。本批没有运行错误或失败资源状态。每次横幅传输量固定从 298274 降到 181807 bytes（含响应头），均减少 116467 bytes。
+
+**候选判断：** 明确收益是降低横幅传输量，未证明全站稳定变快。原图及 WebP 初步细节对照、桌面浅深色首页与 400px 手机首页实际显示正常，裁切和玻璃层未见异常；系列页及长文章的最终视觉验收尚未完成，Computer Use 返回 `noWindowsAvailable`。因此当前仅准备独立候选，不合并发布。此处是桌面浏览器及设备模拟，未做实机 iPhone 验收。
+
+候选源码重新执行 `npm run verify`：101/101 测试通过、8 篇检查 0 错误；与当前公式版 `math-public` 比较，仍仅有 21 个 HTML 横幅 URL 替换和新增 WebP，原 JPG 字节不变。
+
+原始报告 `image-{baseline,candidate}-{home,article}-{mobile,desktop}-{1,2,3}.json` 及时间、配置、哈希和各次指标收据 `image-lighthouse-receipt.json` 保存在忽略的 `.cache/architecture-resources/`。不把先前线上基线、公式介绍页实验与本批混为同条件数据；本地结果不包含 Cloudflare 正式链路。
 
 ### 外部资源与主题审查
 
