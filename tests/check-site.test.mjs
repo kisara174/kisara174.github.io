@@ -118,6 +118,37 @@ test('checks CSS background resources rather than just HTML images', t => {
   assert.match(checkSite(f).errors.join('\n'), /custom.css.*missing.jpg/);
 });
 
+test('requires MathJax on a post explicitly marked for formulas', t => {
+  const f = fixture(t);
+  f.manifest.posts[0].math = true;
+  assert.match(checkSite(f).errors.join('\n'), /笔记.*MathJax/);
+  f.write('笔记/index.html', '<script src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>');
+  assert.deepEqual(checkSite(f).errors, []);
+});
+
+test('rejects an unnecessary MathJax script on an explicitly non-math post', t => {
+  const f = fixture(t);
+  f.manifest.posts[0].math = false;
+  f.write('笔记/index.html', '<script src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>');
+  assert.match(checkSite(f).errors.join('\n'), /笔记.*MathJax/);
+  f.write('笔记/index.html', '<p>普通文章中的 MathJax 名称或示例不是脚本加载。</p>');
+  assert.deepEqual(checkSite(f).errors, []);
+});
+
+test('requires a boolean math flag instead of a truthy string', t => {
+  const f = fixture(t);
+  f.manifest.posts[0].math = 'false';
+  assert.match(checkSite(f).errors.join('\n'), /math.*布尔/);
+});
+
+test('checks inline banner background URLs in the rendered HTML', t => {
+  const f = fixture(t);
+  f.write('index.html', '<div id="banner" style="background-image:url(/img/missing.webp)"></div>');
+  assert.match(checkSite(f).errors.join('\n'), /index.html.*missing.webp/);
+  f.write('img/missing.webp', 'image');
+  assert.deepEqual(checkSite(f).errors, []);
+});
+
 test('rejects malformed URL escapes with an actionable message', t => {
   const f = fixture(t);
   f.write('index.html', '<a href="/%E0%A4/">无效</a>');
