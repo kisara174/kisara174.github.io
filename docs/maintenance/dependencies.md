@@ -6,7 +6,7 @@ Hexo、EJS/Marked/Stylus renderer、各 generator 和校验用 htmlparser2/linke
 
 | 资源 | 使用范围与用途 | 来源 / 维护入口 |
 | --- | --- | --- |
-| 横幅 `eva.jpg` | 首页、文章、归档、标签、系列等页面背景 | `source/img`，根 `_config.fluid.yml` 的各 `banner_img`；OG 分享图单独配置 |
+| 横幅 `eva.webp`（保留 `eva.jpg`） | 首页、文章、归档、标签、系列等页面背景 | `source/img`，根 `_config.fluid.yml` 的各 `banner_img`；OG 分享图单独配置 |
 | Bootstrap 4.6.1 CSS/JS、jQuery 3.6.4 | 全站布局、导航、搜索弹层等基础交互 | `lib.baomitu.com`；Fluid `static_prefix.bootstrap/jquery` |
 | 两套 Iconfont CSS 与按需字体 | 全站主题图标与菜单图标 | `at.alicdn.com`；主题固定依赖 `font_1749284_5i9bdhy70f8.css` 与可配置 `iconfont`，不是同一资源的重复请求 |
 | `main.css`、`highlight.css`、`highlight-dark.css` | 全站主题外观、代码高亮及暗色高亮 | Fluid 生成到 `/css`，由主题模板管理；自有 `/css/custom.css` 最后覆盖 |
@@ -16,7 +16,7 @@ Hexo、EJS/Marked/Stylus renderer、各 generator 和校验用 htmlparser2/linke
 | Fancybox 3.5.7 CSS/JS | 当前文章图片放大 | `lib.baomitu.com`；`post.image_zoom`、对应 `static_prefix`；JS 由插件动态插入，并非必须点击图片才下载 |
 | AnchorJS 5.0.0、Tocbot 4.20.1 | 文章标题锚点与目录 | `lib.baomitu.com`；`fun_features.anchorjs`、`post.toc` 和对应 `static_prefix`；由插件动态插入 |
 | Clipboard 2.0.11 | 当前文章代码复制 | `lib.baomitu.com`；主题代码插件按配置注入 |
-| MathJax 3.2.2 | 当前全部 8 篇文章；其中介绍文章没有公式，列入独立修复 | `lib.baomitu.com`；`post.math`，主题已启用 `ui/lazy`；首页/系列等列表页未加载 |
+| MathJax 3.2.2 | 7 篇明确 `math: true` 的公式文章；介绍文章不加载 | `lib.baomitu.com`；`post.math`，主题已启用 `ui/lazy`；首页/系列等列表页未加载 |
 | Giscus | 文章评论，主题延迟加载 | `giscus.app`；根 `giscus` 配置；pathname 映射保持 |
 | Cloudflare 注入脚本（如 beacon） | 仅线上响应可能出现，不来自本地生成 HTML | 由现有 Cloudflare 配置管理，本阶段不更改 |
 

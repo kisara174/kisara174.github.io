@@ -122,7 +122,22 @@ MathJax 3.2.2 URL、引擎、`ui/lazy` 与其余脚本保持。独立构建对�
 
 ### 外部资源与主题审查
 
-资源与加载入口见 [依赖清单](dependencies.md)，结构适配见 [主题边界](theme-diff.md)。两套 Iconfont 是不同主题用途，Bootstrap/jQuery 支持现有菜单及弹层；不能根据名称直接删掉。Fancybox/目录/锚点存在动态插入脚本，单靠 HTML 的 script[src] 清单不足以计算网络请求数。当前先记录这些事实，不批量本地化 CDN、不删除交互、不修改玻璃强度或 CSS。
+资源与加载入口见 [依赖清单](dependencies.md)，结构适配见 [主题边界](theme-diff.md)。两套 Iconfont 是不同主题用途，Bootstrap/jQuery 支持现有菜单及弹层；不能根据名称直接删掉。Fancybox/目录/锚点存在动态插入脚本，单靠 HTML 的 script[src] 清单不足以计算网络请求数。保留必要资源，当前不批量本地化 CDN、不删除交互、不修改玻璃强度或 CSS。
+
+复查本次图片实验的 3 份手机首页基线 `image-baseline-home-mobile-{1,2,3}.json`，全部样式和字体请求成功；以下为实际传输量中位数与 `networkEndTime - networkRequestTime` 范围。后者单位已经是毫秒，是初始未节流采集的请求历时，包含等待/传输，不能单独当作服务器等待时间，也不是模拟 Slow 4G 的最终耗时。
+
+| 外部资源 | 传输中位数 | 实际请求历时范围 |
+| --- | ---: | ---: |
+| Bootstrap 4.6.1 CSS | 32492 bytes | 22.73–57.71ms |
+| Fluid 固定 Iconfont CSS（1749284） | 1583 bytes | 9.74–15.66ms |
+| 菜单 Iconfont CSS（1736178） | 2030 bytes | 7.91–15.78ms |
+| NProgress CSS | 728 bytes | 27.20–55.09ms |
+| 菜单 Iconfont woff2 | 14357 bytes | 8.59–20.07ms |
+| Fluid 固定 Iconfont woff2 | 5416 bytes | 9.17–10.94ms |
+
+瀑布显示 CSS 在 HTML 后较早请求，字体在相应 CSS 之后请求。Lighthouse `render-blocking-insight` 给 Bootstrap CSS 的模拟 `wastedMs` 为 1410/1378/1377ms，两套 Iconfont CSS 各为 616/608/609ms；这些是模型估计，不能相加为移除资源的真实收益，也不能与上表实际历时混用。本站正文字体仍是系统栈；没有发现同 URL 的重复样式/字体请求。主题 `css.ejs` 分别加载固定图标集和菜单图标集；现有菜单/搜索/目录/复制等交互使用这些上游样式或脚本。
+
+**本轮决定：** 不采用删除 Bootstrap/Iconfont 或批量本地化方案。未证明它们是无用资源；本地化也不会自动减少文件大小，需另承担许可、路径及版本维护。当前没有足以支持这些成本的收益证据，因此不创建资源复制候选，也没有把未执行的本地化实验算作通过。后续若目标网络持续出现 CDN 失败/长等待，再限定一个资源、核对版本许可并做同条件 3 次对照。审查收据（原报告哈希、请求表与模型表）在忽略的 `style-audit-receipt.json`。
 
 ## 回退上线验收（2026-10-06）
 
