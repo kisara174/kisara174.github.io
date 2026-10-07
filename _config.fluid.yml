@@ -40,11 +40,11 @@ footer:
     <a href="/rss.xml" aria-label="RSS 订阅">RSS</a>
     <a href="https://github.com/kisara174/Kisara" rel="nofollow noopener"><span>Kisara's git</span></a>
 index:
-  banner_img: /img/eva.jpg
+  banner_img: /img/eva.webp
   slogan:
     text: Wir Werden Wissen
 post:
-  banner_img: /img/eva.jpg
+  banner_img: /img/eva.webp
   math:
     enable: true
     specific: true
@@ -65,17 +65,17 @@ giscus:
   input-position: top
   lang: zh-CN
 archive:
-  banner_img: /img/eva.jpg
+  banner_img: /img/eva.webp
 category:
-  banner_img: /img/eva.jpg
+  banner_img: /img/eva.webp
 tag:
-  banner_img: /img/eva.jpg
+  banner_img: /img/eva.webp
 page:
-  banner_img: /img/eva.jpg
+  banner_img: /img/eva.webp
 page404:
-  banner_img: /img/eva.jpg
+  banner_img: /img/eva.webp
 links:
-  banner_img: /img/eva.jpg
+  banner_img: /img/eva.webp
   items:
     - title: Fluid Blog
       intro: 主题博客
