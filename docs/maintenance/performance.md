@@ -72,6 +72,30 @@ Chrome Responsive 400×625、Performance实际CPU 4×、Network无额外节流�
 
 先单独测长文章MathJax约321KiB传输和外部首屏CSS加载路径，保留公式正确性及现有懒渲染；或者独立比较横幅WebP副本的清晰度、大小与同条件性能。每次只试一项，以重复测量决定接受或回退；不添加永久Lighthouse服务或硬分数门槛。
 
+## 2026-10-07：资源审查与待验收候选
+
+### 公式加载候选
+
+从实际生成页与原 8 篇正文核对：7 篇数学/物理文章使用美元符号公式语法，介绍文章没有公式；首页、系列等列表页原本就没有 MathJax。Fluid 1.9.9 的 `markdown-plugins.ejs` 在 `specific: false` 时忽略单篇 `math: false`，因此采用官方 `specific: true`，7 篇显式 `math: true`，介绍文章 `math: false`。
+
+MathJax 3.2.2 URL、引擎、`ui/lazy` 与其余脚本保持。独立构建对照确认：7 篇数学文章完整 HTML 与本次基线逐字一致；介绍文章正文与原有元数据保持，只移除公式加载配置和脚本。候选不是长公式文章的加速方案；它只去掉介绍文章不需要的资源，不宣称 LCP 提升。
+
+`npm run verify` 本地 101 项测试通过、8 篇检查 0 错误。新增的 4 项检查先在旧实现全部失败，再验证通过，覆盖公式资源缺失、多余加载、字符串布尔值和 HTML 内联横幅背景资源丢失。原 8 篇 Markdown 正文、原有 front matter 与 URL 独立核对保持，新增数学开关例外。证据在忽略的 `.cache/architecture-resources/{tests-red,tests-green,math-only-verify}.log` 与 `content-receipt.json`。
+
+浏览器验收尚未完成：Computer Use 能读取 Chrome 与 Lighthouse 面板，但点击/键盘没有响应，并返回过 `noWindowsAvailable`；已请用户确认解锁。当前不把“可读取页面”视为操作或验收成功，公式候选先保留为独立待验收交付。
+
+### 横幅 WebP 候选
+
+使用现有 cwebp 1.6.0，原 JPG 1920×1080 / 298059 bytes。`-q 85 -m 6` 副本 256798 bytes；`-q 75 -m 6` 副本 181592 bytes，比原图小 116467 bytes（约39.1%），画面和尺寸保持。已读取原图和 q75 副本做初步细线对照，未完成页面视觉与性能判断。转换参数参考 [cwebp 官方文档](https://developers.google.com/speed/webp/docs/cwebp)。
+
+原 JPG 和正式配置保持。WebP 副本与仅替换横幅的独立构建保存在忽略的 `.cache/architecture-resources/`，没有将未验收图片放入此次交付。`baseline-public` 和 `image-public` 只用于该单因素实验；后续切换同一个 127.0.0.1 本地地址、Clear storage 和相同 Lighthouse 设置，每组至少3次。这个本地对照不包含正式站 Cloudflare 边缘链路，不能替代线上效果说明。
+
+截至此记录没有产生本次 Lighthouse 测量报告，不报告新的 LCP/CLS/TBT，也不将之前的12次线上基线与本地候选混为同条件对照。
+
+### 外部资源与主题审查
+
+资源与加载入口见 [依赖清单](dependencies.md)，结构适配见 [主题边界](theme-diff.md)。两套 Iconfont 是不同主题用途，Bootstrap/jQuery 支持现有菜单及弹层；不能根据名称直接删掉。Fancybox/目录/锚点存在动态插入脚本，单靠 HTML 的 script[src] 清单不足以计算网络请求数。当前先记录这些事实，不批量本地化 CDN、不删除交互、不修改玻璃强度或 CSS。
+
 ## 回退上线验收（2026-10-06）
 
 [PR #15](https://github.com/kisara174/kisara174.github.io/pull/15) 的Linux CI 37358297281通过，source合并提交6633ce566154f2a92027a720e2fe1fddbd8d6cb8；[Pages 37358442751](https://github.com/kisara174/kisara174.github.io/actions/runs/37358442751) build/deploy均成功，publish:status按完整SHA确认。正式首页HTTP200且无横幅预载，canonical域名正确；RSS8项、sitemap13项、robots声明独立解析通过；部署后重新运行健康检查23/23、两端严格TLS通过。原配置与实验前ebae059逐字一致，97项测试及原8篇内容快照通过。Mac的source工作目录已安全快进到合并源码，main没有改动。该回退发布时最后视觉尚未完成；2026-10-06已继续验收并记录菜单系统色修复，见上文。

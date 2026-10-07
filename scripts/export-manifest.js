@@ -6,7 +6,7 @@ const frontMatter = require('hexo-front-matter');
 hexo.extend.filter.register('after_generate', function () {
   const posts = hexo.locals.get('posts').toArray().map(post => {
     const metadata = frontMatter.parse(post.raw);
-    return { source: post.source, path: post.path, title: metadata.title, date: metadata.date, tags: metadata.tags, updated: post.updated.toISOString() };
+    return { source: post.source, path: post.path, title: metadata.title, date: metadata.date, tags: metadata.tags, math: metadata.math ?? false, updated: post.updated.toISOString() };
   });
   const directory = join(hexo.base_dir, '.cache');
   mkdirSync(directory, { recursive: true });

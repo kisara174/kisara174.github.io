@@ -33,6 +33,7 @@ export function checkSite({ publicDir, manifest, baseline }) {
   for (const post of manifest.posts) {
     if (typeof post.title !== 'string' || !post.title.trim()) fail(post.source, 'title 必须为非空文字');
     if (!post.date || !Number.isFinite(Date.parse(post.date))) fail(post.source, 'date 缺失或无效');
+    if (post.math !== undefined && typeof post.math !== 'boolean') fail(post.source, 'math 必须为布尔值 true 或 false');
     if (post.tags == null || post.tags === '' || (Array.isArray(post.tags) && !post.tags.length)) warnings.push(`${post.source}: 缺少 tags`);
     else if (!(typeof post.tags === 'string' || (Array.isArray(post.tags) && post.tags.every(tag => typeof tag === 'string' && tag.trim())))) fail(post.source, 'tags 应为文字或文字列表');
     try {
@@ -40,6 +41,14 @@ export function checkSite({ publicDir, manifest, baseline }) {
       if (routes.has(route)) fail(post.source, `重复文章路径，与 ${routes.get(route)} 相同`);
       routes.set(route, post.source);
       if (!validFile(route)) fail(post.source, `文章输出不存在 ${post.path}`);
+      else if (typeof post.math === 'boolean') {
+        let loadsMath = false;
+        const parser = new Parser({ onopentag(name, attributes) {
+          if (name === 'script' && /(?:^|\/)tex-mml-chtml(?:\.min)?\.js(?:[?#]|$)/i.test(attributes.src || '')) loadsMath = true;
+        } });
+        parser.end(readFileSync(route, 'utf8'));
+        if (loadsMath !== post.math) fail(post.source, post.math ? '公式文章缺少 MathJax 脚本' : '无公式文章不应加载 MathJax 脚本');
+      }
     } catch { fail(post.source, `无效文章 URL ${post.path}`); }
   }
   for (const route of [...baseline.articlePaths, ...baseline.requiredPaths]) reference('基线路由', route);
@@ -148,16 +157,20 @@ export function checkSite({ publicDir, manifest, baseline }) {
     }
   }
   const walk = directory => readdirSync(directory, { withFileTypes: true }).flatMap(entry => entry.isDirectory() ? walk(join(directory, entry.name)) : [join(directory, entry.name)]);
+  const styleReferences = (file, content) => {
+    for (const match of content.matchAll(/url\(\s*['"]?([^'"\)]+)['"]?\s*\)/g)) reference(file, match[1].trim());
+  };
   for (const path of walk(publicDir)) {
     const file = relative(publicDir, path).replaceAll('\\', '/');
     if (!/\.(html|css)$/.test(file)) continue;
     const content = readFileSync(path, 'utf8');
     if (file.endsWith('.css')) {
-      for (const match of content.matchAll(/url\(\s*['"]?([^'"\)]+)['"]?\s*\)/g)) reference(file, match[1].trim());
+      styleReferences(file, content);
       continue;
     }
     const parser = new Parser({ onopentag(name, attributes) {
       for (const attr of ['src', 'href', 'poster', 'data-src']) reference(file, attributes[attr]);
+      if (attributes.style) styleReferences(file, attributes.style);
       for (const attr of ['srcset', 'data-srcset']) {
         const candidates = attributes[attr] || '';
         let rest = candidates.trim();

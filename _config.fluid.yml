@@ -47,7 +47,7 @@ post:
   banner_img: /img/eva.jpg
   math:
     enable: true
-    specific: false
+    specific: true
     engine: mathjax
   comments:
     enable: true

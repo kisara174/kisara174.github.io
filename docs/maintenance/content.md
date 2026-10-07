@@ -1,5 +1,11 @@
 # 文章摘要与学习导航
 
+## 数学公式开关（2026-10-07）
+
+主题采用 `post.math.specific: true`。包含公式的文章在 front matter 设置布尔值 `math: true`；普通文章使用 `math: false`，不要写成字符串 `'false'`。现有 7 篇数学/物理文章启用，介绍文章关闭；原正文和公式语法不改。新建 post/draft 默认为 false，使用 note 模板写数学笔记时也需要主动改为 true，再用 `npm run preview` 检查公式。
+
+构建 manifest 导出该开关，`npm run verify` 检查文章产物的 MathJax 脚本与开关一致，避免主题配置变化导致公式资源缺失或多余加载。该检查不猜测正文是不是公式；作者新增公式时仍须启用开关。MathJax 引擎和主题既有延迟渲染保持，未改为 KaTeX。
+
 8 篇原文章各新增一条 description，只介绍原文讨论的主题；title/date/文件名/标签/正文及公式均保持原样。普通新文章模板提供可选的空 description，未填写时仍用主题和订阅生成器的正文回退。
 
 学习导航在 source/series/index.md，用 Fluid 普通 page 渲染。导航菜单的“系列”入口指向 /series/，按连续与微分、积分与向量分析、级数、物理运动学、个人记录组织。不是新分类体系，不改变原文路由或 Giscus pathname。
