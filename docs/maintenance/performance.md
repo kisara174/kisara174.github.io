@@ -82,7 +82,22 @@ MathJax 3.2.2 URL、引擎、`ui/lazy` 与其余脚本保持。独立构建对�
 
 `npm run verify` 本地 101 项测试通过、8 篇检查 0 错误。新增的 4 项检查先在旧实现全部失败，再验证通过，覆盖公式资源缺失、多余加载、字符串布尔值和 HTML 内联横幅背景资源丢失。原 8 篇 Markdown 正文、原有 front matter 与 URL 独立核对保持，新增数学开关例外。证据在忽略的 `.cache/architecture-resources/{tests-red,tests-green,math-only-verify}.log` 与 `content-receipt.json`。
 
-浏览器验收尚未完成：Computer Use 能读取 Chrome 与 Lighthouse 面板，但点击/键盘没有响应，并返回过 `noWindowsAvailable`；已请用户确认解锁。当前不把“可读取页面”视为操作或验收成功，公式候选先保留为独立待验收交付。
+2026-10-07 恢复 Computer Use 后，Chrome 实际检查通过：介绍文章桌面排版；长文章 Taylor 与 Fourier 行内/块公式在滚动后渲染；400px 手机模拟下长公式保留独立横向滚动，正文没有被拉宽；菜单展开、搜索“傅里叶”的结果及链接正常；首页与系列页显示正常。这是桌面浏览器及设备模拟验收，不是实机 iPhone 验收。无公式介绍文章的独立资源对照见下文。
+
+### 公式加载对照验收（2026-10-07）
+
+只对实际改变的介绍文章做基线/候选对照，各手机/桌面 3 次，共 12 份 Chrome DevTools 导出的 Lighthouse 13.4.1 JSON。首页、系列和 7 篇公式文章生成 HTML 完全一致，因此不重复测未改变的页面，也不将此方案描述为长文章加速。两版切换同一个 `127.0.0.1:4173` 地址；Navigation、Performance only、Clear storage、Simulated throttling，JS sampling 关闭。手机 Moto G Power / Slow 4G，桌面使用 Lighthouse 默认桌面配置。按组顺序测量，没有挑选单次结果。
+
+| 介绍页 / 中位数（3 次） | LCP | CLS | TBT | 传输量 | 请求数 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 基线手机 | 6.170s | 0.0069 | 36.5ms | 1153504 bytes | 52 |
+| 候选手机 | 4.510s | 0.0069 | 0ms | 819392 bytes | 50 |
+| 基线桌面 | 1.139s | 0.0108 | 0ms | 1153679 bytes | 52 |
+| 候选桌面 | 0.873s | 0.0108 | 0ms | 819586 bytes | 50 |
+
+手机 LCP 基线范围 6.107–6.321s、候选 4.360–4.515s；桌面基线 1.099–1.141s、候选 0.869–0.873s。每份基线都请求 MathJax 主脚本及 lazy 扩展（合计 332927 bytes），每份候选均为 0 个 MathJax 请求。保留按页开关：减少无用资源且本批对照改善，未牺牲公式页面。结果仅说明本次本地条件，不包括 Cloudflare 线上链路，也不是全站速度保证。
+
+原始报告 `math-{baseline,candidate}-{mobile,desktop}-{1,2,3}.json`、时间/配置/哈希及各次指标收据 `math-lighthouse-receipt.json` 保存在忽略的 `.cache/architecture-resources/`。代码候选为 e99f2110196065e0dcd5eb437c1c7e8e6c549cfc；恢复验收时重新 verify 101/101、8 篇检查 0 错误。
 
 ### 横幅 WebP 候选
 
